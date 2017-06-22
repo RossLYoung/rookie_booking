@@ -1,0 +1,94 @@
+///////////////// DataTables ////////////////////
+//
+//#data-table_filter{
+//  float: left;
+//  width: 50%;
+//  label{
+//    float: left;
+//    width: 75%;
+//  }
+//  input {
+//    width: 100%;
+//    font-weight: normal;
+//  }
+//}
+//
+//
+//#data-table_length{
+//  float: right;
+//  label{
+//    display: inline-block;
+//    font-weight: normal;
+//  }
+//}
+
+
+/////////////// DataTables ////////////////////
+
+#data-table_filter, #data-table-second_filter{
+  float: left;
+  width: 50%;
+  label{
+    float: left;
+    width: 75%;
+  }
+  input {
+    width: 100%;
+    font-weight: normal;
+
+    @include border-radius(15px);
+    @extend .form-control ;
+    @extend .input-sm ;
+  }
+  @media (max-width: $screen-sm-min){
+    margin-top: 0;
+  }
+}
+
+#data-table-second_filter{
+  width: 75%;
+}
+
+
+
+#data-table_length, #data-table-second_length{
+  float: right;
+  label{
+    display: inline-block;
+    font-weight: normal;
+  }
+  select{
+    @extend .form-control ;
+    @extend .input-sm ;
+  }
+}
+
+#data-table, #data-table-second{
+  th{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    opacity: 0.8;
+    border-bottom: 1px solid rgba(187, 187, 187, 0.15);
+  }
+  border-bottom: none;
+
+  td{
+    @media (max-width: $screen-sm-min) {
+      font-size: 12px;
+    }
+  }
+}
+
+#data-table_paginate, #data-table-second_paginate{
+
+    .current{
+      background: rgba(211, 211, 211, 0.39);
+      border: none;
+      @include border-radius(4px);
+      &:hover{
+        background: rgba(211, 211, 211, 0.75);
+      }
+    }
+
+}
+

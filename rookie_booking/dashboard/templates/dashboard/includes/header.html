@@ -1,0 +1,15 @@
+<ul class="nav navbar-nav navbar-top-links navbar-right">
+    <!-- /.dropdown -->
+    <li class="dropdown">
+        <a class="dropdown-toggle" id="dash-nav-login" data-toggle="dropdown" href="#">
+            <i class="fa fa-user fa-fw"></i>{{ request.user.username }} <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li><a href="{% url 'account_logout' %}"><i
+                    class="fa fa-sign-out fa-fw"></i> Logout</a>
+            </li>
+        </ul>
+        <!-- /.dropdown-user -->
+    </li>
+    <!-- /.dropdown -->
+</ul>

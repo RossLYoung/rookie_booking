@@ -1,0 +1,62 @@
+
+
+
+<section class="section section-0">
+    <div class="section-row">
+
+        <div class="col-lg-6 ">
+            <p>first section!!!</p>
+        </div>
+        <div class="col-lg-3">
+            <p>first section!!!</p>
+        </div>
+
+
+
+        <div class="col-lg-3">
+            <div>
+                <a href="{% url 'account_signup' %}">
+                    <div class="btn btn-block btn-primary">Signup!</div>
+                </a>
+                <a href="{% url 'account_login' %}">
+                    <div class="btn btn-block btn-primary">Login</div>
+                </a>
+                <a href="{% url 'account_logout' %}">
+                    <div class="btn btn-block btn-primary">Logout</div>
+                </a>
+                <a href="{% url 'account_change_password' %}">
+                    <div class="btn btn-block btn-primary">account_change_password</div>
+                </a>
+                <a href="{% url 'account_set_password' %}">
+                    <div class="btn btn-block btn-primary">views.password_set</div>
+                </a>
+                <a href="{% url 'account_inactive' %}">
+                    <div class="btn btn-block btn-danger">views.account_inactive</div>
+                </a>
+                <a href="{% url 'account_email' %}">
+                    <div class="btn btn-block btn-primary">views.email</div>
+                </a>
+                <a href="{% url 'account_email_verification_sent' %}">
+                    <div class="btn btn-block btn-danger">views.email_verification_sent</div>
+                </a>
+        {#            <a href="{% url 'account_confirm_email' %}">#}
+        {#                <div class="btn-accent2 btn-block">views.confirm_email</div>#}
+        {#            </a>#}
+                <a href="{% url 'account_reset_password' %}">
+                    <div class="btn btn-block btn-danger">views.password_reset</div>
+                </a>
+                <a href="{% url 'account_reset_password_done' %}">
+                    <div class="btn btn-block btn-danger">views.password_reset_done</div>
+                </a>
+        {#            <a href="{% url 'account_reset_password_from_key' %}">#}
+        {#                <div class="btn-accent2 btn-block">views.password_reset_from_key</div>#}
+        {#            </a>#}
+                <a href="{% url 'account_reset_password_from_key_done' %}">
+                    <div class="btn btn-block btn-danger">views.password_reset_from_key_done</div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</section>

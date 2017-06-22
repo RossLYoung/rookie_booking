@@ -1,0 +1,95 @@
+{% load comments %}
+{% load mptt_tags staticfiles %}
+
+{% get_comment_list for object as comments %}
+
+{% if comments %}
+
+        <div class="comments">
+
+            {% recursetree comments %}
+
+                <div class="comment-container-{% if node.level|divisibleby:'2' %}even{% else %}odd{% endif %}">
+
+                    <div class="comment-{% if node.level|divisibleby:'2' %}even{% else %}odd{% endif %}">
+
+                        <div id="comment-top-{{ node.id }}" class="comment-top" >
+
+                            <div>
+                                <div class="comment-avatar col-xs-1">
+                                    {# {% if node.user.image.url %}#}
+                                    {% if  node.user.image.url  %}
+                                        <img alt="" src="{{ node.user.image.url }}" class="img-responsive">
+                                    {% endif %}
+                                    {# {% endif %}#}
+                                </div>
+                                <div class="comment-username">{{ node.user.get_username }} </div>
+                                    {# <div class="comment-username">{{ node.user.display_name }} </div>#}
+
+                            </div>
+                            <div class="time-since"> {{ node.submit_date|timesince }} ago</div>
+
+                            <div class="comment-link">
+                                <a class="expand-collapse" id="expand-collapse-{{ node.id }}" href="">
+                                    [<span class="fa fa-minus"></span>]
+                                </a>
+                            </div>
+                        </div>
+
+                        <div id="comment-bottom-{{ node.id }}" class="comment-bottom">
+                            <div class="comment-text">
+                                <p>{{ node.comment }}</p>
+                            </div>
+                            <div>
+                                <a name="c{{ node.id }}"></a>
+                            </div>
+
+                            <div class="">
+                                <a id="show-comment-{{ node.id }}" data-toggle="collapse" class="btn-accent2 pull-right show-comment"  href="#form-{{ node.id }}">
+                                    <span id="show-comment-text-{{ node.id }}" class="show-comment-text">reply</span>
+                                    <span id="show-comment-icon-{{ node.id }}" class="fa fa-angle-double-down show-comment-icon pull-right"></span>
+                                </a>
+                            </div>
+
+                            <div class="clearfix">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="form-{{ node.id }}" class="collapse comment-form-{% if node.level|divisibleby:'2' %}even{% else %}odd{% endif %}">
+
+                        {% render_comment_form for object %}
+
+                    </div>
+
+                    {# recursion! children of a given comment #}
+                    {% if not node.is_leaf_node %}
+                        {{ children }}
+                    {% endif %}
+
+                </div>
+
+            {% endrecursetree %}
+        </div>
+
+
+{% endif %}
+
+
+<div class="new-comment">
+    <h3 class="">New comment</h3>
+</div>
+
+    <div class="new-comment-form">
+        {% render_comment_form for object %}
+    </div>
+
+
+
+{% block extra_script %}
+      <script src="{% static "commentry/js/comments.js" %}"></script>
+{% endblock extra_script %}
+
+
+

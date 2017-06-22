@@ -1,0 +1,167 @@
+
+@mixin nav-list($li-float,
+                $li-display,
+                $li-border-right,
+                $li-width,
+                $li-first-child-height,
+                $li-first-child-anchor-padding,
+                $li-border-bottom,
+                $anchor-padding,
+                $span-font-size,
+                $span-display) {
+  ul{
+    list-style: none;
+    padding: 0;
+    //line-height: $span-font-size;
+
+    li {
+      float: $li-float;
+      display: $li-display;
+      width: $li-width;
+      border-right: $li-border-right;
+      border-bottom: $li-border-bottom;
+      //@include single-transition(all, 0.3s, ease, 0.1s);
+
+      a {
+        display: block;
+        padding: $anchor-padding;
+        cursor: pointer;
+        text-decoration: none;
+        //font-size: $span-font-size;
+        color: $nav-anchor-color;
+        @include single-transition(all, $nav-transition-duration, ease, $nav-transition-delay);
+
+        span {
+          display: $span-display;
+          font-size: $span-font-size;
+          span{
+            display: $span-display;
+            font-size: 0.8em;
+          }
+        }
+
+        &:hover {
+          background-color: $nav-background-hover-color;
+          //a {color: $nav-anchor-hover-color;}
+        }
+
+        &:last-child{
+          border-right: 0;
+        }
+      }
+    }
+
+    li:first-child a {
+          padding: $li-first-child-anchor-padding;
+    }
+
+  }
+
+}
+
+
+
+
+
+@mixin plain-list($li-float,
+  $li-display,
+  $li-border-right,
+  $li-width,
+  $li-border-bottom,
+  $anchor-padding) {
+  ul{
+    list-style: none;
+    padding: 0;
+
+    li {
+      float: $li-float;
+      display: $li-display;
+      width: $li-width;
+      border-right: $li-border-right;
+      border-bottom: $li-border-bottom;
+      //@include single-transition(all, 0.3s, ease, 0.1s);
+
+      a {
+        display: block;
+        padding: $anchor-padding;
+        cursor: pointer;
+        text-decoration: none;
+        color: $nav-anchor-color;
+        //@include single-transition(color, 0.3s, ease, 0.1s);
+
+        //span {
+        //  display: block;
+        //  font-size: $span-font-size;
+      }
+    }
+
+    //&:hover {
+    //  background-color: $nav-background-hover-color;
+    //  a {color: $nav-anchor-hover-color;}
+    //}
+
+    &:last-child{
+      border-right: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+//for breadcrumbs - using bootstraps styles
+//@mixin delimited-list($separator: ", ") {
+//  li {
+//    list-style: none;
+//    //display: inline;
+//    &:after {
+//      content: $separator;
+//    }
+//    &:last-child {
+//      &:after {
+//        content: "";
+//      }
+//    }
+//    &.last {
+//      &:after {
+//        content: ""; }
+//    }
+//  }
+//}
+
+
+/// Computes a top-shadow for a card effect.
+/// @param {Number} $depth - depth level
+/// @return {List}
+@function top-shadow($depth) {
+  $primary-offset: nth(1.5 3 10 14 19, $depth) * 1px;
+  $blur: nth(1.5 3 10 14 19, $depth) * 4px;
+  $color: rgba(black, nth(.12 .16 .19 .25 .30, $depth));
+
+  @return 0 $primary-offset $blur $color;
+}
+
+/// Computes a bottom-shadow for a card effect.
+/// @param {Number} $depth - depth level
+/// @return {List}
+@function bottom-shadow($depth) {
+  $primary-offset: nth(1.5 3 6 10 15, $depth) * 1px;
+  $blur: nth(1 3 3 5 6, $depth) * 4px;
+  $color: rgba(black, nth(.24 .23 .23 .22 .22, $depth));
+
+  @return 0 $primary-offset $blur $color;
+}
+
+/// Gives a card depth effect.
+/// @param {Number} $depth - depth level (between 1 and 5)
+/// @link http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality Google Design
+/// @requires {function} top-shadow
+/// @requires {function} bottom-shadow
+@mixin card($depth) {
+  @if $depth < 1 {
+    box-shadow: none;
+  } @else if $depth > 5 {
+    @warn "Invalid $depth `#{$depth}` for mixin `card`.";
+  } @else {
+    box-shadow: bottom-shadow($depth), top-shadow($depth);
+  }
+}
+

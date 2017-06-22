@@ -1,0 +1,68 @@
+{% extends 'userprofile/base.html' %}
+{% load i18n  %}
+{% load bootstrap3 %}
+
+{% block title %}{% trans "Your profile" %} — {{ block.super }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li><a href="{% url 'userprofile:profile-details' %}">{% trans "Your Profile" %}</a></li>
+{% endblock breadcrumbs %}
+
+{% block profile_nav_details %}active{% endblock %}
+
+
+{% block profile_content %}
+
+
+    <div class="row content-panel">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 ">
+            <form method="post" action="{%  url 'userprofile:profile-details' %}" class="add_email">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% bootstrap_form form %}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn-accent2 btn-block" name="" type="submit">{% trans "Update" %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-xs-12  col-sm-6 col-sm-offset-1 col-md-4 col-lg-4 userprofile-avatar-form">
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+                        {% if form.instance.avatar_url %}
+                            <img alt="oRLY avatar" class="img img-responsive img-rounded" src="{{form.instance.avatar_url}}">
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-12  col-sm-10 col-sm-offset-1 ">
+                        <div class="form-group">
+                        <input class="form-control" type="file">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12  col-sm-10 col-sm-offset-1 ">
+                        <button class="btn-accent2 btn-block" name="" type="submit">{% trans "Change Photo" %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+{% endblock profile_content %}

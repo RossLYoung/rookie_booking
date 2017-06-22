@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div id="calendar"></div>
+
+            {% if request.user.is_authenticated %}
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+
+{% block extra_script %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            var show_cal = function(){
+
+                $('#calendar').fullCalendar({
+                    aspectRatio: 2,
+                    defaultView: 'agendaWeek',
+
+                    forceEventDuration: true,
+                    header: {
+                        left:   'prev',
+                        center: 'title',
+                        right:  'month, agendaWeek, next'
+                    },
+
+{#                    events: '/api/events/' + $('#house_choices').val() + "/",#}
+{##}
+{#                    eventRender: function (event, element) {#}
+{##}
+{#                        var event_id = event.id;#}
+{#                        element.attr('title', event.title);#}
+{#                        element.attr('href' , event.href);#}
+{##}
+{#                            $(element).popover({#}
+{#                                'title'    : "",#}
+{#                                'html'     : true,#}
+{#                                'placement': 'top',#}
+{#                                'container': element,#}
+{##}
+{#                                'template': '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',#}
+{##}
+{#                                'content':  '<div><a data-edit-bed-event="' + event_id + '" class="edit-bed-event   btn btn-accent1 mar-bot-5 mar-left-5" href="javascript:void(0)">Edit</a>' +#}
+{#                                            '<a data-remove-bed-event="'    + event_id + '" class="remove-bed-event btn btn-accent2 mar-bot-5 mar-left-5" href="javascript:void(0)">Delete</a></div>'#}
+{#                            });#}
+{#                    },#}
+{#                    eventClick:  function(event, jsEvent, view) {#}
+{#                        var bed_event_id = event.id;#}
+{#                        $(jsEvent.toElement).popover('show');#}
+{#                        bindPopOverButtons();#}
+{#                    },#}
+{#                    eventReceive: function( event ) {#}
+{#                    },#}
+{#                    eventOverlap: function(stillEvent, movingEvent) {#}
+{#                        console.log("event overlap");#}
+{#                        return true;#}
+                        {# return stillEvent.allDay && movingEvent.allDay;#}
+{#                    },#}
+{#                    eventResize: function( event, delta, revertFunc, jsEvent, ui, view ) {#}
+{#                    },#}
+{#                    eventResizeStop: function( event, jsEvent, ui, view ) {#}
+{#                    },#}
+                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives'
+                });
+            };
+
+            show_cal();
+        });
+    </script>
+{%  endblock extra_script %}

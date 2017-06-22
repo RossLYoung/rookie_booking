@@ -1,0 +1,21 @@
+
+html, body {height: 100%;}
+
+#site-wrapper, .body-wrapper, .allauth-container{min-height: 100%;}
+
+.background-image {
+  background-color: $body-background-colour;
+  //background-size: cover;
+}
+
+.footer{
+  @include make-row();
+
+  .inner-footer{
+    @include make-xs-column(12)
+  }
+
+  @media (min-width: $screen-lg-min){
+    padding-left: $nav-left-fixed-width;
+  }
+}

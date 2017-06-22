@@ -1,0 +1,123 @@
+{% load comments crispy_forms_tags widget_tweaks i18n %}
+
+
+{% if user.is_authenticated %}
+    <form  id="form_id_{{ node.id }}" action="{% comment_form_target %}" method="post">
+
+        {% if node.id %}
+            <input type="hidden" name="parent" value="{{ node.id }}" />
+        {% endif %}
+
+        {# {% crispy form form.helper %}#}
+        {% csrf_token %}
+         {{ form.comment| add_class:"form-control" }}
+         {{ form.honeypot | attr:"type:hidden" }}
+         {{ form.content_type }}
+         {{ form.object_pk }}
+         {{ form.timestamp }}
+         {{ form.security_hash }}
+
+        <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
+
+        <div class='clearfix'>
+            <input type="submit" value="Add comment" class="add-comment-button btn-accent2 pull-right" id="{{ object.id }}" />
+        </div>
+
+    </form>
+{% else %}
+    {% include 'comments/login_to_comment.html' %}
+{% endif %}
+
+
+{#{% if user.is_authenticated %}#}
+{##}
+{#    <form action="{% comment_form_target %}" method="post">#}
+{#        {% csrf_token %}#}
+{##}
+{#        {% crispy form %}#}
+{##}
+{#        {{ form|crispy }}#}
+{##}
+{#        <div class="form-actions">#}
+{#            <input#}
+{#                type="submit"#}
+{#                name="submit"#}
+{#                value="Commenzzt"#}
+{#                class="btn-accent2 pull-right"#}
+{#                id="{{ object.id }}"#}
+{#            >#}
+{#        </div>#}
+{##}
+{#        <div class='clearfix'></div>#}
+{##}
+{#        {% if node.id %}#}
+{#            <input type="hidden" name="parent" id="parent_id" value="{{ node.id }}" />#}
+{#        {% endif %}#}
+{##}
+{#        <input type="hidden" name="next" value="{% url 'group:group-list' %}" />#}
+{##}
+{#        <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />#}
+{##}
+{#    </form>#}
+{##}
+{#{% else %}#}
+{#    {% include 'comments/login_to_comment.html' %}#}
+{#{% endif %}#}
+
+
+
+{#Some other mostly working forms....#}
+
+
+
+
+{##}
+{#{% if user.is_authenticated %}#}
+
+{#    <form action="{% comment_form_target %}" method="post">{% csrf_token %}#}
+{#      {% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}#}
+{#      {% for field in form %}#}
+{#        {% if field.is_hidden %}#}
+{#          <div>{{ field }}</div>#}
+{#        {% else %}#}
+{#          {% if field.errors %}{{ field.errors }}{% endif %}#}
+{#          <p#}
+{#            {% if field.errors %} class="error"{% endif %}#}
+{#            {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>#}
+{#            {{ field.label_tag }} {{ field }}#}
+{#          </p>#}
+{#        {% endif %}#}
+{#      {% endfor %}#}
+{##}
+{#        {% if node.id %}#}
+{#            <input type="hidden" name="parent" id="parent_id" value="{{ node.id }}" />#}
+{#        {% endif %}#}
+{##}
+{#      <p class="submit">#}
+{#        <input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />#}
+{#        <input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />#}
+{#      </p>#}
+{#    </form>#}
+
+{#    <form action="{% comment_form_target %}" method="post">#}
+{#        {% csrf_token %}#}
+{##}
+{#        {{ form.object_pk }}#}
+{##}
+{#        {{ form.content_type }}#}
+{##}
+{#        {{ form.timestamp }}#}
+{##}
+{#        {{ form.security_hash }}#}
+{##}
+{#        {% if node.id %}#}
+{##}
+{#            <input type="hidden" name="parent" id="parent_id" value="{{ node.id }}" />#}
+{##}
+{#        {% endif %}#}
+{##}
+{#        {{ form.comment }}#}
+{##}
+{#        <input type="submit" >#}
+{##}
+{#    </form>#}

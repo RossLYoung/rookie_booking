@@ -1,0 +1,98 @@
+//'Roboto Slab', serif;
+//'Open Sans', sans-serif;
+//font-family: 'Raleway', sans-serif;
+
+$color1: #000000;
+$color2: #212121;
+$color3: #303030;
+$color4: #424242;
+
+$accent-color1: $blue;
+$accent-color2: #E53935;
+
+$title-text-color: #ffffff;
+$copy-text-color: #ffffff;
+$title-text-color-inverted: #000000;
+$copy-text-color-inverted: #000000;
+$title-font-family: "Roboto Condensed", serif;
+
+//blog,photo,gallery
+$title-color: rgba(226, 7, 7, 0.67);
+
+$body-background-colour: $color4;                                                  //3
+
+$content-panel-background-color: $color4;
+$content-panel-title-background-color: #ffffff;
+
+$box-shadow-mixin-value: 3;
+$box-shadow-mixin-value-max: 4;
+
+$border-radius: 3px;
+
+$body-full-col-width: 12;
+$body-with-sidebar-col-width: 8.5;
+$sidebar-col-width: 3.5;
+
+$nav-header-background-color: $color1;
+$nav-background-color: $color2;                                                    //1
+$nav-background-hover-color: $color3;
+$nav-background-active-color: $color3;
+$nav-anchor-color: rgba(255, 255, 255, 0.84);                                      //2
+$nav-anchor-hover-color: lighten($nav-anchor-color, 30%);
+$nav-anchor-active-color: darken($nav-anchor-color, 30%);
+$nav-border-style: 1px solid darken($nav-background-color, 7%);
+
+$main-nav-height:66px;
+$main-nav-height-md:66px;
+$main-nav-height-sm:66px;
+$main-nav-height-xs:46px;
+$top-nav-height: 47px;
+
+$nav-left-fixed-width: 110px;
+$nav-dropdown-border-color: #b1beb1;
+$nav-transition-duration: 0.15s;
+$nav-transition-delay: 0.05s;
+
+$blog-background-colour: $color4;                                              //5
+$blog-sidebar-panel-heading-color: $color2;
+$blog-sidebar-background-color: $color4;
+
+$blog-entry-title-font-family: "Roboto Condensed", serif;
+$blog-entry-title-color: $title-color;
+$blog-entry-body-font-family: 'Raleway', sans-serif;
+$blog-sidebar-panel-heading-font-family: 'Roboto Slab', serif;
+
+$auth-heading-color: $nav-background-color;
+$auth-heading-text-color: $accent-color2;
+$auth-heading-font-family:   'Open Sans', sans-serif;
+$auth-background-color: $color4;
+$auth-border-color: darken($auth-background-color,15%);
+
+$user-profile-menu-background-colour: #ababab;
+$user-profile-menu-anchor-colour: #f1f7f5;
+$user-profile-title-font-family: "Roboto Condensed", serif;
+$user-profile-title-color: $copy-text-color;
+
+
+$opacity-val: 0.5;
+
+
+$gallery-photo-title-font-family: "Roboto Condensed", serif;
+$gallery-title-font-family: "Roboto Condensed", serif;
+$gallery-title-color: $accent-color1;
+$photo-title-font-family: "Roboto Condensed", serif;
+$photo-title-color: $copy-text-color;
+
+
+$new-comment-font-family:"Roboto Condensed", serif;
+$comment-count-font-family:'Roboto Slab', serif;
+$comment-post-new-font-family:'Roboto Slab', serif;
+
+
+//Font Awesome alternatives as some social classes are blocked by Adblock Plus
+.my-fa-twitter:before {
+  content: "\f099";
+}
+.my-fa-facebook:before {
+  content: "\f09a";
+}

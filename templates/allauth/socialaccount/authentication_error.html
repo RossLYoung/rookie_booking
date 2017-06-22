@@ -1,0 +1,24 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Social Network Login Failure" %}{% endblock %}
+
+{% block content %}
+
+    <div class="auth-heading">
+        <h1>{% trans "Social Network Login Failure" %}</h1>
+    </div>
+
+    <div class="auth-content">
+
+        <p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
+
+            <a href=" {% url 'account_login' %}">
+                <button class="btn btn-danger btn-block" >{% trans 'Try Again' %}</button>
+            </a>
+
+    </div>
+
+{% endblock %}
+
+

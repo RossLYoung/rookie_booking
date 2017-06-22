@@ -1,0 +1,18 @@
+
+<div class="panel panel-default no-mar-v">
+    <div class="panel-body">
+    Please
+    <a class="" href="{% url 'account_login' %}?next={{ object.get_absolute_url }}{% if node.id %}#c{{ node.id }}{% endif %}">Login</a>
+    or
+    <a class="" href="{% url 'account_signup' %}?next={{ object.get_absolute_url }}{% if node.id %}#c{{ node.id }}{% endif %}">Sign up</a>
+    to comment.
+    </div>
+</div>
+
+{#<div>#}
+{#    Please#}
+{#    <a class="" href="{% url 'account_login' %}">Login</a>#}
+{#    or#}
+{#    <a class="" href="{% url 'account_signup' %}">SignUp</a>#}
+{#    to comment.#}
+{#</div>#}

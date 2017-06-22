@@ -1,0 +1,25 @@
+{% load i18n %}
+
+ {% if request.user.is_authenticated %}
+     <li>
+    {#<a href="{% url 'users:detail' request.user.username %}">#}
+        <a href="{% url 'account_logout' %}">
+            <span><button class="btn btn-sm nav-auth-button">{% trans "My Stuff" %}</button></span>
+        </a>
+{#        <a href="{% url 'account_logout' %}">#}
+{#            <button class="btn btn-sm btn-block btn-primary">{% trans "Logout" %}</button>#}
+{#        </a>#}
+     </li>
+
+ {% else %}
+
+     <li>
+{#        <a href="{% url 'account_signup' %}">#}
+{#            <button class="btn btn-sm btn-block btn-primary">{% trans "Sign Up" %}</button>#}
+{#        </a>#}
+        <a href="{% url 'account_login' %}">
+            <span><button class="btn btn-sm nav-auth-button">{% trans "Log In" %}</button></span>
+        </a>
+     </li>
+
+ {% endif %}

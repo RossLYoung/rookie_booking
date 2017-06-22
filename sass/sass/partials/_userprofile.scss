@@ -1,0 +1,143 @@
+
+
+
+#userprofile-tabs{
+  background-color: $user-profile-menu-background-colour;
+  padding: 2%;
+  display: inline-block;
+  width: 100%;
+
+
+  li{
+    display: inline-block;
+    background-color: darken($user-profile-menu-background-colour, 15%);
+    @include single-transition(all, $nav-transition-duration, ease, $nav-transition-delay);
+    &:hover{background-color: darken($user-profile-menu-background-colour, 20%);}
+    @include border-radius(5px);
+    @include card($box-shadow-mixin-value);
+
+    &:hover{
+       @include card($box-shadow-mixin-value-max);
+    }
+    a{
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
+      display: block;
+      color: #f1fbed;
+      font-weight: 600;
+
+      span{
+        display: inline-block;
+      }
+    }
+
+    @media(max-width: $screen-sm-min) {
+      display: block;
+      margin: 0;
+
+      a{
+        padding: 2%;
+      }
+
+      border-bottom: 1px solid #f5f5f5;
+      @include border-radius(0px);
+      &:first-child{
+        @include border-top-radius(5px);
+      }
+      &:last-child{
+        @include border-bottom-radius(5px);
+      }
+    }
+  }
+
+  @media(max-width: $screen-sm-min) {
+    @include border-radius(5px);
+    display: block;
+    width: 90%;
+    padding: 0;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .active{
+    background-color: darken($user-profile-menu-background-colour, 30%);
+    a{
+      color: #f1fbed;
+    }
+  }
+}
+
+.userprofile-avatar-form{
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px lightgrey solid;
+  @include border-radius(6px);
+  img{
+    //margin-top: 10px;
+    //margin-bottom: 10px;
+    margin: auto;
+  }
+}
+
+.email-action-buttons {
+  padding-left: 0;
+
+  li{
+    margin-top: 10px;
+    list-style: none;
+    display: inline-block;
+  }
+}
+
+
+#social-attached, #email-attached{
+  margin-bottom: 0;
+
+  .socialaccount_provider{
+    padding: 7px;
+  }
+  td, th{
+    padding-left: 0;
+
+    @media (max-width: $screen-sm-min){
+      font-size: 0.9em;
+      font-weight: 400;
+    }
+
+  }
+}
+
+#social-choices{
+  display: inline-block;
+
+  li{
+      &:first-child{
+    padding-left: 0;
+  }
+    display: inline-block;
+    margin-top: 15px;
+    padding-left: 5px;
+    a{
+      min-width: 100px;
+    }
+  }
+  .socialaccount_provider{
+    padding: 7px;
+  }
+}
+
+.userprofile-section-heading{
+  font-family: $user-profile-title-font-family;
+  color:  $user-profile-title-color;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+#address-book-table{
+  tr {
+    background-color: $color4;
+  }
+}

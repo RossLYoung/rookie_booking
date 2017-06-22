@@ -1,0 +1,16 @@
+ul.share-buttons{
+  list-style: none;
+}
+
+ul.share-buttons li{
+  display: inline;
+  a{
+    color: #a9a5a0;
+    @include single-transition(color, $nav-transition-duration * 3, ease, $nav-transition-delay);
+    &:hover {
+      color: #706c67;
+      //@include transform(rotate(-15deg) );
+    }
+
+  }
+}

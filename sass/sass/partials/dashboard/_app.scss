@@ -1,0 +1,80 @@
+$icon-font-path: "../fonts/";
+@import "bootstrap-sass/assets/stylesheets/bootstrap";
+@import "components-font-awesome/scss/font-awesome";
+
+.navbar {
+	margin-bottom: $grid-gutter-width;
+}
+
+.form-group.required .control-label:after{
+	content: '*';
+}
+
+.breadcrumb {
+	> li+li {
+		&:before {
+			content: '/';
+		}
+	}
+}
+
+#id_method {
+	list-style: none;
+	padding: 0;
+
+	li {
+
+		margin-bottom: $grid-gutter-width/3;
+		white-space: nowrap;
+	}
+
+	li:not(:first-child) {
+		label {
+			font-size: 0;
+
+			@each $provider in (default, authorizenet, braintree, coinbase, cybersource, dotpay,
+				wallet, paypal, sage, sofort, stripe) {
+				input[value=#{$provider}] {
+					margin: 6px 110px 6px 0;
+
+					&:after {
+						background: url("../img/#{$provider}-logo.png") no-repeat left;
+						background-size: contain;
+						content: "";
+						display: block;
+						float: left;
+						height: 26px;
+						margin: -6px 0 0 18px;
+						width: 100px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.nav {
+	> li {
+		> a {
+			@extend .text-info;
+		}
+
+		&.active {
+			> a, a:hover {
+				background-color: $brand-info;
+			}
+		}
+	}
+}
+
+.page-header {
+	&--order {
+		margin-top: $grid-gutter-width/3;
+	}
+}
+
+.js {
+	.js-hidden {
+		display: none;
+	}
+}

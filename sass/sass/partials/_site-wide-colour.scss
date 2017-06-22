@@ -1,0 +1,102 @@
+#site-wrapper{
+  background-color: $body-background-colour;
+}
+
+.content-panel{
+  //border: 1px solid #d4cfd3;
+  background-color: $content-panel-background-color;
+  padding: 15px;
+  margin: 15px 0;
+
+  p{
+    margin-bottom: 5px;
+    @extend .copy-text;
+    opacity: 0.8;
+  }
+
+  @include card($box-shadow-mixin-value);
+  @include border-radius($border-radius);
+}
+
+.content-panel-color{
+  padding: 2%;
+  background-color: $content-panel-background-color;
+}
+
+//a, h1, h2, h3, h4, h5, h6{
+//  opacity: 0.87;
+//}
+
+a, button {
+    -webkit-transition: all 225ms ease;
+    -moz-transition: all 225ms ease;
+    transition: all 225ms ease;
+}
+
+a{
+  //font-family: $gallery-title-font-family;
+  //font-weight: 300;
+  color: $gallery-title-color;
+  margin: 0;
+
+  @include single-transition(color, $nav-transition-duration, ease, $nav-transition-delay);
+  &:hover{
+    color: lighten($gallery-title-color,15%);
+  }
+}
+
+
+.btn-accent1, .btn-accent2{
+
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  background-color: $accent-color1;
+  padding: 5px 15px;
+  border: none;
+  text-align: center;
+  color: $copy-text-color;
+  border-radius: $border-radius;
+  @include card($box-shadow-mixin-value);
+
+  @include single-transition(all, $nav-transition-duration, ease, $nav-transition-delay);
+  &:hover{
+    background-color: lighten($accent-color2, 2%);
+    //color: darken($accent-color2, 30%);
+    @include card($box-shadow-mixin-value-max);
+
+    a, span{
+      @include single-transition(color, $nav-transition-duration, ease, $nav-transition-delay);
+
+      //color: darken($accent-color2, 30%);
+    }
+
+  }
+}
+
+.btn-accent2{
+  background-color: $accent-color2;
+}
+
+.list-group-item{
+  background-color: $color4;
+}
+
+.panel-heading{
+  background-color: $color4 !important;
+  @include border-radius($border-radius);
+  //color: $copy-text-color;
+}
+.panel-body{
+  background-color: $color4;
+  @include border-radius($border-radius);
+}
+
+hr{
+  border-top: 1px solid $color3;
+}
+
+
+
+
+
+

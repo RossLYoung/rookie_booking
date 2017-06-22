@@ -1,0 +1,32 @@
+
+
+body{
+  color: white;
+}
+
+.copy-text{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  color: $copy-text-color;
+  opacity: 0.87;
+  @media (max-width: $screen-sm-min){
+    font-size: 16px;
+  }
+}
+
+.muted{
+  opacity: 0.5;
+}
+
+.muted-dark {
+  opacity: 0.3;
+}
+
+.header-title{
+  opacity: 0.85;
+  margin: 0 0 5px 0;
+  font-family: "Roboto Condensed", serif;
+  font-weight: 200;
+  //font-size: 40px;
+}

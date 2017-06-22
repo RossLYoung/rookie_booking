@@ -1,0 +1,193 @@
+
+$font-colour: #a7a7a7;
+$show-comment-colour: #f0f0f0;
+
+#div_id_honeypot, .asteriskField{
+  display: none;
+}
+//a:hover,a:focus, span:focus{
+//  color: $font-colour;
+//  text-decoration:none;
+//}
+
+//why is
+.time-since{
+  color: darken($font-colour,10%);
+  font-size: 0.8em
+}
+
+
+.expand-collapse {
+   span{
+     :before{
+      vertical-align: middle;
+     }
+   vertical-align: middle;
+   }
+}
+
+//comment header
+#comments{
+  margin-bottom: 20px;
+  padding-top: 8px;
+  padding-bottom: 5px;
+}
+
+//p displayed when no comments for a blog
+.no-comments{
+  margin-bottom: 0;
+}
+
+//container for odd & even containers
+.comments{
+  margin-bottom: 15px;
+}
+
+//Parent sass for odd/even containers below
+.comment-container{
+  padding: 5px 5px 10px 10px;
+  margin-top: 5px;
+  //border: solid #e0e0e0 1px;
+  @include border-radius(5px);
+
+  @media (min-width: $screen-sm-min){
+    padding-left: 20px;
+  }
+
+  .comment {
+    padding-bottom: 4px;
+  }
+
+  .comment-top {
+    div{display: inline;}
+
+    .comment-username{
+      color: darken($font-colour,10%);
+      font-family: "Open Sans", sans-serif;
+      font-size: 1.2em;
+      padding: 15px 5px 0 10px;
+    }
+
+    .comment-link{
+      a{color: darken($font-colour,10%);
+        font-size: 0.8em
+      }
+    }
+  }
+
+  .comment-text{
+      padding: 10px 5px 5px 10px;
+      margin-bottom: 0;
+      font-family: "Open Sans", sans-serif;
+      color: darken($font-colour,25%);
+      overflow: auto;
+
+      @media (min-width: $screen-sm-min){
+        font-size: 1.15em;
+      }
+
+      p{margin-bottom: 0;}
+  }
+
+  .comment-form{
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    @include border-radius(5px);
+
+    @media (max-width: $screen-sm-min){
+      padding: 5px 5px 5px 10px;
+    }
+  }
+}
+
+
+
+.comment-container-odd{
+  @extend .comment-container;
+  background-color: $color3;
+  @include card($box-shadow-mixin-value);
+
+  .comment-odd{@extend .comment;}
+
+  .comment-form-odd{
+    @extend .comment-form;
+    background-color: $color4;
+    @include card($box-shadow-mixin-value);
+  }
+}
+
+.comment-container-even{
+  @extend .comment-container;
+  background-color: $color4;
+  @include card($box-shadow-mixin-value);
+
+  .comment-even{@extend .comment;}
+
+  .comment-form-even{
+    @extend .comment-form;
+    background-color: $color4;
+    @include card($box-shadow-mixin-value);
+  }
+}
+
+.comment-avatar{
+  padding: 0;
+  img{
+    @include border-radius(30%);
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.control-label{
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+}
+
+// The comment/hide form display button....
+.show-comment{
+  min-width: 100px;
+
+  .show-comment-icon{
+    font-size: 1.5em;
+    margin-bottom: -15px;
+  }
+
+  //@include single-transition(all, 0.3s, ease, 0.1s);
+
+  &:hover{
+    //color: lighten($font-colour, 80%);
+    //background-color: darken($show-comment-colour, 15%);
+  }
+
+}
+
+.new-comment{
+  background-color: $color4;
+  padding: 5px;
+  padding-left: 0;
+  margin-top:  0;
+  //border: 1px solid #e0e0e0;
+  border-bottom: none;
+  @include border-top-radius(5px);
+  h3{
+    //color: #585859;
+    font-size: 22px;
+    font-weight: 300;
+    font-family: $new-comment-font-family;
+    padding: 5px;
+    padding-left: 0;
+    margin: 0;
+
+    @media (max-width: $screen-sm-min){
+      font-size: 16px;
+    }
+  }
+}
+
+.new-comment-form{
+  textarea{
+    @include border-top-radius(0);
+  }
+}

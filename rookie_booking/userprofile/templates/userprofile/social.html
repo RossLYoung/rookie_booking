@@ -1,0 +1,95 @@
+{% extends 'userprofile/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Your social accounts" %} — {{ block.super }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li><a href="{% url 'userprofile:profile-social' %}">{% trans "Your Social Accounts" %}</a></li>
+{% endblock breadcrumbs %}
+
+{% block profile_nav_social %}active{% endblock %}
+
+
+{% block profile_content %}
+    <div class="row content-panel">
+
+        <div class="col-xs-12">
+{#            <h1>{% trans "Account Connections" %}</h1>#}
+
+            {% if form.accounts %}
+                <p>{% blocktrans %}You can sign in to your account using any of the following social accounts:{% endblocktrans %}</p>
+
+                <form method="post" action="{% url 'userprofile:profile-social' %}">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-error">
+                            <a class="close" data-dismiss="alert">&times;</a>
+                            {% for non_field_error in form.non_field_errors %}
+                                {{ non_field_error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+
+                    <table class="table" id="social-attached">
+                        <thead>
+                        <tr>
+                            <th>{% trans 'Provider' %}</th>
+                            <th>{% trans 'Account' %} </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for base_account in form.accounts %}
+                                {% with base_account.get_provider_account as account %}
+                                    <tr>
+                                        <td>
+                                            <label  for="id_account_{{base_account.id}}">
+                                                <input id="id_account_{{base_account.id}}" type="radio" name="account" value="{{base_account.id}}"/>
+{#                                                <span class="socialaccount_provider my-{{base_account.provider}} {{account.get_brand.id}}">{{account.get_brand.name}}</span>#}
+                                                <span class="socialaccount_provider my-{{base_account.provider}} {{account.get_brand.id}}">{{account.get_brand.name}}</span>
+                                            </label>
+                                        </td>
+
+                                        <td>
+                                            {{account}}
+                                        </td>
+                                    </tr>
+                                {% endwith %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="form-actions">
+                        <button class="btn btn-danger" type="submit">{% trans 'Remove' %}</button>
+                    </div>
+
+                </form>
+
+
+            {% else %}
+                <div class="alert">
+                    <strong>{% trans 'None!' %}</strong> {% trans 'You currently have no social network accounts connected to this account.' %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+    <div class="row content-panel">
+        <div class="col-xs-12">
+
+            <h3 class="userprofile-section-heading no-mar-v">{% trans 'Connect a Social Account' %}</h3>
+
+            <ul id="social-choices" class="socialaccount_providers list-unstyled">
+                {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
+            </ul>
+
+        </div>
+
+    </div>
+{#    {% include "socialaccount/snippets/login_extra.html" %}#}
+
+{% endblock profile_content %}

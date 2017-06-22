@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load staticfiles  %}
+
+
+{% block background_image %}
+    error-background-image
+{% endblock background_image %}
+
+{% block body_wrapper %}
+
+  <div id="error-message-box" class="content-panel">
+    <h1 class="header-title">500</h1>
+    <p>
+      Oops.
+    </p>
+  </div>
+
+{% endblock body_wrapper %}

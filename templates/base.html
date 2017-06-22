@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load staticfiles i18n %}
+
+<html class="background-image">
+<head>
+    <meta charset="utf-8">
+    <title>{% block head_title %}Rookie Booking{% endblock head_title %}</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#000000">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+
+    <style>
+        @font-face{
+            font-family:'FontAwesome';
+            font-weight:normal;
+            font-style:normal;
+            src:url('{% static "fonts/fontawesome-webfont.eot"   %}') format('embedded-opentype'),
+            url('{% static "fonts/fontawesome-webfont.woff2" %}') format('woff2'),
+            url('{% static "fonts/fontawesome-webfont.woff"  %}') format('woff'),
+            url('{% static "fonts/fontawesome-webfont.ttf"   %}') format('truetype'),
+            url('{% static "fonts/fontawesome-webfont.svg"   %}') format('svg');
+        }
+    </style>
+    <link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
+    <!-- instead of.... -->
+    {# <link href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">#}
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700|Raleway:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static "css/project.css" %}">
+
+    {% block extra_css %}
+    {% endblock extra_css %}
+
+    {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>#}
+    <script src="{% static "js/jquery.min.js" %}"></script>
+
+    {% block extra_head %}
+    {% endblock extra_head %}
+
+    {% if form.media %}
+        {{form.media.js}}
+    {% endif %}
+
+</head>
+<body >
+
+<div class=""></div>
+
+<div id="site-wrapper" class="container-fluid  background-image {% block background_image %}{% endblock background_image %}">
+
+    {% block header %}
+
+    {% endblock header %}
+
+{% block body_wrapper %}
+{#    <div class="body-wrapper"> <!-- extends row class -->#}
+
+        {% block content %}
+
+        {% endblock content %}
+
+{#    </div>#}
+{% endblock body_wrapper %}
+
+</div>
+
+<div class="container-fluid">
+    <footer class="footer">
+        <div class="inner-footer">
+        </div>
+    </footer>
+
+    <div class="row">
+        <div id="toast-container" class="col-xs-12">
+            {% include "_messages_toast.html" %}
+        </div>
+    </div>
+</div>
+
+{% block javascript %}
+    <script src="{% static  "js/bootstrap.min.js" %}"></script>
+    <script src="{% static  "js/underscore.js" %}"></script>
+    <script src="{% static  "js/project.js" %}"></script>
+    <script src="{% static  "js/moment.js" %}"></script>
+    <script src="{% static  "js/lib/fullcalendar.js" %}"></script>
+{% endblock javascript %}
+
+{% block extra_script %}
+{% endblock extra_script %}
+
+</body>
+</html>
+

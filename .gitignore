@@ -1,0 +1,14 @@
+
+*.pyc
+*~
+.idea/
+.sass-cache/
+*/jspm_modules/
+*/node_modules/
+.vagrant/
+*/media/
+loggymclogger.log
+rookie_booking/config/env_vars.py
+static_site_wide
+/rookie_booking/config/ssl/
+/static_site_wide/

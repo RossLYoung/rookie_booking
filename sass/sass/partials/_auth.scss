@@ -1,0 +1,146 @@
+
+
+.allauth-container{
+
+  //jeebus
+  img{
+    margin: auto;
+    display: block;
+    width: 100%;
+    @include border-radius(15px);
+  }
+
+  margin-top: 6%;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  padding: 0px !important;
+  background-color: $auth-background-color;
+
+  //border: 1px $auth-border-color solid;
+
+  @include card($box-shadow-mixin-value);
+
+
+  @include make-sm-column(6);
+  @include make-sm-column-offset(3);
+
+  @include make-lg-column(4);
+  @include make-lg-column-offset(4);
+
+  @include border-radius(10px);
+  @include opacity(0.90);
+
+  .auth-heading{
+    background-color: $auth-heading-color;
+    color: $auth-heading-text-color;
+    font-family: $auth-heading-font-family;
+    padding: 10px 10px 10px 10px;
+    @include border-top-radius(10px);
+
+    font-size: 28px;
+
+    h1, h2{
+      font-size: 26px;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+  }
+
+  .auth-content{
+    color: $copy-text-color;
+    opacity: 0.87;
+    padding: 15px 5%;
+    background-color: $color4;
+    @include border-bottom-radius(10px);
+    .panel-body{
+      background-color: lighten($color4, 20%);
+    }
+  }
+
+
+  h1{
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+
+.socialaccount_ballot{
+    @include plain-list($li-float: left,
+                        $li-display: inline-block,
+                        $li-border-right: none,
+                        $li-width: 33%,
+                        $li-border-bottom: none,
+                        $anchor-padding: 5px 5px);
+
+    li{
+      padding-right: 5px;
+
+      &:last-child{
+        padding-right: 0;
+      }
+      a{margin: auto}
+    }
+}
+
+.socialaccount_provider{
+  font-family: FontAwesome;
+  text-align: center;
+  font-size: 1.2em;
+
+  //@include border-radius(5px);
+  @include card($box-shadow-mixin-value);
+
+  &:hover{
+    @include card($box-shadow-mixin-value-max);
+  }
+}
+
+.socialaccount_provider.my-twitter {
+  background: #1e92ff;
+  color: #fff;
+}
+.socialaccount_provider.my-twitter:before {
+  content: "\f081";
+}
+.socialaccount_provider.my-facebook {
+  background: #4B67A3;
+  color: #fff;
+}
+.socialaccount_provider.my-facebook:before {
+  content: "\f082";
+}
+.socialaccount_provider.my-google {
+  background: #DE4931;
+  color: #fff;
+}
+.socialaccount_provider.my-google:before {
+  content: "\f0d4";
+}
+
+//more social hacks for AdBlock - used on contact page
+.facebook-damn-adblock:before{
+  content: "\f09a";
+}
+.twitter-damn-adblock:before{
+  content: "\f099";
+}
+
+.linkedin-damn-adblock:before{
+  content: "\f08c";
+}
+
+.login-or{
+  padding: 10px 0;
+}
+
+#remember-me{
+    font-weight: normal;
+    cursor: pointer;
+}
+
+#forgotten-password{
+    margin-top: -27px;
+}

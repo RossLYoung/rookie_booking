@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+{% block extra_css %}
+    {# <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />#}
+    <link rel="stylesheet" href="{% static 'css/mapbox-2.2.1.css' %}">
+{% endblock extra_css %}
+
+
+<section class="section section-2">
+    <div class="section-row">
+
+        <div class="col-lg-6 ">
+            <p>third section!!!</p>
+        </div>
+        <div class="col-lg-6 ">
+            <div id="map-homepage">
+
+            </div>
+         </div>
+    </div>
+</section>
+
+
+{% block extra_script %}
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1Ijoicm9zc3kiLCJhIjoic3ZDeEdyWSJ9.20b6qFVzikwU9C25d-4v1Q';
+        var map = L.mapbox.map('map-homepage', 'rossy.map-uipblf4i').setView([40, -74.50], 9);
+    </script>
+{% endblock extra_script %}

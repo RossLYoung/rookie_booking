@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block nav_active_profile %}nav-active{% endblock nav_active_profile %}
+{% block nav_active_mobile_profile %}nav-active{% endblock nav_active_mobile_profile %}
+
+
+{% block content %}
+
+        <div class="col-xs-12 no-pad-h">
+
+            <ul id="userprofile-tabs" class=""  role="tablist">
+
+                <li class="{% block profile_nav_details %}{% endblock %}">
+                    <a href="{% url 'userprofile:profile-details' %}"><span>{% trans 'Details' %}</span></a>
+                </li>
+
+                <li class="{% block profile_nav_email %}{% endblock %}">
+                    <a href="{% url 'userprofile:profile-email' %}"><span>{% trans 'E-mail' %}</span></a>
+                </li>
+
+                <li class="{% block profile_nav_password %}{% endblock %}">
+                    <a href="{% url 'userprofile:profile-password' %}"><span>{% block password_verb %}Password{% endblock password_verb %}</span></a>
+                </li>
+
+                <li class="{% block profile_nav_address %}{% endblock %}">
+                    <a href="{% url 'userprofile:profile-address' %}"><span>{% trans 'Addresses' %}</span></a>
+                </li>
+
+                {% url 'userprofile:profile-social' as connections_url %}
+                {% if connections_url %}
+                    <li class="{% block profile_nav_social %}{% endblock %}">
+                        <a href="{% url 'userprofile:profile-social' %}"><span>{% trans 'Social' %}</span></a>
+                    </li>
+                {% else %}
+                {% else %}
+                    <li>No connections url</li>
+                {% endif %}
+            </ul>
+
+        </div>
+
+    <div class="col-xs-12">
+
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }} alert-dismissable"{% endif %}>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>{{ message }}</strong>
+            </div>
+        {% endfor %}
+
+
+        {% block profile_content %}
+
+        {% endblock profile_content %}
+
+    </div>
+
+{% endblock %}
+
+
+
