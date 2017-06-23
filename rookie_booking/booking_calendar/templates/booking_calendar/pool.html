@@ -4,7 +4,31 @@
 {% block content %}
     <div class="container">
     <div class="row">
+
+        <!-- Duplicate with index for now. Abstract out when we know how this fits into the rookie site -->
         <div class="col-xs-12 tab-background">
+
+            <a href="{% url 'home' %}"           class="btn-accent2 mar-r-5 pull-left"> <i class="fa fa-calendar "></i> Calendar</a>
+
+            <a href="{% url 'account_logout' %}"              class="btn-accent2 pull-right">        <i class="fa fa-sign-out"></i></a>
+            <a href="{% url 'userprofile:profile-details' %}" class="btn-accent2 pull-right mar-r-5"><i class="fa fa-cog"></i></a>
+
+            {% if user.is_staff %}
+                <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5">Dashboard</a>
+                <a id="new-booking" href="{% url 'admin:index' %}"     class="btn-accent2 pull-right mar-r-5">Admin</a>
+            {% endif %}
+
+        </div>
+
+
+
+
+
+
+        <div class="col-xs-12 tab-background">
+
+            <h3 class="header-title">New Result</h3>
+
 
             <form action="" method="post" xmlns="http://www.w3.org/1999/html">
 
