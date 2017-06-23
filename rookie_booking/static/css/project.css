@@ -7931,6 +7931,10 @@ html, body {
   text-align: center;
 }
 
+/* line 70, ../../../sass/sass/partials/_auth.scss */
+.socialaccount_ballot {
+  margin-top: 3px;
+}
 /* line 72, ../../../sass/sass/partials/_mixins.scss */
 .socialaccount_ballot ul {
   list-style: none;
@@ -7940,7 +7944,7 @@ html, body {
 .socialaccount_ballot ul li {
   float: left;
   display: inline-block;
-  width: 33%;
+  width: 25%;
   border-right: none;
   border-bottom: none;
 }
@@ -7957,91 +7961,103 @@ html, body {
   border-right: 0;
   padding-right: 0;
 }
-/* line 78, ../../../sass/sass/partials/_auth.scss */
+/* line 79, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_ballot li {
   padding-right: 5px;
 }
-/* line 81, ../../../sass/sass/partials/_auth.scss */
+/* line 82, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_ballot li:last-child {
   padding-right: 0;
 }
-/* line 84, ../../../sass/sass/partials/_auth.scss */
+/* line 85, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_ballot li a {
   margin: auto;
 }
 
-/* line 88, ../../../sass/sass/partials/_auth.scss */
+/* line 89, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider {
   font-family: FontAwesome;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 2em;
+  border-radius: 5px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
 }
-/* line 96, ../../../sass/sass/partials/_auth.scss */
+/* line 100, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25);
 }
 
-/* line 101, ../../../sass/sass/partials/_auth.scss */
+/* line 105, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider.my-twitter {
   background: #1e92ff;
   color: #fff;
 }
 
-/* line 105, ../../../sass/sass/partials/_auth.scss */
+/* line 109, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider.my-twitter:before {
   content: "\f081";
 }
 
-/* line 108, ../../../sass/sass/partials/_auth.scss */
+/* line 112, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider.my-facebook {
   background: #4B67A3;
   color: #fff;
 }
 
-/* line 112, ../../../sass/sass/partials/_auth.scss */
+/* line 116, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider.my-facebook:before {
   content: "\f082";
 }
 
-/* line 115, ../../../sass/sass/partials/_auth.scss */
+/* line 119, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider.my-google {
   background: #DE4931;
   color: #fff;
 }
 
-/* line 119, ../../../sass/sass/partials/_auth.scss */
+/* line 123, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider.my-google:before {
   content: "\f0d4";
 }
 
-/* line 124, ../../../sass/sass/partials/_auth.scss */
+/* line 127, ../../../sass/sass/partials/_auth.scss */
+.socialaccount_provider.my-slack {
+  background: #e32072;
+  color: #fff;
+}
+
+/* line 131, ../../../sass/sass/partials/_auth.scss */
+.socialaccount_provider.my-slack:before {
+  content: "\f198";
+}
+
+/* line 137, ../../../sass/sass/partials/_auth.scss */
 .facebook-damn-adblock:before {
   content: "\f09a";
 }
 
-/* line 127, ../../../sass/sass/partials/_auth.scss */
+/* line 140, ../../../sass/sass/partials/_auth.scss */
 .twitter-damn-adblock:before {
   content: "\f099";
 }
 
-/* line 131, ../../../sass/sass/partials/_auth.scss */
+/* line 144, ../../../sass/sass/partials/_auth.scss */
 .linkedin-damn-adblock:before {
   content: "\f08c";
 }
 
-/* line 135, ../../../sass/sass/partials/_auth.scss */
+/* line 148, ../../../sass/sass/partials/_auth.scss */
 .login-or {
   padding: 10px 0;
 }
 
-/* line 139, ../../../sass/sass/partials/_auth.scss */
+/* line 152, ../../../sass/sass/partials/_auth.scss */
 #remember-me {
   font-weight: normal;
   cursor: pointer;
 }
 
-/* line 144, ../../../sass/sass/partials/_auth.scss */
+/* line 157, ../../../sass/sass/partials/_auth.scss */
 #forgotten-password {
   margin-top: -27px;
 }
