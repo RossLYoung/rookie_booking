@@ -2224,7 +2224,7 @@ th {
 
 /* line 125, ../../../../../../../../var/lib/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_tables.scss */
 .table-hover > tbody > tr:hover {
-  background-color: #f5f5f5;
+  background-color: #525151;
 }
 
 /* line 135, ../../../../../../../../var/lib/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_tables.scss */
@@ -2253,13 +2253,13 @@ table th[class*="col-"] {
 .table > tfoot > tr > th.active,
 .table > tfoot > tr.active > td,
 .table > tfoot > tr.active > th {
-  background-color: #f5f5f5;
+  background-color: #525151;
 }
 
 /* line 20, ../../../../../../../../var/lib/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_table-row.scss */
 .table-hover > tbody > tr > td.active:hover,
 .table-hover > tbody > tr > th.active:hover, .table-hover > tbody > tr.active:hover > td, .table-hover > tbody > tr:hover > .active, .table-hover > tbody > tr.active:hover > th {
-  background-color: #e8e8e8;
+  background-color: #454444;
 }
 
 /* line 9, ../../../../../../../../var/lib/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_table-row.scss */
@@ -7927,7 +7927,7 @@ html, body {
 }
 /* line 63, ../../../sass/sass/partials/_auth.scss */
 .allauth-container h1 {
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
 }
 
