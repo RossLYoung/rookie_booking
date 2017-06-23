@@ -90,7 +90,7 @@
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form.email.errors }}
-                    {{ form.email.label_tag }}
+{#                    {{ form.email.label_tag }}#}
                     {{ form.email.help_text }}
                     {{ form.email | add_class:"form-control" }}
                 </div>
