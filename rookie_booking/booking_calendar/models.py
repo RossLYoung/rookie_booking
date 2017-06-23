@@ -5,12 +5,17 @@ from rookie_booking.userprofile.models import User
 
 class Location(models.Model):
     name        = models.CharField(blank=False, max_length=30,  default="",)
-    description = models.CharField(blank=False, max_length=100, default="",)
+    description = models.CharField(blank=True,  max_length=100, default="",)
     color       = models.CharField(blank=False, max_length=10, )
+
+    def __str__(self):
+        return self.name.encode('utf-8')
+
 
 
 class Booking(models.Model):
-    user            = models.ForeignKey(to=User,     related_name='bookings')
-    location        = models.ForeignKey(to=Location, related_name='bookings')
-    start_date_time = models.DateTimeField()
-    end_date_time   = models.DateTimeField()
+    user            = models.ForeignKey(to=User,     related_name='bookings', blank=True)
+    location        = models.ForeignKey(to=Location, related_name='bookings', blank=False)
+    description     = models.CharField(blank=True, max_length=100, default="",)
+    start_date_time = models.DateTimeField("Start",blank=False)
+    end_date_time   = models.DateTimeField("End",  blank=False)

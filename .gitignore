@@ -12,3 +12,4 @@ rookie_booking/config/env_vars.py
 static_site_wide
 /rookie_booking/config/ssl/
 /static_site_wide/
+/notes

@@ -30,3 +30,18 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+//for form validation messages
+.errorlist {
+  padding-left: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  li{
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    list-style: none;
+    padding-left: 5px;
+    @include border-radius(5px);
+  }
+}

@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-    <title>{% block title %}{% trans "Dashboard - oRLY" %}{% endblock %}</title>
+    <title>{% block title %}{% trans "Rookie Dashboard" %}{% endblock %}</title>
 
         <link rel="stylesheet" type="text/css" href="{% static "css/dashboard.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "versatileimagefield/css/versatileimagefield.css" %}">
@@ -37,7 +37,7 @@
                     {% endblock %}
                     {% block breadcrumbs %}
                         <ul class="breadcrumbs">
-                            <li>{% trans "oRLY Dashboard" %}</li>
+                            <li>{% trans "Rookie Dashboard" %}</li>
                         </ul>
                     {% endblock %}
                     {% block header_extra %}{% endblock %}
@@ -78,29 +78,14 @@
                             </div>
                         </li>
 
-                        <li class="divider"></li>
-
-
 
                         <li class="divider"></li>
 
                         <li>
-                            <a class="waves-effect waves-teal collapsible-header{% block menu_gallery_class %}{% endblock %}">{% trans "Gallery" %}</a>
+                            <a class="waves-effect waves-teal collapsible-header{% block menu_locations_class %}{% endblock %}">{% trans "Locations" %}</a>
                             <div class="collapsible-body">
                                 <ul>
-                                    <li class="subnav-galleries"><a href="{% url 'dashboard:gallery-list' %}">{% trans "Galleries" %}</a></li>
-                                    <li class="subnav-photos"><a href="{% url 'dashboard:photo-list' %}">{% trans "Photos" %}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="divider"></li>
-
-                        <li>
-                            <a class="waves-effect waves-teal collapsible-header{% block menu_blog_class %}{% endblock %}">{% trans "Blog" %}</a>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li class="subnav-blogs"><a href="{% url 'dashboard:blog-entries' %}">{% trans "Blogs" %}</a></li>
+                                    <li class="subnav-locations"><a href="{% url 'dashboard:locations' %}">{% trans "Locations" %}</a></li>
                                 </ul>
                             </div>
                         </li>

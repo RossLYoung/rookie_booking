@@ -8,9 +8,12 @@ admin.autodiscover()
 from .userprofile.urls import urlpatterns as userprofile_urls
 from .dashboard.urls   import urlpatterns as dashboard_urls
 from rookie_booking.booking_calendar.views import Index
+from rookie_booking.booking_calendar.views import AddBooking, booking_events_api
 
 urlpatterns = [
     url(r'^$',            Index.as_view(),    name='home'),
+    url(r'^add-booking/$', AddBooking.as_view()),
+    url(r'^api/bookings/$', booking_events_api, name='booking-events-api'),
 
     url(r'^dashboard/', include(dashboard_urls,    namespace='dashboard')),
     url(r'^profile/',   include(userprofile_urls,  namespace='userprofile')),

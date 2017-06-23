@@ -2,17 +2,44 @@
 {% load staticfiles i18n %}
 
 {% block content %}
-<div class="container">
+
+    <div class="container">
     <div class="row">
-        <div class="col-xs-12">
-            <div id="calendar"></div>
+        <div class="col-xs-12 tab-background">
 
-            {% if request.user.is_authenticated %}
+            {% for location in locations.all %}
+                <a class="label" style="background-color: {{ location.color }}">{{ location.name }}</a>
+            {% endfor %}
+
+            <a id="new-booking" href="javascript:void(0)" class="btn-accent2 pull-right">Make Reservation</a>
+
+            {% if user.is_staff %}
+                <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5">Dashboard</a>
+                <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5">Admin</a>
             {% endif %}
-        </div>
 
+        </div>
+        <div class="col-xs-12 tab-background">
+
+            <div  id="calendar"></div>
+
+        </div>
     </div>
 </div>
+
+
+<div id="add-booking-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content tab-background">
+
+            <div id="add-booking-modal-body">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 {% endblock content %}
 
@@ -21,11 +48,19 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
+            function bindPopOverButtons(){
+                    $('.edit-booking').on('click',      function(e){ editVisitToBedGetModal($(e.target).attr("data-edit-bed-event")); });
+                    $('.remove-booking').on('click',  function(e){ removeBedEvent($(e.target).attr("data-remove-bed-event")); });
+            }
+
             var show_cal = function(){
 
                 $('#calendar').fullCalendar({
-                    aspectRatio: 2,
+                    aspectRatio: 1.5,
                     defaultView: 'agendaWeek',
+                    weekends: false,
+                    minTime: "07:00:00",
+                    maxTime: "22:00:00",
 
                     forceEventDuration: true,
                     header: {
@@ -34,47 +69,73 @@
                         right:  'month, agendaWeek, next'
                     },
 
-{#                    events: '/api/events/' + $('#house_choices').val() + "/",#}
-{##}
-{#                    eventRender: function (event, element) {#}
-{##}
-{#                        var event_id = event.id;#}
-{#                        element.attr('title', event.title);#}
-{#                        element.attr('href' , event.href);#}
-{##}
-{#                            $(element).popover({#}
-{#                                'title'    : "",#}
-{#                                'html'     : true,#}
-{#                                'placement': 'top',#}
-{#                                'container': element,#}
-{##}
-{#                                'template': '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',#}
-{##}
-{#                                'content':  '<div><a data-edit-bed-event="' + event_id + '" class="edit-bed-event   btn btn-accent1 mar-bot-5 mar-left-5" href="javascript:void(0)">Edit</a>' +#}
-{#                                            '<a data-remove-bed-event="'    + event_id + '" class="remove-bed-event btn btn-accent2 mar-bot-5 mar-left-5" href="javascript:void(0)">Delete</a></div>'#}
-{#                            });#}
-{#                    },#}
-{#                    eventClick:  function(event, jsEvent, view) {#}
-{#                        var bed_event_id = event.id;#}
-{#                        $(jsEvent.toElement).popover('show');#}
-{#                        bindPopOverButtons();#}
-{#                    },#}
-{#                    eventReceive: function( event ) {#}
-{#                    },#}
-{#                    eventOverlap: function(stillEvent, movingEvent) {#}
-{#                        console.log("event overlap");#}
-{#                        return true;#}
-                        {# return stillEvent.allDay && movingEvent.allDay;#}
-{#                    },#}
-{#                    eventResize: function( event, delta, revertFunc, jsEvent, ui, view ) {#}
-{#                    },#}
-{#                    eventResizeStop: function( event, jsEvent, ui, view ) {#}
-{#                    },#}
+                    events: '/api/bookings/',
+
+                    eventRender: function (event, element) {
+                        var event_id = event.id;
+                        element.attr('title', event.title);
+                        element.attr('href' , event.href);
+
+                            $(element).popover({
+                                'title'    : "",
+                                'html'     : true,
+                                'placement': 'top',
+                                'container': element,
+
+                                'template': '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
+
+                                'content':  '<div><a data-edit-bed-event="' + event_id + '" class="edit-booking   btn btn-accent1 mar-bot-5 mar-left-5" href="javascript:void(0)">Edit</a>' +
+                                            '<a data-remove-bed-event="'    + event_id + '" class="remove-booking btn btn-accent2 mar-bot-5 mar-left-5" href="javascript:void(0)">Delete</a></div>'
+                            });
+                    },
+                    eventClick:  function(event, jsEvent, view) {
+                        var bed_event_id = event.id;
+                        $(jsEvent.toElement).popover('show');
+                        bindPopOverButtons();
+                    },
+                    eventReceive: function( event ) {
+                    },
+
+                    eventResize: function( event, delta, revertFunc, jsEvent, ui, view ) {
+                    },
+                    eventResizeStop: function( event, jsEvent, ui, view ) {
+                    },
                     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives'
                 });
             };
 
             show_cal();
+
+            function addBookingModal(){
+
+                $.ajax({
+                    type: "GET",
+                    url: "/add-booking/",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: true,
+                    async: true,
+                    success: (function(data) {
+                        $("#add-booking-modal-body").empty().append(data);
+                        $('#add-booking-modal').modal({
+                            show: true,
+                            keyboard: false,
+                            backdrop: false
+                        });
+                    }),
+                    error: function (xhr, errmsg, err) {
+                        alert("Error retrieving bed popup");
+                        $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+                            " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                    }
+                })
+            }
+
+            $('#new-booking').on('click', function(event){
+                event.preventDefault();
+                addBookingModal();
+            });
+
         });
     </script>
 {%  endblock extra_script %}

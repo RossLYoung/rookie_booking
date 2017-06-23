@@ -14,3 +14,7 @@ $table-td-color  : map_get($grey, lighten-5);
 
 $input-border-color: #536dfe !important;
 
+.input-field label {
+  color: white;
+}
+

@@ -13817,6 +13817,11 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   border-bottom: 6px solid #be2626;
 }
 
+/* line 17, ../../../sass/sass/partials/dashboard/_color.scss */
+.input-field label {
+  color: white;
+}
+
 /* line 74, ../../../sass/sass/partials/dashboard/widget/_breadcrumbs.scss */
 .breadcrumbs {
   display: block;

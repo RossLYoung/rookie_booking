@@ -88,6 +88,7 @@ class Common(Configuration):
         'configurations',
         'mptt',
         'django_mptt_admin',
+        'crispy_forms',
 
         'versatileimagefield',
         'materializecssform',
@@ -220,7 +221,7 @@ class Common(Configuration):
 
 class Development(Common):
     # DEBUG = values.BooleanValue(False)
-    ALLOWED_HOSTS = ["127.0.0.1"]
+    ALLOWED_HOSTS = ["127.0.0.1", "192.168.1.19", "192.168.101.237"]
 
     INSTALLED_APPS = Common.INSTALLED_APPS
 
@@ -233,13 +234,13 @@ class Development(Common):
     ########## DJANGO DEBUG TOOLBAR CONFIGURATION ########################
     ######################################################################
 
-    # MIDDLEWARE = Common.MIDDLEWARE + ['debug_toolbar.middleware.DebugToolbarMiddleware',
-    #                                                   'django.contrib.admindocs.middleware.XViewMiddleware',
-    #                                                   'debugtools.middleware.XViewMiddleware',
-    # ]
+    MIDDLEWARE = Common.MIDDLEWARE + ['debug_toolbar.middleware.DebugToolbarMiddleware',
+                                                      # 'django.contrib.admindocs.middleware.XViewMiddleware',
+                                                      # 'debugtools.middleware.XViewMiddleware',
+    ]
 
     INSTALLED_APPS += [
-                        # 'debug_toolbar',
+                        'debug_toolbar',
                        # 'template_timings_panel',
                        # 'template_profiler_panel',
                        # 'debugtools',

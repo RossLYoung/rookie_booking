@@ -8,14 +8,16 @@ chardet==3.0.4
 cryptography==1.9
 curtsies==0.2.11
 dj-database-url==0.4.2
-Django==1.8.18
+Django==1.11.2
 django-admin-bootstrapped==2.5.7
 django-allauth==0.32.0
+django-bootstrap3==8.2.3
 django-braces==1.11.0
 django-configurations==2.0
-django-datetime-widget==0.9.3
+django-crispy-forms==1.6.1
 django-debug-toolbar==1.8
-django-materializecss-form==1.0.1
+django-extra-views==0.9.0
+-e git+https://github.com/RossLYoung/django-materializecss-form.git#egg=materializecssform
 django-mptt==0.8.7
 django-mptt-admin==0.4.6
 django-versatileimagefield==1.7.1
@@ -29,6 +31,7 @@ gunicorn==19.7.1
 hiredis==0.2.0
 idna==2.5
 ipaddress==1.0.18
+Markdown==2.6.8
 oauthlib==2.0.2
 olefile==0.44
 paramiko==2.2.1

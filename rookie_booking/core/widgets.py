@@ -1,7 +1,7 @@
 from django.conf import settings
 from django import forms
 
-from datetimewidget.widgets import DateWidget, TimeWidget, DateTimeWidget
+from widgets_datetime import DateWidget, TimeWidget, DateTimeWidget
 
 dateOptions = {
     'format': 'dd/mm/yyyy',

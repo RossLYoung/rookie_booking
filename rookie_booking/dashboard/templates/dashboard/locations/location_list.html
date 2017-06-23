@@ -1,0 +1,47 @@
+{% extends "dashboard/base.html" %}
+{% load i18n %}
+{% load materializecss %}
+
+
+{% block title %}
+    {% trans "Academic" %} - {{ block.super }}
+{% endblock %}
+
+{% block body_class %}body-academic{% endblock %}
+{% block menu_academic_class %} active{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumbs">
+        <li><a href="{% url "dashboard:locations" %}">{% trans "Locations" %}</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="row card-panel grey darken-2">
+        <div class="card-content white-text">
+            <div class="col s12 table-full-width">
+
+                <form method="post" action="{% url "dashboard:locations" %}">
+                        {% csrf_token %}
+                        {{ formset.management_form }}
+
+                            {% for form in formset %}
+                                <div class="row">
+                                    {{ form.id }}
+                                    {{ form.name        |materializecss:'s3 m4 l3' }}
+                                    {{ form.description |materializecss:'s6 m5 l7' }}
+                                    {{ form.color       |materializecss:'s3 m3 l2' }}
+                                </div>
+                            {% endfor %}
+
+
+                    <div class="row">
+                        <button type="submit" class="btn waves-effect waves-light ">Update</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

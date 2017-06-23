@@ -23,16 +23,12 @@
                     <a href="{% url 'userprofile:profile-password' %}"><span>{% block password_verb %}Password{% endblock password_verb %}</span></a>
                 </li>
 
-                <li class="{% block profile_nav_address %}{% endblock %}">
-                    <a href="{% url 'userprofile:profile-address' %}"><span>{% trans 'Addresses' %}</span></a>
-                </li>
 
                 {% url 'userprofile:profile-social' as connections_url %}
                 {% if connections_url %}
                     <li class="{% block profile_nav_social %}{% endblock %}">
                         <a href="{% url 'userprofile:profile-social' %}"><span>{% trans 'Social' %}</span></a>
                     </li>
-                {% else %}
                 {% else %}
                     <li>No connections url</li>
                 {% endif %}

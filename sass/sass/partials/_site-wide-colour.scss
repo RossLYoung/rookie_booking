@@ -33,6 +33,13 @@ a, button {
     transition: all 225ms ease;
 }
 
+
+.tab-background{
+  @extend .content-panel;
+  //margin: 5px;
+  //padding-top: 10px;
+}
+
 a{
   //font-family: $gallery-title-font-family;
   //font-weight: 300;
@@ -41,7 +48,7 @@ a{
 
   @include single-transition(color, $nav-transition-duration, ease, $nav-transition-delay);
   &:hover{
-    color: lighten($gallery-title-color,15%);
+    color: whitesmoke;
   }
 }
 

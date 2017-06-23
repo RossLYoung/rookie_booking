@@ -1,5 +1,5 @@
 {% extends 'userprofile/base.html' %}
-{% load i18n crispy_forms_tags %}
+{% load i18n widget_tweaks %}
 
 {% block title %}{% trans "Your email addresses" %} — {{ block.super }}{% endblock %}
 
@@ -110,7 +110,12 @@
 
             <form method="post" action="." class="add_email">
                 {% csrf_token %}
-                {{ form|crispy }}
+                <div class="form-group">
+                    {{ form.email.errors }}
+                    {{ form.email.label_tag }}
+                    {{ form.email.help_text }}
+                    {{ form.email | add_class:"form-control" }}
+                </div>
                 <button class="btn-accent2 btn-block" name="action_add" type="submit">{% trans "Add" %}</button>
             </form>
 
