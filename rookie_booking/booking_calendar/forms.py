@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from rookie_booking.booking_calendar.models import Booking
+from rookie_booking.booking_calendar.models import Booking, PoolResult
 from rookie_booking.core.widgets import CustomDateTimePicker, dateAttrs, dateTimeOptions
 
 
@@ -45,3 +45,13 @@ class AddBookingForm(ModelForm):
 
             if (overlap_start or overlap_end or inside or outside):
                 self.add_error('location', "Occupied!")
+
+
+class PoolResultForm(ModelForm):
+
+    def __init__(self, *args,**kwargs):
+        super (PoolResultForm,self ).__init__(*args,**kwargs)
+
+    class Meta:
+        model = PoolResult
+        fields = ['winner', 'loser', 'balls_left']

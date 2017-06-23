@@ -98,13 +98,13 @@ def deploy():
 
     # Remote
     git_pull()
-    add_env_vars_to_activate() # this should copy file over, export, then delete file - No need to ever be in vcs
+    # add_env_vars_to_activate() # this should copy file over, export, then delete file - No need to ever be in vcs
     rsync()
     delete_src()
     install_requirements()
     # syncdb()
-    ssl_keys()
-    nginx_config()
+    # ssl_keys()
+    # nginx_config()
 
     #makemigrations()
     migrate()

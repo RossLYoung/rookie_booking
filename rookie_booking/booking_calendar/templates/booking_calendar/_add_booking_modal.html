@@ -80,6 +80,7 @@
 <script type='text/javascript'>
 
     function submit_booking() {
+        console.log("enter")
 
         var form_data = {
             user            : $('#id_user').val(),
@@ -110,16 +111,20 @@
 
                     $('#add-booking-modal').modal('toggle');
 
-                }else{
+                    console.log("success")
 
+                }else{
                     $("#add-booking-modal-body").empty().append(data_json.template);
 
                     var add_button = $('#add-booking');
+
                     add_button.off('click');
                     add_button.on('click', function(event){
                         event.preventDefault();
                         submit_booking();
                     });
+
+                    console.log("fail")
                 }
             },
 

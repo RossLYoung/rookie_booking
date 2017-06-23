@@ -1,36 +1,59 @@
 {% extends "base.html" %}
-{% load staticfiles i18n %}
+{% load  widget_tweaks %}
 
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12 tab-background">
+    <div class="row">
+        <div class="col-xs-12 tab-background">
 
-                <a href="{% url 'pool' %}" style="background-color: green" class="btn mar-r-5"><i class="fa fa-trophy"></i>Pool</a>
+            <form action="" method="post" xmlns="http://www.w3.org/1999/html">
 
-                <a id="new-booking" href="javascript:void(0)" class="btn-accent2 pull-right">Make Reservation</a>
-                {% if user.is_staff %}
-                    <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5">Dashboard</a>
-                    <a id="new-booking" href="{% url 'admin:index' %}" class="btn-accent2 pull-right mar-r-5">Admin</a>
-                {% endif %}
+                {% csrf_token %}
 
-            </div>
-            <div class="col-xs-12 tab-background">
+                <div class="row">
 
-                <div  id="calendar"></div>
+                    {{ form.non_field_errors }}
 
-            </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            {{ form.winner.label_tag }}
+                            {{ form.winner.help_text }}
+                            {{ form.winner | add_class:"form-control" }}
+                            {{ form.winner.errors }}
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-xs-12 tab-background">
-
-                    <span class="">Key: </span>
-                    {% for location in locations.all %}
-                        <p class="label" style="background-color: {{ location.color }}">{{ location.name }}</p>
-                    {% endfor %}
-
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            {{ form.loser.label_tag }}
+                            {{ form.loser.help_text }}
+                            {{ form.loser | add_class:"form-control" }}
+                            {{ form.loser.errors }}
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            {{ form.balls_left.label_tag }}
+                            {{ form.balls_left.help_text }}
+                            {{ form.balls_left | add_class:"form-control" }}
+                            {{ form.balls_left.errors }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3 ">
+                        <div class="form-group">
+                        <input id="add-booking"
+                               class="btn-accent2 btn-block form-control"
+                               type="submit" value="Save" />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+
         </div>
     </div>
 

@@ -11,25 +11,29 @@ from django.template.loader import render_to_string
 from django.views.generic import ListView, TemplateView, CreateView
 from braces.views import LoginRequiredMixin
 
-from rookie_booking.booking_calendar.forms import AddBookingForm
-from rookie_booking.booking_calendar.models import Booking, Location
+from rookie_booking.booking_calendar.forms import AddBookingForm, PoolResultForm
+from rookie_booking.booking_calendar.models import Booking, Location, PoolResult
 
 
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'booking_calendar/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(Index, self).get_context_data(**kwargs)
+        context['locations'] = Location.objects.all()
+        return context
+
 
 class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Booking
-    form_class = AddBookingForm
-    template_name = "booking_calendar/_add_booking_modal.html"
+    model           = Booking
+    form_class      = AddBookingForm
+    template_name   = "booking_calendar/_add_booking_modal.html"
     success_message = "Booked!"
 
     def get_context_data(self, **kwargs):
-        context = super(AddBooking, self).get_context_data(**kwargs)
+        context                       = super(AddBooking, self).get_context_data(**kwargs)
         context['submit_button_text'] = "Add"
-        context['user_id'] = self.request.user.id
-        context['locations'] = Location.objects.all()
+        context['user_id']            = self.request.user.id
         return context
 
     def form_invalid(self, form):
@@ -37,7 +41,10 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             message =  {"level_tag": 'error', "message": "Correct your errors!"}
             template = render_to_string(template_name=self.template_name,
                                         request=self.request,
-                                        context={'form': form, 'submit_button_text': "Add" })
+                                        context={'form': form,
+                                                 'submit_button_text': "Add",
+                                                 'user_id':  self.request.user.id
+                                                 })
             to_json = {'template':template, 'message': message, "result":False}
             return JsonResponse(json.dumps(to_json), safe=False)
 
@@ -48,13 +55,8 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
              self.object = form.save()
 
              event_json = {
-                 "id"   :   self.object.id,
-                 "title": "title blah",
-                 # "title": "{0} - ({1}) - ({2}) - ({3}) > ({4})".format(self.object.visit.get_name(),
-                 #                                                   self.object.get_age(),
-                 #                                                   self.object.visit.get_group_name_or_ind(),
-                 #                                                   self.object.start_date_time.strftime("%a %d - %-H:%M"),
-                 #                                                   self.object.end_date_time.strftime("%a %d - %-H:%M")),
+                 "id"   : self.object.id,
+                 "title": "{0} - {1}".format(self.object.user.username, self.object.description) ,
                  "start": self.object.start_date_time.isoformat(),
                  "end"  : self.object.end_date_time.isoformat(),
                  "color": self.object.location.color,
@@ -65,6 +67,7 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
              return JsonResponse(json.dumps(to_json), safe=False)
 
          return super(AddBooking, self).form_valid(form)
+
 
 @login_required
 def booking_events_api(request):
@@ -81,7 +84,6 @@ def booking_events_api(request):
 
     cached_result =  cache.get(cache_name)
 
-
     if not cached_result:
 
         response_data =[]
@@ -92,12 +94,7 @@ def booking_events_api(request):
 
             response_data.append({
                 "id": booking.id,
-                "title": "title blah",
-                # "title": "{0} - ({1}) - ({2}) - ({3}) > ({4})".format(self.object.visit.get_name(),
-                #                                                   self.object.get_age(),
-                #                                                   self.object.visit.get_group_name_or_ind(),
-                #                                                   self.object.start_date_time.strftime("%a %d - %-H:%M"),
-                #                                                   self.object.end_date_time.strftime("%a %d - %-H:%M")),
+                "title": "{0} - {1}".format(booking.user.username, booking.description),
                 "start": booking.start_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
                 "end":   booking.end_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
                 "color": booking.location.color,
@@ -108,3 +105,15 @@ def booking_events_api(request):
         return HttpResponse(results_json, content_type="application/json")
 
     return HttpResponse(cached_result,  content_type="application/json")
+
+
+class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model           = PoolResult
+    form_class      = PoolResultForm
+    template_name   = "booking_calendar/pool.html"
+    success_message = "Sorted!"
+
+    def form_valid(self, form):
+        form.fields['created_by'] = self.request.user
+        self.object = form.save()
+
