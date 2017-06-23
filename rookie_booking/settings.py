@@ -386,19 +386,19 @@ class Production(Common):
         'version': 1,
         'disable_existing_loggers': False,
 
-
-        'loggers': {
-            'django.request': {
-                'handlers': ['file','logstash'],
-                'level': 'DEBUG',
-                'propagate': True,
-            },
-            'django': {
-                'handlers':['file', 'logstash'],
-                'propagate': True,
-                'level':'DEBUG',
-                },
-        },
+        #
+        # 'loggers': {
+        #     'django.request': {
+        #         'handlers': ['file','logstash'],
+        #         'level': 'DEBUG',
+        #         'propagate': True,
+        #     },
+        #     'django': {
+        #         'handlers':['file', 'logstash'],
+        #         'propagate': True,
+        #         'level':'DEBUG',
+        #         },
+        # },
 
         'filters': {
             'require_debug_false': {
@@ -406,24 +406,24 @@ class Production(Common):
             }
         },
 
-        'handlers': {
-            'logstash': {
-                'level': 'DEBUG',
-                'class': 'logstash.LogstashHandler',
-                'host':  'logsearch-private',
-                'port':   5959,
-                'version': 1, # Version of logstash event schema. Default value: 0 (for backward compatibility of the library)
-                'message_type': 'django-rookie-booking',  # 'type' field in logstash message. Default value: 'logstash'.
-                'fqdn': False, # Fully qualified domain name. Default value: false.
-                'tags': ['tag+rookie_booking'], # list of tags. Default: None.
-            },
-            'file': {
-                'level'    :'DEBUG',
-                'class'    :'logging.FileHandler',
-                'filename' : os.path.join(LOG_DIR, 'application.log'),
-                'formatter':'verbose'
-            },
-        },
+        # 'handlers': {
+        #     'logstash': {
+        #         'level': 'DEBUG',
+        #         'class': 'logstash.LogstashHandler',
+        #         'host':  'logsearch-private',
+        #         'port':   5959,
+        #         'version': 1, # Version of logstash event schema. Default value: 0 (for backward compatibility of the library)
+        #         'message_type': 'django-rookie-booking',  # 'type' field in logstash message. Default value: 'logstash'.
+        #         'fqdn': False, # Fully qualified domain name. Default value: false.
+        #         'tags': ['tag+rookie_booking'], # list of tags. Default: None.
+        #     },
+        #     'file': {
+        #         'level'    :'DEBUG',
+        #         'class'    :'logging.FileHandler',
+        #         'filename' : os.path.join(LOG_DIR, 'application.log'),
+        #         'formatter':'verbose'
+        #     },
+        # },
 
         'formatters': {
             'verbose': {
