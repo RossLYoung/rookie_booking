@@ -7780,6 +7780,11 @@ body {
   font-weight: 200;
 }
 
+/* line 10, ../../../sass/sass/partials/_calendar.scss */
+.datetimepicker {
+  color: rgba(0, 0, 0, 0.84);
+}
+
 /* line 3, ../../../sass/sass/partials/_backgrounds.scss */
 .auth-background-image {
   background: url("/static/img/background.jpg") no-repeat center;
@@ -7927,7 +7932,7 @@ html, body {
 }
 /* line 63, ../../../sass/sass/partials/_auth.scss */
 .allauth-container h1 {
-  margin-top: 15px;
+  margin-top: 10px;
   text-align: center;
 }
 
