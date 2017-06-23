@@ -55,3 +55,17 @@ class PoolResultForm(ModelForm):
     class Meta:
         model = PoolResult
         fields = ['winner', 'loser', 'balls_left']
+
+
+    def clean(self):
+        cleaned_data = super(PoolResultForm, self).clean()
+        balls_left   = cleaned_data.get("balls_left")
+        winner       = cleaned_data.get("winner")
+        loser        = cleaned_data.get("loser")
+
+        if (balls_left > 7):
+            self.add_error('balls_left', "Aye?")
+
+        if (winner == loser):
+            self.add_error('winner', "Don't be a fud.")
+            self.add_error('loser',  "Don't be a fud.")

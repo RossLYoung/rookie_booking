@@ -234,10 +234,11 @@ class Development(Common):
     ########## DJANGO DEBUG TOOLBAR CONFIGURATION ########################
     ######################################################################
 
-    MIDDLEWARE = Common.MIDDLEWARE + ['debug_toolbar.middleware.DebugToolbarMiddleware',
-                                                      # 'django.contrib.admindocs.middleware.XViewMiddleware',
-                                                      # 'debugtools.middleware.XViewMiddleware',
-    ]
+    # MIDDLEWARE = Common.MIDDLEWARE + [
+    #                                   'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #                                   'django.contrib.admindocs.middleware.XViewMiddleware',
+    #                                   'debugtools.middleware.XViewMiddleware',
+    # ]
 
     INSTALLED_APPS += [
                         # 'debug_toolbar',

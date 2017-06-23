@@ -113,7 +113,15 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name   = "booking_calendar/pool.html"
     success_message = "Sorted!"
 
+    def get_context_data(self, **kwargs):
+        context = super(PoolResults, self).get_context_data(**kwargs)
+        context['results'] = PoolResult.objects.all().order_by('created_on')
+        return context
+
     def form_valid(self, form):
-        form.fields['created_by'] = self.request.user
+        form.instance.created_by = self.request.user
+        # form.fields['created_by'] = self.request.user.id
         self.object = form.save()
+
+        return super(PoolResults, self).form_valid(form)
 
