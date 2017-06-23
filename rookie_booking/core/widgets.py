@@ -49,7 +49,7 @@ class CustomDatePicker(DateWidget):
 
 
 class CustomDateTimePicker(DateTimeWidget):
-    glyphicon = 'glyphicon-booking_calendar fa fa-booking_calendar' #annoyingly needs the glyphicon class
+    glyphicon = 'glyphicon-booking_calendar fa fa-calendar' #annoyingly needs the glyphicon class
 
     def _media(self):
         datepicker = settings.STATIC_URL + 'js/bootstrap-datetimepicker.js'
