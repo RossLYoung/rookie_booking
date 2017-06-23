@@ -17,6 +17,6 @@
     {%  for provider in socialaccount_providers %}
         <li>
             <a title="-{{provider.name}}-" class="socialaccount_provider my-{{provider.id}}"
-               href="{% provider_login_url provider.id process=process %}">{{provider.name}}</a>
+               href="{% provider_login_url provider.id process=process %}"></a>
         </li>
     {% endfor %}
