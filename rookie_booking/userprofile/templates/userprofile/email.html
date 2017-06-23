@@ -15,7 +15,7 @@
     <div class="row content-panel">
         <div class="col-sm-8 col-lg-6">
 
-{#            <h1>{% trans "E-mail Addresses" %}</h1>#}
+            {#            <h1>{% trans "E-mail Addresses" %}</h1>#}
 
             {% if user.emailaddress_set.all %}
                 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
@@ -25,60 +25,40 @@
                     {% csrf_token %}
 
                     <table class="table" id="email-attached">
-                      <thead>
+                        <thead>
                         <tr class="row">
-                          <th class="col-xs-10  col-sm-8">
-                            {% trans 'E-mail' %}
-                          </th>
-                          <th class="col-xs-2  col-sm-4">
-                            {% trans 'Status' %}
-                          </th>
+                            <th class="col-xs-10  col-sm-8">
+                                {% trans 'E-mail' %}
+                            </th>
+                            <th class="col-xs-2  col-sm-4">
+                                {% trans 'Status' %}
+                            </th>
                         </tr>
-                      </thead>
-                      <tbody>
+                        </thead>
+                        <tbody>
                         {% for emailaddress in user.emailaddress_set.all %}
                             <tr class="row">
-                              <td class="col-xs-10 col-sm-8">
-                                <label  for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
-                                    <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
-                                    {{ emailaddress.email }}
-                                </label>
-                              </td>
-                              <td class="col-xs-2  col-sm-4">
-                                {% if emailaddress.verified %}
-                                    <span class="label label-info">{% trans "Verified" %}</span>
-                                {% else %}
-                                    <span class="label label-warning">{% trans "Unverified" %}</span>
-                                {% endif %}
-                                {% if emailaddress.primary %}
-                                    <span class="label label-success">{% trans "Primary" %}</span>
-                                {% endif %}
-                              </td>
+                                <td class="col-xs-10 col-sm-8">
+                                    <label  for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
+                                        <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
+                                        {{ emailaddress.email }}
+                                    </label>
+                                </td>
+                                <td class="col-xs-2  col-sm-4">
+                                    {% if emailaddress.verified %}
+                                        <span class="label label-info">{% trans "Verified" %}</span>
+                                    {% else %}
+                                        <span class="label label-warning">{% trans "Unverified" %}</span>
+                                    {% endif %}
+                                    {% if emailaddress.primary %}
+                                        <span class="label label-success">{% trans "Primary" %}</span>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
-                      </tbody>
+                        </tbody>
                     </table>
 
-
-{#                    {% csrf_token %}#}
-{#                    <fieldset class="blockLabels">#}
-{##}
-{#                        {% for emailaddress in user.emailaddress_set.all %}#}
-{#                            <div class="ctrlHolder">#}
-{#                                <label for="email_radio_{{ forloop.counter }}" class="{% if emailaddress.primary %}primary_email{% endif %}">#}
-{##}
-{#                                    <input id="email_radio_{{ forloop.counter }}" type="radio" name="email" {% if emailaddress.primary %}checked="checked"{% endif %} value="{{ emailaddress.email }}"/>#}
-{##}
-{#                                    {{ emailaddress.email }}#}
-{#                                    {% if emailaddress.verified %}#}
-{#                                        <span class="verified">{% trans "Verified" %}</span>#}
-{#                                    {% else %}#}
-{#                                        <span class="unverified">{% trans "Unverified" %}</span>#}
-{#                                    {% endif %}#}
-{#                                    {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}#}
-{#                                </label>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
 
                     <ul class="email-action-buttons">
                         <li>
@@ -91,8 +71,6 @@
                             <button class="btn-accent2" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
                         </li>
                     </ul>
-
-                    {#                    </fieldset>#}
                 </form>
 
             {% else %}
@@ -101,7 +79,7 @@
 
             {% endif %}
 
-            </div>
+        </div>
     </div>
 
     <div class="row content-panel">
@@ -129,17 +107,17 @@
 
 {% block extra_script %}
     <script type="text/javascript">
-    (function() {
-      var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
-      var actions = document.getElementsByName('action_remove');
-      if (actions.length) {
-        actions[0].addEventListener("click", function(e) {
-          if (! confirm(message)) {
-            e.preventDefault();
-          }
-        });
-      }
-    })();
+        (function() {
+            var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+            var actions = document.getElementsByName('action_remove');
+            if (actions.length) {
+                actions[0].addEventListener("click", function(e) {
+                    if (! confirm(message)) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        })();
     </script>
 {% endblock extra_script %}
 

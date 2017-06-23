@@ -8,11 +8,11 @@
 
     <div class="container">
 
-        <div class="row tab-background">
 
-            {% block content %}
+        {% block content %}
 
-                <div class="col-xs-12 no-pad-h">
+            <div class="row">
+                <div class="col-xs-12 no-pad-h tab-background">
 
                     <ul id="userprofile-tabs" class=""  role="tablist">
 
@@ -42,31 +42,31 @@
                             <li>No connections url</li>
                         {% endif %}
                     </ul>
-
                 </div>
 
                 <div class="col-xs-12">
-
                     {% for message in messages %}
                         <div class="alert {% if message.tags %}alert-{{ message.tags }} alert-dismissable"{% endif %}>
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <strong>{{ message }}</strong>
                         </div>
                     {% endfor %}
-
-
-                    {% block profile_content %}
-
-                    {% endblock profile_content %}
-
                 </div>
+            </div>
 
-            {% endblock %}
-        </div>
+            <div class="row">
+
+                {% block profile_content %}
+
+                {% endblock profile_content %}
+            </div>
+
+
+        {% endblock content %}
     </div>
 
 
-{% endblock %}
+{% endblock body_wrapper %}
 
 
 
