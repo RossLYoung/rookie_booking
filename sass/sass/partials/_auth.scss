@@ -71,11 +71,12 @@
     @include plain-list($li-float: left,
                         $li-display: inline-block,
                         $li-border-right: none,
-                        $li-width: 33%,
+                        $li-width: 25%,
                         $li-border-bottom: none,
                         $anchor-padding: 5px 5px);
 
-    li{
+  margin-top: 3px;
+  li{
       padding-right: 5px;
 
       &:last-child{
@@ -88,7 +89,10 @@
 .socialaccount_provider{
   font-family: FontAwesome;
   text-align: center;
-  font-size: 1.2em;
+
+  font-size: 2em;
+
+  border-radius: 5px;
 
   //@include border-radius(5px);
   @include card($box-shadow-mixin-value);
@@ -119,6 +123,15 @@
 .socialaccount_provider.my-google:before {
   content: "\f0d4";
 }
+
+.socialaccount_provider.my-slack {
+  background: #e32072;
+  color: #fff;
+}
+.socialaccount_provider.my-slack:before {
+  content: "\f198";
+}
+
 
 //more social hacks for AdBlock - used on contact page
 .facebook-damn-adblock:before{
