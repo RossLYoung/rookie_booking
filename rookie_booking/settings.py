@@ -389,7 +389,7 @@ class Production(Common):
             'file': {
                 'level': 'INFO',
                 'class': 'logging.FileHandler',
-                'filename': '/www/logs/rookie-booking/application.log',
+                'filename': '/www/logs/rookie_booking/application.log',
             },
         },
         'loggers': {
