@@ -16,6 +16,10 @@
 
                     <ul id="userprofile-tabs" class=""  role="tablist">
 
+                        <li class="">
+                            <a href="{% url 'home' %}"><span><i class="fa fa-home fa-"></i></span></a>
+                        </li>
+
                         <li class="{% block profile_nav_details %}{% endblock %}">
                             <a href="{% url 'userprofile:profile-details' %}"><span>{% trans 'Details' %}</span></a>
                         </li>
