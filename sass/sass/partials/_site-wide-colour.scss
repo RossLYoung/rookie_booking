@@ -59,6 +59,10 @@ a{
   font-weight: 600;
   background-color: $accent-color1;
   padding: 5px 15px;
+  @media (max-width: $screen-xs-min){
+    padding: 5px 10px;
+  }
+
   border: none;
   text-align: center;
   color: $copy-text-color;
