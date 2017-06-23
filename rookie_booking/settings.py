@@ -99,6 +99,8 @@ class Common(Configuration):
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.twitter',
         'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.slack',
+
     ]
 
     INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
