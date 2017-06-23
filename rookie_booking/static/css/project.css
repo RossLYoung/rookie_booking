@@ -7780,12 +7780,6 @@ body {
   font-weight: 200;
 }
 
-/* line 1, ../../../sass/sass/partials/_calendar.scss */
-.fc-button, .fc-state-active, .fc-state-disabled, .fc-state-down, .fc-state-hover {
-  color: white !important;
-  background-color: red !important;
-}
-
 /* line 3, ../../../sass/sass/partials/_backgrounds.scss */
 .auth-background-image {
   background: url("/static/img/droplets.jpg") no-repeat center;
