@@ -7554,7 +7554,7 @@ button.close {
 
 /* line 13, ../../../sass/sass/partials/_utilities.scss */
 .mar-b-5 {
-  margin-bottom: 5px !important;
+  margin-bottom: 5px;
 }
 
 /* line 17, ../../../sass/sass/partials/_utilities.scss */
@@ -7790,13 +7790,14 @@ body {
   background: #6b6b6b !important;
 }
 
-/* line 13, ../../../sass/sass/partials/_calendar.scss */
-.fc button {
-  padding-left: 3px;
-  padding-right: 4px;
+@media (max-width: 767px) {
+  /* line 19, ../../../sass/sass/partials/_calendar.scss */
+  .fc .fc-toolbar > * > * {
+    float: left;
+    margin-left: .25em;
+  }
 }
-
-/* line 19, ../../../sass/sass/partials/_calendar.scss */
+/* line 28, ../../../sass/sass/partials/_calendar.scss */
 .datetimepicker {
   color: rgba(0, 0, 0, 0.84);
 }

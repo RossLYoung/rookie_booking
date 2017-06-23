@@ -10,10 +10,19 @@
   background: #6b6b6b!important;
 }
 
-.fc button{
-  padding-left: 3px;
-  padding-right: 4px;
+//.fc button{
+//  padding-left: 3px;
+//  padding-right: 4px;
+//}
+
+@media (max-width: $screen-sm-min){
+  .fc .fc-toolbar>*>* {
+    float: left;
+    margin-left: .25em;
+  }
 }
+
+
 
 
 .datetimepicker{
