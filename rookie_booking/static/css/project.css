@@ -7780,7 +7780,12 @@ body {
   font-weight: 200;
 }
 
-/* line 10, ../../../sass/sass/partials/_calendar.scss */
+/* line 9, ../../../sass/sass/partials/_calendar.scss */
+.fc-today {
+  background: #6b6b6b !important;
+}
+
+/* line 14, ../../../sass/sass/partials/_calendar.scss */
 .datetimepicker {
   color: rgba(0, 0, 0, 0.84);
 }
