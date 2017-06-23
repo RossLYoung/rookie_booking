@@ -6,17 +6,20 @@
         <div class="row">
             <div class="col-xs-12 tab-background">
 
-                <a href="{% url 'booking:pool' %}"                class="btn-accent2 mar-r-5 pull-left"> <i class="fa fa-trophy "></i> Pool</a>
+                <div>
+                    <a href="{% url 'booking:pool' %}"                class="btn-accent2 mar-r-5 pull-left mar-b-5"> <i class="fa fa-trophy "></i> Pool</a>
 
-                <a href="{% url 'account_logout' %}"              class="btn-accent2 pull-right">        <i class="fa fa-sign-out"></i></a>
-                <a href="{% url 'userprofile:profile-details' %}" class="btn-accent2 pull-right mar-r-5"><i class="fa fa-cog"></i></a>
-                <a id="new-booking" href="javascript:void(0)"     class="btn-accent2 pull-right mar-r-5">Make Reservation</a>
+                    <a href="{% url 'account_logout' %}"              class="btn-accent2 pull-right  mar-b-5">        <i class="fa fa-sign-out"></i></a>
+                    <a href="{% url 'userprofile:profile-details' %}" class="btn-accent2 pull-right mar-r-5 mar-b-5"><i class="fa fa-cog"></i></a>
+                    <a id="new-booking" href="javascript:void(0)"     class="btn-accent2 pull-right mar-r-5 mar-b-5">Make Reservation</a>
+                </div>
 
-                {% if user.is_staff %}
-                    <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5">Dashboard</a>
-                    <a id="new-booking" href="{% url 'admin:index' %}"     class="btn-accent2 pull-right mar-r-5">Admin</a>
-                {% endif %}
-
+                <div>
+                    {% if user.is_staff %}
+                        <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5 mar-b-5"><i class="fa fa-tachometer"></i> Dash</a>
+                        <a id="new-booking" href="{% url 'admin:index' %}"     class="btn-accent2 pull-right mar-r-5 mar-b-5">Admin</a>
+                    {% endif %}
+                </div>
             </div>
 
 
