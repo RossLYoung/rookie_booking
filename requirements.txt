@@ -20,6 +20,7 @@ django-extra-views==0.9.0
 -e git+https://github.com/RossLYoung/django-materializecss-form.git#egg=materializecssform
 django-mptt==0.8.7
 django-mptt-admin==0.4.6
+django-redis==4.8.0
 django-versatileimagefield==1.7.1
 django-widget-tweaks==1.4.1
 djangorestframework==3.6.3
