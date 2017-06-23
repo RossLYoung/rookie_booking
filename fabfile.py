@@ -2,4 +2,4 @@
 #If fab is invoked from it's directory, parent imports (..) don't work.
 #Is this cleaner than just having the fabfile directory on the top level??
 
-from rosslyoung.config.fabfile import *
+from rookie_booking.config.fabfile import *

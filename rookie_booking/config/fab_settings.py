@@ -22,7 +22,7 @@ VENV = PROJECT_NAME + 'Env'
 PROJECT_USER = PROJECT_NAME + 'User'
 #PROJECT_USER_PASSWORD = env_vars.PROJECT_USER_PASSWORD
 
-REPO_URL = 'git@github.com:RossLYoung/rookie_booking.com.git'
+REPO_URL = 'git@github.com:RossLYoung/rookie_booking.git'
 
 ROOT_LOCATION = path.abspath('/www')
 

@@ -98,13 +98,13 @@ def deploy():
 
     # Remote
     git_pull()
-    # add_env_vars_to_activate() # this should copy file over, export, then delete file - No need to ever be in vcs
+    add_env_vars_to_activate() # this should copy file over, export, then delete file - No need to ever be in vcs
     rsync()
     delete_src()
     install_requirements()
     # syncdb()
-    # ssl_keys()
-    # nginx_config()
+    ssl_keys()
+    nginx_config()
 
     #makemigrations()
     migrate()
@@ -368,78 +368,6 @@ def restart_nginx():
 ################################################################
 ############### DB - Dump Restore etc ##########################
 ################################################################
-
-@require_server
-def run_export_db(filename=None):
-    """
-    Exports the database on the server.
-    Usage::
-        fab prod run_export_db
-        fab prod run_export_db:filename=foobar.dump
-    """
-    if not filename:
-        filename = settings.DB_DUMP_FILENAME
-    #run('pg_dump -U {0} -Fc {3} > {1}/{2}'.format(settings.DB_USER, settings.SERVER_DB_BACKUP_DIR, filename, settings.DB_NAME))
-    #run('pg_dump -c -Fc -O -U {0} -f {1}/{2} {3}'.format(settings.DB_USER, settings.SERVER_DB_BACKUP_DIR, filename, settings.DB_NAME))
-    run('pg_dump -c -Fc -O -U {0} -f {1}/{2} {3}'.format(settings.DB_USER, settings.SERVER_DB_BACKUP_DIR, filename, settings.DB_NAME))
-
-
-@require_server
-def download_db(filename=None):
-    """
-    Downloads the database from the server into your local machine.
-    In order to import the downloaded database, run ``fab import_db``
-    """
-    if not filename:
-        filename = settings.DB_DUMP_FILENAME
-    local('scp -P {3} {0}:{1}/{2} {1}/'.format(remove_port(env.hosts[0]), settings.SERVER_DB_BACKUP_DIR, filename, env.port))
-
-@require_server
-def run_download_db(filename=None):
-    """
-    Downloads the database from the server into your local machine.
-    In order to import the downloaded database, run ``fab import_db``
-    """
-    if not filename:
-        filename = settings.DB_DUMP_FILENAME
-    local('scp -P {3} {0}:{1}/{2} {1}/'.format(remove_port(env.hosts[0]), settings.SERVER_DB_BACKUP_DIR, filename, env.port))
-
-
-def drop_db():
-    """Drops the local database.
-
-    If there is still active connections stopping this, kill from psql with 'postgres' user
-    select pg_terminate_backend(procpid/(pid for PG 9.2+)
-    from pg_stat_activity
-    where datname = ' DB-NAME';
-    """
-
-    with settings_context_manager(warn_only=True, user=settings.DB_USER):
-
-        #local('psql {1} -U {0} -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE datname ={1} AND pg_stat_activity.pid <> pg_backend_pid();"'.format(settings.DB_USER, settings.DB_NAME))
-        #local('psql {1} -U {0} -c "select pg_terminate_backend(pid) from pg_stat_activity where datname={1}"'.format(settings.DB_USER, settings.DB_NAME))
-        #local('psql {1} -U {0} -c "SELECT pg_terminate_backend(pid)  FROM pg_stat_get_activity(NULL::integer) WHERE datid=(SELECT oid from pg_database where datname = "{1}")"'.format(settings.DB_USER, settings.DB_NAME))
-
-        #local('psql {1} -U {0} -c "DROP DATABASE {1}"'.format(settings.DB_USER, settings.DB_NAME))
-        local('dropdb -U {0} {1}'.format(settings.DB_USER, settings.DB_NAME))
-
-
-
-
-@require_server
-def import_db(filename=None):
-    """
-    Imports the database.
-    """
-    if not filename:
-        filename = settings.DB_DUMP_FILENAME
-    with settings_context_manager(warn_only=True):
-        #local('pg_restore -d {2} -c -U {0} -d {1}/{3}'.format(settings.DB_USER, settings.SERVER_DB_BACKUP_DIR, settings.DB_NAME, filename))
-        #local('pg_restore -d {2} -c -U {0} -d {1}/{3}'.format(settings.DB_USER, settings.SERVER_DB_BACKUP_DIR, settings.DB_NAME, filename))
-        #local('pg_restore -d {2} -U {0} {1}/{3}'.format(settings.DB_USER, settings.SERVER_DB_BACKUP_DIR, settings.DB_NAME, filename))
-        #run('psql {1} -U {1} -c "ALTER USER {0} WITH SUPERUSER"'.format(settings.DB_USER, settings.PG_ADMIN_ROLE))
-        run('pg_restore -d {2} -U {0} {1}/{3} '.format(settings.PG_ADMIN_ROLE, settings.SERVER_DB_BACKUP_DIR, settings.DB_NAME, filename))
-        #run('psql {1} -U {1} -c "ALTER USER {0} WITH NOSUPERUSER"'.format(settings.DB_USER, settings.PG_ADMIN_ROLE))
 
 
 #########################################################
