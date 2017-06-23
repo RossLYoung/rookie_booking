@@ -8,6 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.cache import cache
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, TemplateView, CreateView
 from braces.views import LoginRequiredMixin
 
@@ -112,6 +113,7 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class      = PoolResultForm
     template_name   = "booking_calendar/pool.html"
     success_message = "Sorted!"
+    success_url     = reverse_lazy('booking:pool')
 
     def get_context_data(self, **kwargs):
         context = super(PoolResults, self).get_context_data(**kwargs)
