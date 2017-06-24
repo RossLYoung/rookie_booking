@@ -6518,8 +6518,8 @@ button.close {
 }
 /* line 74, ../../../../../../../../var/lib/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_modals.scss */
 .modal-backdrop.in {
-  opacity: 0;
-  filter: alpha(opacity=0);
+  opacity: 0.75;
+  filter: alpha(opacity=75);
 }
 
 /* line 79, ../../../../../../../../var/lib/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_modals.scss */
@@ -8045,7 +8045,7 @@ html, body {
 
 /* line 123, ../../../sass/sass/partials/_auth.scss */
 .socialaccount_provider.my-google:before {
-  content: "\f0d4";
+  content: "\f1a0";
 }
 
 /* line 127, ../../../sass/sass/partials/_auth.scss */
@@ -8540,7 +8540,7 @@ html, body {
 }
 /* line 101, ../../../sass/sass/partials/_userprofile.scss */
 #social-attached .socialaccount_provider, #email-attached .socialaccount_provider {
-  padding: 7px;
+  padding: 7px 10px;
 }
 /* line 104, ../../../sass/sass/partials/_userprofile.scss */
 #social-attached td, #social-attached th, #email-attached td, #email-attached th {
@@ -8574,7 +8574,7 @@ html, body {
 }
 /* line 129, ../../../sass/sass/partials/_userprofile.scss */
 #social-choices .socialaccount_provider {
-  padding: 7px;
+  padding: 7px 10px;
 }
 
 /* line 134, ../../../sass/sass/partials/_userprofile.scss */

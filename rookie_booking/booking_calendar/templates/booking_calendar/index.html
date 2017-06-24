@@ -38,14 +38,7 @@
         </div>
     </div>
 
-    <div id="add-booking-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content tab-background">
-                <div id="add-booking-modal-body">
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+
 {% endblock content %}
 
 
@@ -120,12 +113,15 @@
                     cache: true,
                     async: true,
                     success: (function(data) {
+
                         $("#add-booking-modal-body").empty().append(data);
+
                         $('#add-booking-modal').modal({
                             show: true,
-                            keyboard: false,
-                            backdrop: false
+                            keyboard: true,
+                            backdrop: 'static'
                         });
+                        $("#add-booking-modal").appendTo("body");
                     }),
                     error: function (xhr, errmsg, err) {
                         alert("Error retrieving bed popup");

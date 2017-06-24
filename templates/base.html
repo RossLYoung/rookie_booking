@@ -29,9 +29,9 @@
             url('{% static "fonts/fontawesome-webfont.svg"   %}') format('svg');
         }
     </style>
-    <link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
     <!-- instead of.... -->
-    {# <link href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">#}
+    {# <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">#}
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700|Raleway:300|Roboto Condensed:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/bootstrap-datetimepicker.min.css" %}">
@@ -87,6 +87,9 @@
     </div>
 </div>
 
+
+
+
 {% block javascript %}
     <script src="{% static  "js/lib/bootstrap.min.js" %}"></script>
     <script src="{% static  "js/lib/underscore.js" %}"></script>
@@ -101,5 +104,16 @@
 {% endblock extra_script %}
 
 </body>
+
+
+<div id="add-booking-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div id="add-booking-modal-body">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 </html>
 

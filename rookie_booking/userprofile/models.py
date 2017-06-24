@@ -136,27 +136,29 @@ def set_initial_user_names(request, user, sociallogin=None, **kwargs):
         if sociallogin.account.provider == 'twitter':
             name = sociallogin.account.extra_data['name']
             user.first_name = name.split()[0]
-            user.last_name = name.split()[1]
-            user.username = sociallogin.account.extra_data['screen_name']
-            #ToDo: Social account signup doesn't verify email
-            verified = sociallogin.account.extra_data['verified']
-            verified = True
-            picture_url =  sociallogin.account.get_avatar_url()
+            try:
+                user.last_name  = name.split()[1]
+            except:
+                pass
+            user.username   = sociallogin.account.extra_data['screen_name']
+            verified        = sociallogin.account.extra_data['verified']
+            verified        = True
+            picture_url     =  sociallogin.account.get_avatar_url()
 
 
         if sociallogin.account.provider == 'facebook':
             user.first_name = sociallogin.account.extra_data['first_name']
-            user.last_name = sociallogin.account.extra_data['last_name']
-            user.username = sociallogin.account.extra_data['name']
-            verified = sociallogin.account.extra_data['verified']
-            picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(
+            user.last_name  = sociallogin.account.extra_data['last_name']
+            user.username   = sociallogin.account.extra_data['name']
+            verified        = sociallogin.account.extra_data['verified']
+            picture_url     = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(
                 sociallogin.account.uid, preferred_avatar_size_pixels)
 
         if sociallogin.account.provider == 'google':
             user.first_name = sociallogin.account.extra_data['given_name']
-            user.last_name = sociallogin.account.extra_data['family_name']
-            #verified = sociallogin.account.extra_data['verified_email']
-            picture_url = sociallogin.account.extra_data['picture']
+            user.last_name  = sociallogin.account.extra_data['family_name']
+            #verified       = sociallogin.account.extra_data['verified_email']
+            picture_url     = sociallogin.account.extra_data['picture']
 
 
         if verified:
