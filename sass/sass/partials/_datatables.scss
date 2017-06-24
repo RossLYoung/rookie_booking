@@ -25,6 +25,11 @@
 
 /////////////// DataTables ////////////////////
 
+
+table.dataTable tbody tr {
+    background-color: $color4
+}
+
 #data-table_filter, #data-table-second_filter{
   float: left;
   width: 50%;

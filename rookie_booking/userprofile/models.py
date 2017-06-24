@@ -145,7 +145,6 @@ def set_initial_user_names(request, user, sociallogin=None, **kwargs):
             verified        = True
             picture_url     =  sociallogin.account.get_avatar_url()
 
-
         if sociallogin.account.provider == 'facebook':
             user.first_name = sociallogin.account.extra_data['first_name']
             user.last_name  = sociallogin.account.extra_data['last_name']
@@ -159,6 +158,13 @@ def set_initial_user_names(request, user, sociallogin=None, **kwargs):
             user.last_name  = sociallogin.account.extra_data['family_name']
             #verified       = sociallogin.account.extra_data['verified_email']
             picture_url     = sociallogin.account.extra_data['picture']
+
+        if sociallogin.account.provider == 'slack':
+            user.first_name = sociallogin.account.extra_data['given_name']
+            user.last_name  = sociallogin.account.extra_data['family_name']
+            #verified       = sociallogin.account.extra_data['verified_email']
+            picture_url     = sociallogin.account.extra_data['picture']
+
 
 
         if verified:

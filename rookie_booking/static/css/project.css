@@ -8095,17 +8095,22 @@ html, body {
   margin-top: -27px;
 }
 
-/* line 28, ../../../sass/sass/partials/_datatables.scss */
+/* line 29, ../../../sass/sass/partials/_datatables.scss */
+table.dataTable tbody tr {
+  background-color: #424242;
+}
+
+/* line 33, ../../../sass/sass/partials/_datatables.scss */
 #data-table_filter, #data-table-second_filter {
   float: left;
   width: 50%;
 }
-/* line 31, ../../../sass/sass/partials/_datatables.scss */
+/* line 36, ../../../sass/sass/partials/_datatables.scss */
 #data-table_filter label, #data-table-second_filter label {
   float: left;
   width: 75%;
 }
-/* line 35, ../../../sass/sass/partials/_datatables.scss */
+/* line 40, ../../../sass/sass/partials/_datatables.scss */
 #data-table_filter input, #data-table-second_filter input {
   width: 100%;
   font-weight: normal;
@@ -8114,32 +8119,32 @@ html, body {
   border-radius: 15px;
 }
 @media (max-width: 767px) {
-  /* line 28, ../../../sass/sass/partials/_datatables.scss */
+  /* line 33, ../../../sass/sass/partials/_datatables.scss */
   #data-table_filter, #data-table-second_filter {
     margin-top: 0;
   }
 }
 
-/* line 48, ../../../sass/sass/partials/_datatables.scss */
+/* line 53, ../../../sass/sass/partials/_datatables.scss */
 #data-table-second_filter {
   width: 75%;
 }
 
-/* line 54, ../../../sass/sass/partials/_datatables.scss */
+/* line 59, ../../../sass/sass/partials/_datatables.scss */
 #data-table_length, #data-table-second_length {
   float: right;
 }
-/* line 56, ../../../sass/sass/partials/_datatables.scss */
+/* line 61, ../../../sass/sass/partials/_datatables.scss */
 #data-table_length label, #data-table-second_length label {
   display: inline-block;
   font-weight: normal;
 }
 
-/* line 66, ../../../sass/sass/partials/_datatables.scss */
+/* line 71, ../../../sass/sass/partials/_datatables.scss */
 #data-table, #data-table-second {
   border-bottom: none;
 }
-/* line 67, ../../../sass/sass/partials/_datatables.scss */
+/* line 72, ../../../sass/sass/partials/_datatables.scss */
 #data-table th, #data-table-second th {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
@@ -8147,13 +8152,13 @@ html, body {
   border-bottom: 1px solid rgba(187, 187, 187, 0.15);
 }
 @media (max-width: 767px) {
-  /* line 75, ../../../sass/sass/partials/_datatables.scss */
+  /* line 80, ../../../sass/sass/partials/_datatables.scss */
   #data-table td, #data-table-second td {
     font-size: 12px;
   }
 }
 
-/* line 84, ../../../sass/sass/partials/_datatables.scss */
+/* line 89, ../../../sass/sass/partials/_datatables.scss */
 #data-table_paginate .current, #data-table-second_paginate .current {
   background: rgba(211, 211, 211, 0.39);
   border: none;
@@ -8161,7 +8166,7 @@ html, body {
   -webkit-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 88, ../../../sass/sass/partials/_datatables.scss */
+/* line 93, ../../../sass/sass/partials/_datatables.scss */
 #data-table_paginate .current:hover, #data-table-second_paginate .current:hover {
   background: rgba(211, 211, 211, 0.75);
 }
