@@ -39,6 +39,16 @@
     </div>
 
 
+<div id="add-booking-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div id="add-booking-modal-body">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 {% endblock content %}
 
 
@@ -119,7 +129,7 @@
                         $('#add-booking-modal').modal({
                             show: true,
                             keyboard: true,
-                            backdrop: 'static'
+                            backdrop: false
                         });
                         $("#add-booking-modal").appendTo("body");
                     }),
