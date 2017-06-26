@@ -7654,6 +7654,21 @@ button.close {
     opacity: 0.4;
   }
 }
+/* line 94, ../../../sass/sass/partials/_utilities.scss */
+#intro, #error-message-box {
+  text-align: center;
+  position: absolute;
+  margin: auto;
+  right: 15%;
+  left: 15%;
+  top: 50px;
+}
+
+/* line 103, ../../../sass/sass/partials/_utilities.scss */
+#error-message-box {
+  top: 20%;
+}
+
 /* line 1, ../../../sass/sass/partials/_site-wide-colour.scss */
 #site-wrapper {
   background-color: #424242;
