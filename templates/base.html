@@ -58,21 +58,21 @@
 
 <div class=""></div>
 
-<div id="site-wrapper" class="container-fluid  background-image {% block background_image %}{% endblock background_image %}">
+<div id="site-wrapper" class="background-image {% block background_image %}{% endblock background_image %}">
 
     {% block header %}
 
     {% endblock header %}
 
-{% block body_wrapper %}
-{#    <div class="body-wrapper"> <!-- extends row class -->#}
+    {% block body_wrapper %}
+
 
         {% block content %}
 
         {% endblock content %}
 
-{#    </div>#}
-{% endblock body_wrapper %}
+        {#    </div>#}
+    {% endblock body_wrapper %}
 
 </div>
 

@@ -2,205 +2,203 @@
 {% load  widget_tweaks %}
 
 {% block content %}
+
     <div class="container">
-    <div class="row">
 
-        <!-- Duplicate with index for now. Abstract out when we know how this fits into the rookie site -->
-        <div class="col-xs-12 tab-background">
+        <div class="row">
 
-            <a href="{% url 'home' %}"           class="btn-accent2 mar-r-5 pull-left mar-b-5"> <i class="fa fa-calendar "></i> Calendar</a>
+            <!-- Duplicate with index for now. Abstract out when we know how this fits into the rookie site -->
+            <div class="col-xs-12 tab-background">
 
-            <a href="{% url 'account_logout' %}"              class="btn-accent2 pull-right mar-b-5">        <i class="fa fa-sign-out"></i></a>
-            <a href="{% url 'userprofile:profile-details' %}" class="btn-accent2 pull-right mar-r-5 mar-b-5"><i class="fa fa-cogs"></i></a>
+                <a href="{% url 'home' %}"           class="btn-accent2 mar-r-5 pull-left mar-b-5"> <i class="fa fa-calendar "></i> Calendar</a>
 
-            {% if user.is_staff %}
-                <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5 mar-b-5"><i class="fa fa-tachometer"></i> Dash</a>
-                <a id="new-booking" href="{% url 'admin:index' %}"     class="btn-accent2 pull-right mar-r-5 mar-b-5">Admin</a>
-            {% endif %}
+                <a href="{% url 'account_logout' %}"              class="btn-accent2 pull-right mar-b-5">        <i class="fa fa-sign-out"></i></a>
+                <a href="{% url 'userprofile:profile-details' %}" class="btn-accent2 pull-right mar-r-5 mar-b-5"><i class="fa fa-cogs"></i></a>
 
-        </div>
+                {% if user.is_staff %}
+                    <a id="new-booking" href="{% url 'dashboard:index' %}" class="btn-accent2 pull-right mar-r-5 mar-b-5"><i class="fa fa-tachometer"></i> Dash</a>
+                    <a id="new-booking" href="{% url 'admin:index' %}"     class="btn-accent2 pull-right mar-r-5 mar-b-5">Admin</a>
+                {% endif %}
 
-
-
-
-
-
-        <div class="col-xs-12 tab-background">
-
-            <div class="row">
-                <div class="col-xs-10">
-                    <h3 class="header-title">New Result</h3>
-                </div>
-                <div class="col-xs-2">
-                    <button id="pool-rules" class="btn-accent3 btn-sm pull-right"
-                    data-toggle="modal" data-target="#pool-rules-modal" data-backdrop="false"
-                    ><i class="fa fa-legal"></i> Rules</button>
-                </div>
             </div>
 
 
-            <form action="" method="post" xmlns="http://www.w3.org/1999/html">
-
-                {% csrf_token %}
+            <div class="col-xs-12 tab-background">
 
                 <div class="row">
-
-                    {{ form.non_field_errors }}
-
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            {{ form.winner.label_tag }}
-                            {{ form.winner.help_text }}
-                            {{ form.winner | add_class:"form-control" }}
-                            {{ form.winner.errors }}
-                        </div>
+                    <div class="col-xs-10">
+                        <h3 class="header-title">New Result</h3>
                     </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            {{ form.loser.label_tag }}
-                            {{ form.loser.help_text }}
-                            {{ form.loser | add_class:"form-control" }}
-                            {{ form.loser.errors }}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            {{ form.balls_left.label_tag }}
-                            {{ form.balls_left.help_text }}
-                            {{ form.balls_left | add_class:"form-control" }}
-                            {{ form.balls_left.errors }}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="form-group" style="padding-top: 26px">
-                            <input id="add-booking"
-
-                                   class="btn-accent2 btn-block form-control"
-                                   type="submit" value="Save" />
-                        </div>
+                    <div class="col-xs-2">
+                        <button id="pool-rules" class="btn-accent3 btn-sm pull-right"
+                                data-toggle="modal" data-target="#pool-rules-modal" data-backdrop="false"
+                        ><i class="fa fa-legal"></i> Rules</button>
                     </div>
                 </div>
 
-            </form>
+
+                <form action="" method="post" xmlns="http://www.w3.org/1999/html">
+
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        {{ form.non_field_errors }}
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                {{ form.winner.label_tag }}
+                                {{ form.winner.help_text }}
+                                {{ form.winner | add_class:"form-control" }}
+                                {{ form.winner.errors }}
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                {{ form.loser.label_tag }}
+                                {{ form.loser.help_text }}
+                                {{ form.loser | add_class:"form-control" }}
+                                {{ form.loser.errors }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                {{ form.balls_left.label_tag }}
+                                {{ form.balls_left.help_text }}
+                                {{ form.balls_left | add_class:"form-control" }}
+                                {{ form.balls_left.errors }}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group" style="padding-top: 26px">
+                                <input id="add-booking"
+
+                                       class="btn-accent2 btn-block form-control"
+                                       type="submit" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
 
 
 
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-xs-12 tab-background">
+        <div class="row">
+            <div class="col-xs-12 tab-background">
 
-            <h3 class="header-title">Results</h3>
+                <h3 class="header-title">Results</h3>
 
 
-            <table id="data-table" class="table table-hover">
-                <thead>
-                <tr>
-                    <th style="width: 25%">Winner</th>
-                    <th style="width: 25%">Loser</th>
-                    <th style="width: 10%" class="text-center">Ball#</th>
-                    <th style="width: 40%">Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for result in results %}
+                <table id="data-table" class="table table-hover">
+                    <thead>
                     <tr>
-                        <td style="width: 25%">{{ result.winner.username }}</td>
-                        <td style="width: 25%">{{ result.loser.username }}</td>
-                        <td style="width: 10%" class="text-center">
-                            {% if result.balls_left == 7 %}
-                                <a class="btn-accent2 btn-sm mar pulsate">
+                        <th style="width: 25%">Winner</th>
+                        <th style="width: 25%">Loser</th>
+                        <th style="width: 10%" class="text-center">Ball#</th>
+                        <th style="width: 40%">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td style="width: 25%">{{ result.winner.username }}</td>
+                            <td style="width: 25%">{{ result.loser.username }}</td>
+                            <td style="width: 10%" class="text-center">
+                                {% if result.balls_left == 7 %}
+                                    <a class="btn-accent2 btn-sm mar pulsate">
+                                        {{ result.balls_left }}
+                                    </a>
+                                {% else %}
                                     {{ result.balls_left }}
-                                </a>
-                            {% else %}
-                                {{ result.balls_left }}
-                            {% endif %}
-                        </td>
-                        <td style="width: 40%" >{{ result.created_on|date:'D, j M y, g:i a' }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-xs-12 tab-background">
-
-            <h3 class="header-title">Stats</h3>
-
-
-            <table id="data-table-second" class="table table-hover">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th class="text-center">Week Wins</th>
-                    <th class="text-center">%</th>
-                    <th class="text-center">Week Losses</th>
-                    <th class="text-center">Month Wins</th>
-                    <th class="text-center">%</th>
-                    <th class="text-center">Month Losses</th>
-                    <th class="text-center">Year Wins</th>
-                    <th class="text-center">%</th>
-                    <th class="text-center">Year Losses</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                {% for user, value in stats.items %}
-                    <tr>
-                        <td>{{ user }}</td>
-                        <td class="text-center" >{% if value.wins_week > 0 %}   {{ value.wins_week }}                 </td>{% endif %}
-                        <td class="text-center" >{% if value.ratio_week > 0 %}  {{ value.ratio_week|floatformat:1 }}% </td>{% endif %}
-                        <td class="text-center" >{% if value.losses_week > 0 %} {{ value.losses_week }}               </td>{% endif %}
-                        <td class="text-center" >{% if value.wins_month > 0 %}  {{ value.wins_month }}                </td>{% endif %}
-                        <td class="text-center" >{% if value.ratio_month > 0 %} {{ value.ratio_month|floatformat:1 }}%</td>{% endif %}
-                        <td class="text-center" >{% if value.losses_month > 0 %}{{ value.losses_month }}              </td>{% endif %}
-                        <td class="text-center" >{% if value.wins_year > 0 %}   {{ value.wins_year }}                 </td>{% endif %}
-                        <td class="text-center" >{% if value.ratio_year > 0 %}  {{ value.ratio_year|floatformat:1 }}% </td>{% endif %}
-                        <td class="text-center" >{% if value.losses_year > 0 %} {{ value.losses_year }}               </td>{% endif %}
-
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-
-
-
-</div>
-
-<div id="pool-rules-modal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content tab-background">
-            <div id="pool-rules-modal-body">
-
-
-                <ul class="list-group">
-                    <li class="list-group-item">One shot on the black</li>
-                    <li class="list-group-item">Shots <i>do not</i> carry</li>
-                    <li class="list-group-item">No stupid 'doubles' rules, unless you're Michael or Chris</li>
-                    <li class="list-group-item">Play down the table after a foul</li>
-                    <li class="list-group-item"></li>
-                    <li class="list-group-item">What else???</li>
-                </ul>
-
-
-                <button type="button" class="btn btn-accent2 btn-block" data-dismiss="modal">Close</button>
-
+                                {% endif %}
+                            </td>
+                            <td style="width: 40%" >{{ result.created_on|date:'D, j M y, g:i a' }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-12 tab-background">
+
+                <h3 class="header-title">Stats</h3>
+
+
+                <table id="data-table-second" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">Week Wins</th>
+                        <th class="text-center">%</th>
+                        <th class="text-center">Week Losses</th>
+                        <th class="text-center">Month Wins</th>
+                        <th class="text-center">%</th>
+                        <th class="text-center">Month Losses</th>
+                        <th class="text-center">Year Wins</th>
+                        <th class="text-center">%</th>
+                        <th class="text-center">Year Losses</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user, value in stats.items %}
+                        <tr>
+                            <td>{{ user }}</td>
+                            <td class="text-center" >{% if value.wins_week > 0 %}   {{ value.wins_week }}                 </td>{% endif %}
+                            <td class="text-center" >{% if value.ratio_week > 0 %}  {{ value.ratio_week|floatformat:1 }}% </td>{% endif %}
+                            <td class="text-center" >{% if value.losses_week > 0 %} {{ value.losses_week }}               </td>{% endif %}
+                            <td class="text-center" >{% if value.wins_month > 0 %}  {{ value.wins_month }}                </td>{% endif %}
+                            <td class="text-center" >{% if value.ratio_month > 0 %} {{ value.ratio_month|floatformat:1 }}%</td>{% endif %}
+                            <td class="text-center" >{% if value.losses_month > 0 %}{{ value.losses_month }}              </td>{% endif %}
+                            <td class="text-center" >{% if value.wins_year > 0 %}   {{ value.wins_year }}                 </td>{% endif %}
+                            <td class="text-center" >{% if value.ratio_year > 0 %}  {{ value.ratio_year|floatformat:1 }}% </td>{% endif %}
+                            <td class="text-center" >{% if value.losses_year > 0 %} {{ value.losses_year }}               </td>{% endif %}
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div id="pool-rules-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content tab-background">
+                <div id="pool-rules-modal-body">
+
+
+                    <ul class="list-group">
+                        <li class="list-group-item">One shot on the black</li>
+                        <li class="list-group-item">Shots <i>do not</i> carry</li>
+                        <li class="list-group-item">No stupid 'doubles' rules, unless you're Michael or Chris</li>
+                        <li class="list-group-item">Play down the table after a foul</li>
+                        <li class="list-group-item"></li>
+                        <li class="list-group-item">What else???</li>
+                    </ul>
+
+
+                    <button type="button" class="btn btn-accent2 btn-block" data-dismiss="modal">Close</button>
+
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 {% endblock content %}
 
@@ -209,41 +207,41 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-        $('#data-table').dataTable( {
-            "dom": '<"top"fl>t<"bottom"rp><"clear">',
-            language: {
-                search: "_INPUT_",
-{#                searchPlaceholder: "Filter Students...",#}
-                "lengthMenu": "_MENU_"
-            },
-            "columnDefs": [
+            $('#data-table').dataTable( {
+                "dom": '<"top"fl>t<"bottom"rp><"clear">',
+                language: {
+                    search: "_INPUT_",
+                    {#                searchPlaceholder: "Filter Students...",#}
+                    "lengthMenu": "_MENU_"
+                },
+                "columnDefs": [
                     { "orderable": true,  "targets": 0 },
                     { "orderable": true,  "targets": 1 },
                     { "orderable": true,  "targets": 2 },
                     { "orderable": true, "targets": 3 }
                 ]
-        } );
+            } );
 
-        $('#data-table-second').dataTable( {
-            "dom": '<"top">t<"bottom"rp><"clear">',
-{#            "scrollX": true,#}
-            language: {
-                search: "_INPUT_",
-                "lengthMenu": "_MENU_"
-            },
-{#            "columnDefs": [#}
-{#                { "orderable": true,  "targets": 0 },#}
-{#                { "orderable": true,  "targets": 1 },#}
-{#                { "orderable": true,  "targets": 2 },#}
-{#                { "orderable": true,  "targets": 3 },#}
-{#                { "orderable": true,  "targets": 4 },#}
-{#                { "orderable": true,  "targets": 5 },#}
-{#                { "orderable": true,  "targets": 6 },#}
-{#                { "orderable": true,  "targets": 7 },#}
-{#                { "orderable": true,  "targets": 8 }#}
-{##}
-{#                ]#}
-        } );
+            $('#data-table-second').dataTable( {
+                "dom": '<"top">t<"bottom"rp><"clear">',
+                {#            "scrollX": true,#}
+                language: {
+                    search: "_INPUT_",
+                    "lengthMenu": "_MENU_"
+                },
+                {#            "columnDefs": [#}
+                {#                { "orderable": true,  "targets": 0 },#}
+                {#                { "orderable": true,  "targets": 1 },#}
+                {#                { "orderable": true,  "targets": 2 },#}
+                {#                { "orderable": true,  "targets": 3 },#}
+                {#                { "orderable": true,  "targets": 4 },#}
+                {#                { "orderable": true,  "targets": 5 },#}
+                {#                { "orderable": true,  "targets": 6 },#}
+                {#                { "orderable": true,  "targets": 7 },#}
+                {#                { "orderable": true,  "targets": 8 }#}
+                {##}
+                {#                ]#}
+            } );
 
 
 
