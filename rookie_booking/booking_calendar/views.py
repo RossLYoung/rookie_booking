@@ -82,31 +82,31 @@ def booking_events_api(request):
     start = utc.localize(convert(request.GET.get('start')))
     end   = utc.localize(convert(request.GET.get('end')))
 
-    cache_name = "bookings" + str(start) + str(end)
+    # cache_name = "bookings" + str(start) + str(end)
 
-    cached_result =  cache.get(cache_name)
+    # cached_result =  cache.get(cache_name)
 
-    if not cached_result:
+    # if not cached_result:
 
-        response_data =[]
+    response_data =[]
 
-        bookings = Booking.objects.filter(start_date_time__gte=start, end_date_time__lte=end)
+    bookings = Booking.objects.filter(start_date_time__gte=start, end_date_time__lte=end)
 
-        for booking in bookings:
+    for booking in bookings:
 
-            response_data.append({
-                "id": booking.id,
-                "title": "{0} - {1}".format(booking.user.username, booking.description),
-                "start": booking.start_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
-                "end":   booking.end_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
-                "color": booking.location.color,
-            })
+        response_data.append({
+            "id": booking.id,
+            "title": "{0} - {1}".format(booking.user.username, booking.description),
+            "start": booking.start_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
+            "end":   booking.end_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
+            "color": booking.location.color,
+        })
 
-        results_json = json.dumps(response_data)
-        cache.set(cache_name + str(start) + str(end),results_json, (60))
-        return HttpResponse(results_json, content_type="application/json")
+    results_json = json.dumps(response_data)
+    # cache.set(cache_name + str(start) + str(end),results_json, (60))
+    return HttpResponse(results_json, content_type="application/json")
 
-    return HttpResponse(cached_result,  content_type="application/json")
+    # return HttpResponse(cached_result,  content_type="application/json")
 
 
 from django.utils import timezone
