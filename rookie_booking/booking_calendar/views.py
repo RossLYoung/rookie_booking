@@ -14,6 +14,7 @@ from braces.views import LoginRequiredMixin
 
 from rookie_booking.booking_calendar.forms import AddBookingForm, PoolResultForm
 from rookie_booking.booking_calendar.models import Booking, Location, PoolResult
+from rookie_booking.userprofile.models import User
 
 
 class Index(LoginRequiredMixin, TemplateView):
@@ -108,6 +109,11 @@ def booking_events_api(request):
     return HttpResponse(cached_result,  content_type="application/json")
 
 
+from django.utils import timezone
+
+from dateutil.relativedelta import relativedelta, MO
+
+
 class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model           = PoolResult
     form_class      = PoolResultForm
@@ -117,7 +123,65 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PoolResults, self).get_context_data(**kwargs)
-        context['results'] = PoolResult.objects.all().order_by('created_on')
+        context['results'] = PoolResult.objects.all().order_by('-created_on')
+
+        now            = timezone.datetime.now()
+        start_of_week  = now.replace(hour=0, minute=0, second=0) + relativedelta(weekday=MO(-1))
+        start_of_month = now.replace(day=1)
+        start_of_year  = now.replace(month=1, day=1)
+
+        stats = {}
+
+        for user in User.objects.all():
+            stats[user.username] = {
+                'total_week'   : 0,
+                'total_month'  : 0,
+                'total_year'   : 0,
+                'wins_week'    : 0,
+                'wins_month'   : 0,
+                'wins_year'    : 0,
+                'losses_week'  : 0,
+                'losses_month' : 0,
+                'losses_year'  : 0,
+                'ratio_week'   : 0,
+                'ratio_month'  : 0,
+                'ratio_year'   : 0,
+            }
+
+        def percent(wins, total):
+            if total == 0:
+                return 0
+            return (wins / total) * 100
+
+
+
+        for result in PoolResult.objects.filter(created_on__gte=start_of_week):
+            stats[result.winner.username]['total_week'] += 1
+            stats[result.winner.username]['wins_week']  += 1
+            stats[result.loser.username]['total_week']  += 1
+            stats[result.loser.username]['losses_week'] += 1
+
+        for result in PoolResult.objects.filter(created_on__gte=start_of_month):
+            stats[result.winner.username]['total_month'] += 1
+            stats[result.winner.username]['wins_month']  += 1
+            stats[result.loser.username]['total_month']  += 1
+            stats[result.loser.username]['losses_month'] += 1
+
+        for result in PoolResult.objects.filter(created_on__gte=start_of_year):
+            stats[result.winner.username]['total_year'] += 1
+            stats[result.winner.username]['wins_year']  += 1
+            stats[result.loser.username]['total_year']  += 1
+            stats[result.loser.username]['losses_year'] += 1
+
+
+        for user in stats:
+            stats[user]['ratio_week']  = percent(float(stats[user]['wins_week'])  , float(stats[user]['total_week']))
+            stats[user]['ratio_month'] = percent(float(stats[user]['wins_month']) , float(stats[user]['total_month']))
+            stats[user]['ratio_year']  = percent(float(stats[user]['wins_year'])  , float(stats[user]['total_year']))
+
+        context['stats'] = stats
+
+
         return context
 
     def form_valid(self, form):

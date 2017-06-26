@@ -122,10 +122,46 @@
     </div>
 
 
-        <div class="row">
+    <div class="row">
         <div class="col-xs-12 tab-background">
 
-            <h3 class="header-title">More Stats.....</h3>
+            <h3 class="header-title">Results</h3>
+
+
+            <table id="data-table-second" class="table table-hover">
+                <thead>
+                <tr>
+                    <th style="width: 19%"></th>
+                    <th class="text-center" style="width: 9%">Week Wins</th>
+                    <th class="text-center" style="width: 9%">%</th>
+                    <th class="text-center" style="width: 9%">Week Losses</th>
+                    <th class="text-center" style="width: 9%">Month Wins</th>
+                    <th class="text-center" style="width: 9%">%</th>
+                    <th class="text-center" style="width: 9%">Month Losses</th>
+                    <th class="text-center" style="width: 9%">Year Wins</th>
+                    <th class="text-center" style="width: 9%">%</th>
+                    <th class="text-center" style="width: 9%">Year Losses</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for user, value in stats.items %}
+                    <tr>
+                        <td style="width: 19%">{{ user }}</td>
+                        <td class="text-center" style="width: 9%">{{ value.wins_week }}</td>
+                        <td class="text-center" style="width: 9%">{{ value.ratio_week|floatformat:2 }}%</td>
+                        <td class="text-center" style="width: 9%">{{ value.losses_week }}</td>
+                        <td class="text-center" style="width: 9%">{{ value.wins_month }}</td>
+                        <td class="text-center" style="width: 9%">{{ value.ratio_month|floatformat:2 }}%</td>
+                        <td class="text-center" style="width: 9%">{{ value.losses_month }}</td>
+                        <td class="text-center" style="width: 9%">{{ value.wins_year }}</td>
+                        <td class="text-center" style="width: 9%">{{ value.ratio_year|floatformat:2 }}%</td>
+                        <td class="text-center" style="width: 9%">{{ value.losses_year }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
         </div>
     </div>
@@ -143,8 +179,9 @@
                 <ul class="list-group">
                     <li class="list-group-item">One shot on the black</li>
                     <li class="list-group-item">Shots <i>do not</i> carry</li>
-                    <li class="list-group-item">Play down the table after a foul</li>
                     <li class="list-group-item">No stupid 'doubles' rules, unless you're Michael or Chris</li>
+                    <li class="list-group-item">Play down the table after a foul</li>
+                    <li class="list-group-item"></li>
                     <li class="list-group-item">More......</li>
                 </ul>
 
@@ -176,6 +213,27 @@
                     { "orderable": true,  "targets": 1 },
                     { "orderable": true,  "targets": 2 },
                     { "orderable": true, "targets": 3 }
+                ]
+        } );
+
+        $('#data-table-second').dataTable( {
+            "dom": '<"top">t<"bottom"rp><"clear">',
+            language: {
+                search: "_INPUT_",
+{#                searchPlaceholder: "Filter Students...",#}
+                "lengthMenu": "_MENU_"
+            },
+            "columnDefs": [
+                { "orderable": true,  "targets": 0 },
+                { "orderable": true,  "targets": 1 },
+                { "orderable": true,  "targets": 2 },
+                { "orderable": true,  "targets": 3 },
+                { "orderable": true,  "targets": 4 },
+                { "orderable": true,  "targets": 5 },
+                { "orderable": true,  "targets": 6 },
+                { "orderable": true,  "targets": 7 },
+                { "orderable": true,  "targets": 8 }
+
                 ]
         } );
 
