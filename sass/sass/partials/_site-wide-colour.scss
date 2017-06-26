@@ -33,6 +33,11 @@ a, button {
     transition: all 225ms ease;
 }
 
+button{
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
 
 .tab-background{
   @extend .content-panel;
@@ -86,6 +91,14 @@ a{
 
 .btn-accent2{
   background-color: $accent-color2;
+}
+
+.btn-accent3{
+  @extend .btn-accent2;
+  background-color: $accent-color3;
+    &:hover {
+      background-color: lighten($accent-color3, 2%);
+    }
 }
 
 .list-group-item{
