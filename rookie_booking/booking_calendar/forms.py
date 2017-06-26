@@ -38,10 +38,10 @@ class AddBookingForm(ModelForm):
             #----------------+++++++++++++++++--------------------------
             #-----++++++++++++++++++++++++++++++++++++++----------------
 
-            overlap_start = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gte=start).exists()
-            overlap_end   = Booking.objects.filter(location=location, start_date_time__lte=end,   end_date_time__gte=end).exists()
-            outside       = Booking.objects.filter(location=location, start_date_time__gte=start, end_date_time__lte=end).exists()
-            inside        = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gte=end).exists()
+            overlap_start = Booking.objects.filter(location=location, start_date_time__lt=start, end_date_time__gt=start).exists()
+            overlap_end   = Booking.objects.filter(location=location, start_date_time__lt=end,   end_date_time__gt=end).exists()
+            outside       = Booking.objects.filter(location=location, start_date_time__gt=start, end_date_time__lt=end).exists()
+            inside        = Booking.objects.filter(location=location, start_date_time__lt=start, end_date_time__gt=end).exists()
 
             if (overlap_start or overlap_end or inside or outside):
                 self.add_error('location', "Occupied!")
