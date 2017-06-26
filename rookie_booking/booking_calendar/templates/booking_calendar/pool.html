@@ -118,7 +118,7 @@
                                     {{ result.balls_left }}
                                 {% endif %}
                             </td>
-                            <td style="width: 40%" >{{ result.created_on|date:'D, j M y, g:i a' }}</td>
+                            <td style="width: 40%" ><span style="display: none">{{ result.created_on|date:'ymdGi' }}</span>{{ result.created_on|date:'D, j M y, g:i a' }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -209,22 +209,24 @@
 
             $('#data-table').dataTable( {
                 "dom": '<"top"fl>t<"bottom"rp><"clear">',
+                "order": [[ 3, "desc" ]],
                 language: {
                     search: "_INPUT_",
                     {#                searchPlaceholder: "Filter Students...",#}
                     "lengthMenu": "_MENU_"
                 },
-                "columnDefs": [
-                    { "orderable": true,  "targets": 0 },
-                    { "orderable": true,  "targets": 1 },
-                    { "orderable": true,  "targets": 2 },
-                    { "orderable": true, "targets": 3 }
-                ]
+{#                "columnDefs": [#}
+{#                    { "orderable": true,  "targets": 0 },#}
+{#                    { "orderable": true,  "targets": 1 },#}
+{#                    { "orderable": true,  "targets": 2 },#}
+{#                    { "orderable": true, "targets": 3 }#}
+{#                ]#}
             } );
 
             $('#data-table-second').dataTable( {
                 "dom": '<"top">t<"bottom"rp><"clear">',
                 {#            "scrollX": true,#}
+                "order": [[ 2, "desc" ]],
                 language: {
                     search: "_INPUT_",
                     "lengthMenu": "_MENU_"
