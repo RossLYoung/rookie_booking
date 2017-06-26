@@ -111,7 +111,15 @@
                     <tr>
                         <td style="width: 25%">{{ result.winner.username }}</td>
                         <td style="width: 25%">{{ result.loser.username }}</td>
-                        <td style="width: 10%" class="text-center">{{ result.balls_left }}</td>
+                        <td style="width: 10%" class="text-center">
+                            {% if result.balls_left == 7 %}
+                                <a class="btn-accent2 btn-sm mar pulsate">
+                                    {{ result.balls_left }}
+                                </a>
+                            {% else %}
+                                {{ result.balls_left }}
+                            {% endif %}
+                        </td>
                         <td style="width: 40%" >{{ result.created_on|date:'D, j M y, g:i a' }}</td>
                     </tr>
                 {% endfor %}
