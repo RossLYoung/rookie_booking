@@ -38,13 +38,25 @@ class AddBookingForm(ModelForm):
             #----------------+++++++++++++++++--------------------------
             #-----++++++++++++++++++++++++++++++++++++++----------------
 
+            result = []
+
             overlap_start = Booking.objects.filter(location=location, start_date_time__lt=start, end_date_time__gt=start).exists()
             overlap_end   = Booking.objects.filter(location=location, start_date_time__lt=end,   end_date_time__gt=end).exists()
             outside       = Booking.objects.filter(location=location, start_date_time__gt=start, end_date_time__lt=end).exists()
             inside        = Booking.objects.filter(location=location, start_date_time__lt=start, end_date_time__gt=end).exists()
 
             if (overlap_start or overlap_end or inside or outside):
-                self.add_error('location', "Occupied!")
+                # quick test to give error feedback
+                if overlap_start:
+                    result.append("start overlap")
+                if overlap_end:
+                    result.append("end overlap")
+                if outside:
+                    result.append("outside overlap")
+                if inside:
+                    result.append("inside overlap")
+
+                self.add_error('location', "Occupied!" + " - " + str([x for x in result])  )
 
 
 class PoolResultForm(ModelForm):
