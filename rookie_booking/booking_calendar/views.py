@@ -1,8 +1,7 @@
 import json
-
 import datetime
-
 import pytz
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.cache import cache
@@ -11,6 +10,9 @@ from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, TemplateView, CreateView
 from braces.views import LoginRequiredMixin
+from django.utils import timezone
+
+from dateutil.relativedelta import relativedelta, MO
 
 from rookie_booking.booking_calendar.forms import AddBookingForm, PoolResultForm
 from rookie_booking.booking_calendar.models import Booking, Location, PoolResult
@@ -83,9 +85,7 @@ def booking_events_api(request):
     end   = utc.localize(convert(request.GET.get('end')))
 
     # cache_name = "bookings" + str(start) + str(end)
-
     # cached_result =  cache.get(cache_name)
-
     # if not cached_result:
 
     response_data =[]
@@ -108,10 +108,10 @@ def booking_events_api(request):
 
     # return HttpResponse(cached_result,  content_type="application/json")
 
-
-from django.utils import timezone
-
-from dateutil.relativedelta import relativedelta, MO
+def percent(wins, total):
+    if total == 0:
+        return 0
+    return (wins / total) * 100
 
 
 class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -123,12 +123,12 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PoolResults, self).get_context_data(**kwargs)
-        context['results'] = PoolResult.objects.all().order_by('-created_on')
+        context['results'] = PoolResult.objects.order_by('-created_on')
 
         now            = timezone.datetime.now()
         start_of_week  = now.replace(hour=0, minute=0, second=0) + relativedelta(weekday=MO(-1))
-        start_of_month = now.replace(day=1)
-        start_of_year  = now.replace(month=1, day=1)
+        start_of_month = now.replace(day=1, hour=0, minute=0, second=0)
+        start_of_year  = now.replace(month=1, day=1, hour=0, minute=0, second=0)
 
         stats = {}
 
@@ -147,13 +147,6 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 'ratio_month'  : 0,
                 'ratio_year'   : 0,
             }
-
-        def percent(wins, total):
-            if total == 0:
-                return 0
-            return (wins / total) * 100
-
-
 
         for result in PoolResult.objects.filter(created_on__gte=start_of_week):
             stats[result.winner.username]['total_week'] += 1
@@ -181,13 +174,9 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         context['stats'] = stats
 
-
         return context
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        # form.fields['created_by'] = self.request.user.id
         self.object = form.save()
-
         return super(PoolResults, self).form_valid(form)
-
