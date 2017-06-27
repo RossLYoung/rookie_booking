@@ -95,7 +95,7 @@
                 {% if todays_grannies %}
                     <h3 class="header-title">Today's Grannies</h3>
                     {% for granny in todays_grannies %}
-                        <div class="alert btn-accent2" role="alert">
+                        <div class="alert btn-accent2 pulsate" role="alert">
                             <p>{{ granny.loser.username }} was <strong>absolutely pumped</strong> by {{ granny.winner.username }}</p>
                         </div>
                     {% endfor %}
@@ -182,15 +182,12 @@
             </div>
         </div>
 
-
-
     </div>
 
     <div id="pool-rules-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content tab-background">
                 <div id="pool-rules-modal-body">
-
 
                     <ul class="list-group">
                         <li class="list-group-item">One shot on the black</li>
@@ -201,9 +198,7 @@
                         <li class="list-group-item">What else???</li>
                     </ul>
 
-
                     <button type="button" class="btn btn-accent2 btn-block" data-dismiss="modal">Close</button>
-
 
                 </div>
             </div><!-- /.modal-content -->
