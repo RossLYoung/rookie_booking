@@ -122,9 +122,8 @@ granny_descriptions = [
     "was thoroughly bested by",
     "is not worthy to lick the boots of",
     "should probably seek counselling because of",
-    "\" should have gone to specsavers\", says"
+    "\"should have gone to specsavers\", says"
 ]
-
 
 from random import choice
 
