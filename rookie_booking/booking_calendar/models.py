@@ -23,7 +23,7 @@ class Booking(models.Model):
 
 class PoolResult(models.Model):
     winner     = models.ForeignKey(to=User, related_name='winning_games', blank=False)
-    loser      = models.ForeignKey(to=User, related_name='losing_games', blank=False)
-    balls_left = models.PositiveSmallIntegerField("Balls Left",   blank=False, default=1)
+    loser      = models.ForeignKey(to=User, related_name='losing_games',  blank=False)
+    balls_left = models.PositiveSmallIntegerField("Loser Balls Left",     blank=False, default=1)
     created_by = models.ForeignKey(to=User)
     created_on = models.DateTimeField(default=timezone.now)
