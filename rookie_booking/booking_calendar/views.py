@@ -125,7 +125,6 @@ granny_descriptions = [
     "\"should have gone to specsavers\", says"
 ]
 
-from random import choice
 
 class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model           = PoolResult
@@ -144,7 +143,7 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         start_of_year  = now.replace(month=1, day=1, hour=0, minute=0, second=0)
 
         context['todays_grannies'] = PoolResult.objects.filter(created_on__date=datetime.date.today(), balls_left=7)
-        context['granny_description'] =  choice(granny_descriptions)
+        context['granny_descriptions'] =  granny_descriptions
 
         stats = {}
 

@@ -96,7 +96,7 @@
                     <h3 class="header-title">Today's Grannies</h3>
                     {% for granny in todays_grannies %}
                         <div class="alert btn-accent2 pulsate" role="alert">
-                            <h3 class="header-title">{{ granny.loser.username }} {{ granny_description }} {{ granny.winner.username }}</h3>
+                            <h3 class="header-title">{{ granny.loser.username }} {{ granny_descriptions|random }} {{ granny.winner.username }}</h3>
                         </div>
                     {% endfor %}
 
