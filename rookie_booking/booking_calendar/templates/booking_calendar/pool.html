@@ -92,8 +92,18 @@
         <div class="row">
             <div class="col-xs-12 tab-background">
 
-                <h3 class="header-title">Results</h3>
+                {% if todays_grannies %}
+                    <h3 class="header-title">Today's Grannies</h3>
+                    {% for granny in todays_grannies %}
+                        <div class="alert alert-danger" role="alert">
+                            <p>{{ granny.loser.username }} was <strong>absolutely pumped</strong> by {{ granny.winner.username }}</p>
+                        </div>
+                    {% endfor %}
 
+                {% endif %}
+
+
+                <h3 class="header-title">Results</h3>
 
                 <table id="data-table" class="table table-hover">
                     <thead>

@@ -130,6 +130,8 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         start_of_month = now.replace(day=1, hour=0, minute=0, second=0)
         start_of_year  = now.replace(month=1, day=1, hour=0, minute=0, second=0)
 
+        context['todays_grannies'] = PoolResult.objects.filter(created_on__date=datetime.date.today(), balls_left=7)
+
         stats = {}
 
         for user in User.objects.all():
