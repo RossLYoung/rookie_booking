@@ -6,8 +6,8 @@ from rookie_booking.core.widgets import CustomDateTimePicker, dateAttrs, dateTim
 
 class AddBookingForm(ModelForm):
 
-    def __init__(self, *args,**kwargs):
-        super (AddBookingForm,self ).__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(AddBookingForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = Booking
@@ -23,20 +23,19 @@ class AddBookingForm(ModelForm):
         start        = cleaned_data.get("start_date_time")
         end          = cleaned_data.get("end_date_time")
 
-
         if not self.errors:
 
             if start > end:
                 self.add_error('end_date_time', "Must be later than the start date!")
 
-            #>>>>>>>>>>>>>>>>>>>>> time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-            #-----------one to compare
-            #-----------+++++++++++++++++++++++++++---------------------
-            #-----------potential clashes
-            #------++++++++++-------------------------------------------
-            #--------------------------------+++++++++++++--------------
-            #----------------+++++++++++++++++--------------------------
-            #-----++++++++++++++++++++++++++++++++++++++----------------
+            # >>>>>>>>>>>>>>>>>>>>> time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            # -----------one to compare
+            # -----------+++++++++++++++++++++++++++---------------------
+            # -----------potential clashes
+            # ------++++++++++-------------------------------------------
+            # --------------------------------+++++++++++++--------------
+            # ----------------+++++++++++++++++--------------------------
+            # -----++++++++++++++++++++++++++++++++++++++----------------
 
             result = []
 
@@ -45,7 +44,7 @@ class AddBookingForm(ModelForm):
             outside       = Booking.objects.filter(location=location, start_date_time__gte=start, end_date_time__lte=end).exists()
             inside        = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gte=end).exists()
 
-            if (overlap_start or overlap_end or inside or outside):
+            if overlap_start or overlap_end or inside or outside:
                 # quick test to give error feedback
                 # if overlap_start:
                 #     result.append("overlap exact")
@@ -58,18 +57,17 @@ class AddBookingForm(ModelForm):
                 if inside:
                     result.append("inside overlap")
 
-                self.add_error('location', "Occupied!" + " - " + str([x for x in result])  )
+                self.add_error('location', "Occupied!" + " - " + str([x for x in result]))
 
 
 class PoolResultForm(ModelForm):
 
-    def __init__(self, *args,**kwargs):
-        super (PoolResultForm,self ).__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(PoolResultForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = PoolResult
         fields = ['winner', 'loser', 'balls_left']
-
 
     def clean(self):
         cleaned_data = super(PoolResultForm, self).clean()
@@ -77,9 +75,9 @@ class PoolResultForm(ModelForm):
         winner       = cleaned_data.get("winner")
         loser        = cleaned_data.get("loser")
 
-        if (balls_left > 7):
+        if balls_left > 7:
             self.add_error('balls_left', "Aye?")
 
-        if (winner == loser):
+        if winner == loser:
             self.add_error('winner', "Don't be a fud.")
             self.add_error('loser',  "Don't be a fud.")

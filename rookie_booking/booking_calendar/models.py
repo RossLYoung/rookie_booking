@@ -16,9 +16,9 @@ class Location(models.Model):
 class Booking(models.Model):
     user            = models.ForeignKey(to=User,     related_name='bookings', blank=True)
     location        = models.ForeignKey(to=Location, related_name='bookings', blank=False)
-    description     = models.CharField(blank=True, max_length=100, default="",)
-    start_date_time = models.DateTimeField("Start",blank=False)
-    end_date_time   = models.DateTimeField("End",  blank=False)
+    description     = models.CharField(blank=True,  max_length=100, default="")
+    start_date_time = models.DateTimeField("Start", blank=False)
+    end_date_time   = models.DateTimeField("End",   blank=False)
 
 
 class PoolResult(models.Model):

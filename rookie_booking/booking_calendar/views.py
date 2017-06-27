@@ -4,11 +4,10 @@ import pytz
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.cache import cache
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, TemplateView, CreateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, CreateView
 from braces.views import LoginRequiredMixin
 from django.utils import timezone
 
@@ -42,35 +41,31 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def form_invalid(self, form):
         if self.request.is_ajax():
-            message =  {"level_tag": 'error', "message": "Correct your errors!"}
+            message  = {"level_tag": 'error', "message": "Correct your errors!"}
             template = render_to_string(template_name=self.template_name,
                                         request=self.request,
                                         context={'form': form,
                                                  'submit_button_text': "Add",
                                                  'user_id':  self.request.user.id
                                                  })
-            to_json = {'template':template, 'message': message, "result":False}
+            to_json = {'template': template, 'message': message, "result": False}
             return JsonResponse(json.dumps(to_json), safe=False)
 
     def form_valid(self, form):
-         if self.request.is_ajax():
-
-             form.fields['user'] = self.request.user
-             self.object = form.save()
-
-             event_json = {
-                 "id"   : self.object.id,
-                 "title": "{0} - {1}".format(self.object.user.username, self.object.description) ,
-                 "start": self.object.start_date_time.isoformat(),
-                 "end"  : self.object.end_date_time.isoformat(),
-                 "color": self.object.location.color,
-             }
-
-             message = {"level_tag": 'success', "message": "Visit Updated!"}
-             to_json = {'message': message, "result":True, "event": event_json}
-             return JsonResponse(json.dumps(to_json), safe=False)
-
-         return super(AddBooking, self).form_valid(form)
+        if self.request.is_ajax():
+            form.fields['user'] = self.request.user
+            self.object = form.save()
+            event_json = {
+                "id"   : self.object.id,
+                "title": "{0} - {1}".format(self.object.user.username, self.object.description) ,
+                "start": self.object.start_date_time.isoformat(),
+                "end"  : self.object.end_date_time.isoformat(),
+                "color": self.object.location.color,
+            }
+            message = {"level_tag": 'success', "message": "Visit Updated!"}
+            to_json = {'message': message, "result": True, "event": event_json}
+            return JsonResponse(json.dumps(to_json), safe=False)
+        return super(AddBooking, self).form_valid(form)
 
 
 @login_required
@@ -88,7 +83,7 @@ def booking_events_api(request):
     # cached_result =  cache.get(cache_name)
     # if not cached_result:
 
-    response_data =[]
+    response_data = []
 
     bookings = Booking.objects.filter(start_date_time__gte=start, end_date_time__lte=end)
 
@@ -107,6 +102,7 @@ def booking_events_api(request):
     return HttpResponse(results_json, content_type="application/json")
 
     # return HttpResponse(cached_result,  content_type="application/json")
+
 
 def percent(wins, total):
     if total == 0:
@@ -142,8 +138,8 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         start_of_month = now.replace(day=1, hour=0, minute=0, second=0)
         start_of_year  = now.replace(month=1, day=1, hour=0, minute=0, second=0)
 
-        context['todays_grannies'] = PoolResult.objects.filter(created_on__date=datetime.date.today(), balls_left=7)
-        context['granny_descriptions'] =  granny_descriptions
+        context['todays_grannies']     = PoolResult.objects.filter(created_on__date=datetime.date.today(), balls_left=7)
+        context['granny_descriptions'] = granny_descriptions
 
         stats = {}
 
@@ -180,7 +176,6 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             stats[result.winner.username]['wins_year']  += 1
             stats[result.loser.username]['total_year']  += 1
             stats[result.loser.username]['losses_year'] += 1
-
 
         for user in stats:
             stats[user]['ratio_week']  = percent(float(stats[user]['wins_week'])  , float(stats[user]['total_week']))
