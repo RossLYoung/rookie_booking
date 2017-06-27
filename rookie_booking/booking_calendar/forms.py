@@ -8,7 +8,6 @@ class AddBookingForm(ModelForm):
 
     def __init__(self, *args,**kwargs):
         super (AddBookingForm,self ).__init__(*args,**kwargs)
-        # self.user = kwargs.pop('user')
 
     class Meta:
         model = Booking
@@ -30,6 +29,7 @@ class AddBookingForm(ModelForm):
             if start > end:
                 self.add_error('end_date_time', "Must be later than the start date!")
 
+            #>>>>>>>>>>>>>>>>>>>>> time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             #-----------one to compare
             #-----------+++++++++++++++++++++++++++---------------------
             #-----------potential clashes
@@ -40,13 +40,15 @@ class AddBookingForm(ModelForm):
 
             result = []
 
-            overlap_start = Booking.objects.filter(location=location, start_date_time__lt=start, end_date_time__gt=start).exists()
-            overlap_end   = Booking.objects.filter(location=location, start_date_time__lt=end,   end_date_time__gt=end).exists()
-            outside       = Booking.objects.filter(location=location, start_date_time__gt=start, end_date_time__lt=end).exists()
-            inside        = Booking.objects.filter(location=location, start_date_time__lt=start, end_date_time__gt=end).exists()
+            overlap_start = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gt=start).exists()
+            overlap_end   = Booking.objects.filter(location=location, start_date_time__lt=end,    end_date_time__gte=end).exists()
+            outside       = Booking.objects.filter(location=location, start_date_time__gte=start, end_date_time__lte=end).exists()
+            inside        = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gte=end).exists()
 
             if (overlap_start or overlap_end or inside or outside):
                 # quick test to give error feedback
+                # if overlap_start:
+                #     result.append("overlap exact")
                 if overlap_start:
                     result.append("start overlap")
                 if overlap_end:
