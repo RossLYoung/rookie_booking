@@ -113,6 +113,20 @@ def percent(wins, total):
         return 0
     return (wins / total) * 100
 
+granny_descriptions = [
+    "was absolutely pumped by",
+    "was worn like a sock puppet by",
+    "has been turned inside-out by",
+    "was humiliated by",
+    "needs to re-evaluate everything because of",
+    "was thoroughly bested by",
+    "is not worthy to lick the boots of",
+    "should probably seek counselling because of",
+    "\" should have gone to specsavers\", says"
+]
+
+
+from random import choice
 
 class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model           = PoolResult
@@ -131,6 +145,7 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         start_of_year  = now.replace(month=1, day=1, hour=0, minute=0, second=0)
 
         context['todays_grannies'] = PoolResult.objects.filter(created_on__date=datetime.date.today(), balls_left=7)
+        context['granny_description'] =  choice(granny_descriptions)
 
         stats = {}
 
