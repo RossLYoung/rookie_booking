@@ -151,12 +151,12 @@
                         <th class="text-center">Week Wins</th>
                         <th class="text-center">%</th>
                         <th class="text-center">Week Losses</th>
-                        <th class="text-center">Month Wins</th>
-                        <th class="text-center">%</th>
-                        <th class="text-center">Month Losses</th>
-                        <th class="text-center">Year Wins</th>
-                        <th class="text-center">%</th>
-                        <th class="text-center">Year Losses</th>
+                        <th class="text-center hidden-xs">Month Wins</th>
+                        <th class="text-center hidden-xs">%</th>
+                        <th class="text-center hidden-xs">Month Losses</th>
+                        <th class="text-center hidden-xs">Year Wins</th>
+                        <th class="text-center hidden-xs">%</th>
+                        <th class="text-center hidden-xs">Year Losses</th>
 
                     </tr>
                     </thead>
@@ -167,12 +167,12 @@
                             <td class="text-center" >{% if value.wins_week > 0 %}   {{ value.wins_week }}                 </td>{% endif %}
                             <td class="text-center" >{% if value.ratio_week > 0 %}  {{ value.ratio_week|floatformat:1 }}% </td>{% endif %}
                             <td class="text-center" >{% if value.losses_week > 0 %} {{ value.losses_week }}               </td>{% endif %}
-                            <td class="text-center" >{% if value.wins_month > 0 %}  {{ value.wins_month }}                </td>{% endif %}
-                            <td class="text-center" >{% if value.ratio_month > 0 %} {{ value.ratio_month|floatformat:1 }}%</td>{% endif %}
-                            <td class="text-center" >{% if value.losses_month > 0 %}{{ value.losses_month }}              </td>{% endif %}
-                            <td class="text-center" >{% if value.wins_year > 0 %}   {{ value.wins_year }}                 </td>{% endif %}
-                            <td class="text-center" >{% if value.ratio_year > 0 %}  {{ value.ratio_year|floatformat:1 }}% </td>{% endif %}
-                            <td class="text-center" >{% if value.losses_year > 0 %} {{ value.losses_year }}               </td>{% endif %}
+                            <td class="text-center hidden-xs" >{% if value.wins_month > 0 %}  {{ value.wins_month }}                </td>{% endif %}
+                            <td class="text-center hidden-xs" >{% if value.ratio_month > 0 %} {{ value.ratio_month|floatformat:1 }}%</td>{% endif %}
+                            <td class="text-center hidden-xs" >{% if value.losses_month > 0 %}{{ value.losses_month }}              </td>{% endif %}
+                            <td class="text-center hidden-xs" >{% if value.wins_year > 0 %}   {{ value.wins_year }}                 </td>{% endif %}
+                            <td class="text-center hidden-xs" >{% if value.ratio_year > 0 %}  {{ value.ratio_year|floatformat:1 }}% </td>{% endif %}
+                            <td class="text-center hidden-xs" >{% if value.losses_year > 0 %} {{ value.losses_year }}               </td>{% endif %}
 
                         </tr>
                     {% endfor %}
