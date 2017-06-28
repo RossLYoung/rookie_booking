@@ -120,7 +120,7 @@
                         <tr>
                             <td style="width: 25%">{{ result.winner.username }}</td>
                             <td style="width: 25%">{{ result.loser.username }}</td>
-                            <td style="width: 10%" class="text-center">{{ diff.winner }}</td>
+                            <td style="width: 10%" class="text-center">{{ diff.winner|floatformat:1 }}</td>
                             <td style="width: 10%" class="text-center">
                                 {% if result.balls_left == 7 %}
                                     <a class="btn-accent2 btn-sm mar pulsate">
@@ -171,7 +171,7 @@
                                 <td>{{ user }}</td>
                                 <td class="text-center">           {% if value.wins_week    > 0 %} {{ value.wins_week }}                  </td>{% endif %}
                                 <td class="text-center">           {% if value.ratio_week   > 0 %} {{ value.ratio_week|floatformat:1 }}%  </td>{% endif %}
-                                <td class="text-center">           {{ value.elo }}                                                        </td>
+                                <td class="text-center">           {{ value.elo|floatformat:0 }}                                                        </td>
                                 <td class="text-center">           {% if value.losses_week  > 0 %} {{ value.losses_week }}                </td>{% endif %}
                                 <td class="text-center hidden-xs" >{% if value.wins_month   > 0 %} {{ value.wins_month }}                 </td>{% endif %}
                                 <td class="text-center hidden-xs" >{% if value.ratio_month  > 0 %} {{ value.ratio_month|floatformat:1 }}% </td>{% endif %}
