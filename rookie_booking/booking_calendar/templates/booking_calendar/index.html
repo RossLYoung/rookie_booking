@@ -84,11 +84,11 @@
                         element.attr('title', event.title);
                         element.attr('href' , event.href);
 
-                        $(element).popover({
+                        element.popover({
                             'title'    : "",
                             'html'     : true,
                             'placement': 'top',
-                            'container': element,
+                            'container': 'body',
 
                             'template': '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
 
