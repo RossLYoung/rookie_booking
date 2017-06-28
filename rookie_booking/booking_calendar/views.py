@@ -57,12 +57,12 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             self.object = form.save()
             event_json = {
                 "id"   : self.object.id,
-                "title": "{0} - {1}".format(self.object.user.username, self.object.description) ,
+                "title": "{0} - {1}".format(self.object.user.username.encode('utf-8'), self.object.description) ,
                 "start": self.object.start_date_time.isoformat(),
                 "end"  : self.object.end_date_time.isoformat(),
                 "color": self.object.location.color,
             }
-            message = {"level_tag": 'success', "message": "Visit Updated!"}
+            message = {"level_tag": 'success', "message": "Booking Created!"}
             to_json = {'message': message, "result": True, "event": event_json}
             return JsonResponse(json.dumps(to_json), safe=False)
         return super(AddBooking, self).form_valid(form)
@@ -91,7 +91,7 @@ def booking_events_api(request):
 
         response_data.append({
             "id": booking.id,
-            "title": "{0} - {1}".format(booking.user.username, booking.description),
+            "title": "{0} - {1}".format(booking.user.username.encode('utf-8'), booking.description),
             "start": booking.start_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
             "end":   booking.end_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
             "color": booking.location.color,
