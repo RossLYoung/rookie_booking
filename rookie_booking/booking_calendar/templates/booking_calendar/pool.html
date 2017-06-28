@@ -119,7 +119,7 @@
                     {% for result, diff in zippedResults %}
                         <tr>
                             <td style="width: 25%">{{ result.winner.username }} (+{{ diff.winner }})</td>
-                            <td style="width: 25%">{{ result.loser.username }}  ( {{ diff.loser }}) </td>
+                            <td style="width: 25%">{{ result.loser.username }}  ({{ diff.loser }}) </td>
                             <td style="width: 10%" class="text-center">
                                 {% if result.balls_left == 7 %}
                                     <a class="btn-accent2 btn-sm mar pulsate">
@@ -238,7 +238,8 @@
             $('#data-table-second').dataTable( {
                 "dom": '<"top">t<"bottom"rp><"clear">',
                 {#            "scrollX": true,#}
-                "order": [[ 2, "desc" ]],
+                "order": [[ 3, "desc" ]],
+                "pageLength": 50,
                 language: {
                     search: "_INPUT_",
                     "lengthMenu": "_MENU_"
