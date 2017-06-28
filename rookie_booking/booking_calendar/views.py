@@ -109,6 +109,24 @@ def percent(wins, total):
         return 0
     return (wins / total) * 100
 
+def get_kfactor(elo_rating):
+    if elo_rating <= 2100:
+        return 32
+    elif elo_rating > 2100 and elo_rating <= 2400:
+        return 24
+    else:
+        return 16
+
+def calculate_elo(winner_elo, loser_elo):
+    # Calculate winner elo
+    winner_odds = 1.0 / (1.0 + pow(10, (loser_elo - winner_elo) / 400))
+    new_winner_elo = round(winner_elo + (get_kfactor(winner_elo) * (1.0 - winner_odds)))
+
+    loser_odds = 1.0 / (1.0 + pow(10, (winner_elo - loser_elo) / 400))
+    new_loser_elo = round(loser_elo + (get_kfactor(loser_elo) * (0.0 - loser_odds)))
+
+    return (new_winner_elo, new_loser_elo)
+
 granny_descriptions = [
     "was absolutely pumped by",
     "was worn like a sock puppet by",
@@ -157,6 +175,7 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 'ratio_week'   : 0,
                 'ratio_month'  : 0,
                 'ratio_year'   : 0,
+                'elo'          : 1200,
             }
 
         for result in PoolResult.objects.filter(created_on__gte=start_of_week):
@@ -176,6 +195,13 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             stats[result.winner.username]['wins_year']  += 1
             stats[result.loser.username]['total_year']  += 1
             stats[result.loser.username]['losses_year'] += 1
+
+        for result in PoolResult.objects.all().order_by('created_on'):
+            winner_elo = stats[result.winner.username]['elo']
+            loser_elo = stats[result.loser.username]['elo']
+            new_winner_elo, new_loser_elo = calculate_elo(winner_elo, loser_elo)
+            stats[result.winner.username]['elo'] = new_winner_elo
+            stats[result.loser.username]['elo'] = new_loser_elo
 
         for user in stats:
             stats[user]['ratio_week']  = percent(float(stats[user]['wins_week'])  , float(stats[user]['total_week']))
