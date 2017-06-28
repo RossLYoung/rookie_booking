@@ -62,6 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         app_label = 'userprofile'
+        ordering = ['username']
 
     def __str__(self):
         return self.get_username()
