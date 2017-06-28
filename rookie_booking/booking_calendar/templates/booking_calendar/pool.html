@@ -110,16 +110,17 @@
                     <tr>
                         <th style="width: 25%">Winner</th>
                         <th style="width: 25%">Loser</th>
+                        <th style="width: 10%" class="text-center">Elo +|-</th>
                         <th style="width: 10%" class="text-center">Ball#</th>
-{#                        <th style="width: 10%" class="text-center">Elo</th>#}
                         <th style="width: 40%">Date</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for result, diff in zippedResults %}
                         <tr>
-                            <td style="width: 25%">{{ result.winner.username }} (+{{ diff.winner }})</td>
-                            <td style="width: 25%">{{ result.loser.username }}  ({{ diff.loser }}) </td>
+                            <td style="width: 25%">{{ result.winner.username }}</td>
+                            <td style="width: 25%">{{ result.loser.username }}</td>
+                            <td style="width: 10%" class="text-center">{{ diff.winner }} {{ diff.loser }}</td>
                             <td style="width: 10%" class="text-center">
                                 {% if result.balls_left == 7 %}
                                     <a class="btn-accent2 btn-sm mar pulsate">
