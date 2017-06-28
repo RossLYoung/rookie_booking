@@ -149,7 +149,7 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PoolResults, self).get_context_data(**kwargs)
-        context['results'] = PoolResult.objects.order_by('-created_on')
+        results = PoolResult.objects.order_by('-created_on')
 
         now            = timezone.datetime.now()
         start_of_week  = now.replace(hour=0, minute=0, second=0) + relativedelta(weekday=MO(-1))
@@ -196,18 +196,31 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             stats[result.loser.username]['total_year']  += 1
             stats[result.loser.username]['losses_year'] += 1
 
+        diffs = []
+        idx = 0
         for result in PoolResult.objects.all().order_by('created_on'):
             winner_elo = stats[result.winner.username]['elo']
             loser_elo = stats[result.loser.username]['elo']
             new_winner_elo, new_loser_elo = calculate_elo(winner_elo, loser_elo)
             stats[result.winner.username]['elo'] = new_winner_elo
             stats[result.loser.username]['elo'] = new_loser_elo
+            winner_diff = new_winner_elo - winner_elo
+            loser_diff = new_loser_elo - loser_elo
+            diffs.append({
+                'winner': winner_diff,
+                'loser': loser_diff
+            })
+            idx += 1
+
+        diffs = reversed(diffs)
 
         for user in stats:
             stats[user]['ratio_week']  = percent(float(stats[user]['wins_week'])  , float(stats[user]['total_week']))
             stats[user]['ratio_month'] = percent(float(stats[user]['wins_month']) , float(stats[user]['total_month']))
             stats[user]['ratio_year']  = percent(float(stats[user]['wins_year'])  , float(stats[user]['total_year']))
 
+
+        context['zippedResults'] = zip(results, diffs)
         context['stats'] = stats
 
         return context
