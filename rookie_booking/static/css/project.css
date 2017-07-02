@@ -8569,6 +8569,7 @@ table.dataTable tbody tr {
 
 /* line 75, ../../../sass/sass/partials/_userprofile.scss */
 .userprofile-avatar-form {
+  min-width: 380px;
   margin-top: 20px;
   padding: 10px;
   border: 1px lightgrey solid;
@@ -8576,66 +8577,66 @@ table.dataTable tbody tr {
   -webkit-border-radius: 6px;
   border-radius: 6px;
 }
-/* line 80, ../../../sass/sass/partials/_userprofile.scss */
+/* line 81, ../../../sass/sass/partials/_userprofile.scss */
 .userprofile-avatar-form img {
   margin: auto;
 }
 
-/* line 87, ../../../sass/sass/partials/_userprofile.scss */
+/* line 88, ../../../sass/sass/partials/_userprofile.scss */
 .email-action-buttons {
   padding-left: 0;
 }
-/* line 90, ../../../sass/sass/partials/_userprofile.scss */
+/* line 91, ../../../sass/sass/partials/_userprofile.scss */
 .email-action-buttons li {
   margin-top: 10px;
   list-style: none;
   display: inline-block;
 }
 
-/* line 98, ../../../sass/sass/partials/_userprofile.scss */
+/* line 99, ../../../sass/sass/partials/_userprofile.scss */
 #social-attached, #email-attached {
   margin-bottom: 0;
 }
-/* line 101, ../../../sass/sass/partials/_userprofile.scss */
+/* line 102, ../../../sass/sass/partials/_userprofile.scss */
 #social-attached .socialaccount_provider, #email-attached .socialaccount_provider {
   padding: 7px 10px;
 }
-/* line 104, ../../../sass/sass/partials/_userprofile.scss */
+/* line 105, ../../../sass/sass/partials/_userprofile.scss */
 #social-attached td, #social-attached th, #email-attached td, #email-attached th {
   padding-left: 0;
 }
 @media (max-width: 767px) {
-  /* line 104, ../../../sass/sass/partials/_userprofile.scss */
+  /* line 105, ../../../sass/sass/partials/_userprofile.scss */
   #social-attached td, #social-attached th, #email-attached td, #email-attached th {
     font-size: 0.9em;
     font-weight: 400;
   }
 }
 
-/* line 115, ../../../sass/sass/partials/_userprofile.scss */
+/* line 116, ../../../sass/sass/partials/_userprofile.scss */
 #social-choices {
   display: inline-block;
 }
-/* line 118, ../../../sass/sass/partials/_userprofile.scss */
+/* line 119, ../../../sass/sass/partials/_userprofile.scss */
 #social-choices li {
   display: inline-block;
   margin-top: 15px;
   padding-left: 5px;
 }
-/* line 119, ../../../sass/sass/partials/_userprofile.scss */
+/* line 120, ../../../sass/sass/partials/_userprofile.scss */
 #social-choices li:first-child {
   padding-left: 0;
 }
-/* line 125, ../../../sass/sass/partials/_userprofile.scss */
+/* line 126, ../../../sass/sass/partials/_userprofile.scss */
 #social-choices li a {
   min-width: 100px;
 }
-/* line 129, ../../../sass/sass/partials/_userprofile.scss */
+/* line 130, ../../../sass/sass/partials/_userprofile.scss */
 #social-choices .socialaccount_provider {
   padding: 7px 10px;
 }
 
-/* line 134, ../../../sass/sass/partials/_userprofile.scss */
+/* line 135, ../../../sass/sass/partials/_userprofile.scss */
 .userprofile-section-heading {
   font-family: "Roboto Condensed", serif;
   color: #ffffff;
@@ -8643,7 +8644,7 @@ table.dataTable tbody tr {
   margin-top: 0;
 }
 
-/* line 142, ../../../sass/sass/partials/_userprofile.scss */
+/* line 143, ../../../sass/sass/partials/_userprofile.scss */
 #address-book-table tr {
   background-color: #424242;
 }
