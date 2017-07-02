@@ -13,7 +13,7 @@ from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta, MO
 
-from rookie_booking.booking_calendar.forms import AddBookingForm, PoolResultForm
+from rookie_booking.booking_calendar.forms import AddBookingForm, PoolResultForm, EditBookingForm
 from rookie_booking.booking_calendar.models import Booking, Location, PoolResult
 from rookie_booking.userprofile.models import User
 
@@ -71,7 +71,7 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 class EditBooking(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model           = Booking
-    form_class      = AddBookingForm
+    form_class      = EditBookingForm
     template_name   = "booking_calendar/_edit_booking_modal.html"
     success_message = "Updated!"
     pk_url_kwarg    = 'booking_id'

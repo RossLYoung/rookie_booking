@@ -45,9 +45,6 @@ class AddBookingForm(ModelForm):
             inside        = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gte=end).exists()
 
             if overlap_start or overlap_end or inside or outside:
-                # quick test to give error feedback
-                # if overlap_start:
-                #     result.append("overlap exact")
                 if overlap_start:
                     result.append("start overlap")
                 if overlap_end:
@@ -58,6 +55,49 @@ class AddBookingForm(ModelForm):
                     result.append("inside overlap")
 
                 self.add_error('location', "Occupied!" + " - " + str([x for x in result]))
+
+
+class EditBookingForm(ModelForm):
+
+    class Meta:
+        model = Booking
+        fields = ['description', 'user', 'location', 'start_date_time', 'end_date_time']
+        widgets = {
+            'start_date_time'  : CustomDateTimePicker(attrs=dateAttrs, options=dateTimeOptions, bootstrap_version=3),
+            'end_date_time'    : CustomDateTimePicker(attrs=dateAttrs, options=dateTimeOptions, bootstrap_version=3)
+        }
+
+
+    def clean(self):
+        cleaned_data = super(EditBookingForm, self).clean()
+        location     = cleaned_data.get("location")
+        start        = cleaned_data.get("start_date_time")
+        end          = cleaned_data.get("end_date_time")
+
+        if not self.errors:
+
+            if start > end:
+                self.add_error('end_date_time', "Must be later than the start date!")
+
+            result = []
+
+            overlap_start = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gt=start).exclude(pk=self.instance.id).exists()
+            overlap_end   = Booking.objects.filter(location=location, start_date_time__lt=end,    end_date_time__gte=end).exclude(pk=self.instance.id).exists()
+            outside       = Booking.objects.filter(location=location, start_date_time__gte=start, end_date_time__lte=end).exclude(pk=self.instance.id).exists()
+            inside        = Booking.objects.filter(location=location, start_date_time__lte=start, end_date_time__gte=end).exclude(pk=self.instance.id).exists()
+
+            if overlap_start or overlap_end or inside or outside:
+                if overlap_start:
+                    result.append("start overlap")
+                if overlap_end:
+                    result.append("end overlap")
+                if outside:
+                    result.append("outside overlap")
+                if inside:
+                    result.append("inside overlap")
+
+                self.add_error('location', "Occupied!" + " - " + str([x for x in result]))
+
 
 
 class PoolResultForm(ModelForm):
