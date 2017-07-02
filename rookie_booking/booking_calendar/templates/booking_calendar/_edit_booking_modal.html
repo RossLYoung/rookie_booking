@@ -1,0 +1,152 @@
+{% load widget_tweaks %}
+
+{% load staticfiles %}
+
+<div class="row">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1">
+
+        <form action="" method="post" xmlns="http://www.w3.org/1999/html">
+
+            {% csrf_token %}
+
+            <h3>eeeeeedit</h3>
+
+            <input id="id_user" type='hidden' name="user" value="{{ form.instance.user.id }}" />
+
+            <div class="row">
+
+                {{ form.non_field_errors }}
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {{ form.start_date_time.label_tag }}
+                        {{ form.start_date_time.help_text }}
+                        {{ form.start_date_time | add_class:"form-control" }}
+                        {{ form.start_date_time.errors }}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {{ form.end_date_time.label_tag }}
+                        {{ form.end_date_time.help_text }}
+                        {{ form.end_date_time | add_class:"form-control" }}
+                        {{ form.end_date_time.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {{ form.location.label_tag }}
+                        {{ form.location.help_text }}
+                        {{ form.location | add_class:"form-control" }}
+                        {{ form.location.errors }}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {{ form.description.label_tag }}
+                        {{ form.description.help_text }}
+                        {{ form.description | add_class:"form-control" }}
+                        {{ form.description.errors }}
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-3 col-sm-offset-3 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-3">
+                    <a style="margin-bottom: 5px" id="close-modal" href="javascript:void(0)" class="btn-accent2 btn-block">
+                        Cancel
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-4 col-lg-3 ">
+                    <input id="add-booking"
+                           class="btn-accent2 btn-block"
+                           type="submit" value="{{ submit_button_text }}" />
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="{% static "js/lib/csrf.js" %}"></script>
+
+<script type='text/javascript'>
+
+    function submit_booking() {
+
+        var form_data = {
+            user            : $('#id_user').val(),
+            location        : $('#id_location').val(),
+            description     : $('#id_description').val(),
+            start_date_time : $('#id_start_date_time').val(),
+            end_date_time   : $('#id_end_date_time').val()
+        };
+
+        $.ajax({
+            data : form_data,
+            url: "/edit-booking/" + {{ form.instance.id }} +  "/",
+            type : "POST",
+            async: false,
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+
+            success : function(data) {
+                //Form valid or not, it returns to here.
+                //form to render error form or close modal on success
+                data_json = JSON.parse(data);
+
+                if(data_json.result){
+                    //add to calendar
+                    event = data_json.event;
+
+                    $('#calendar').fullCalendar('removeEvents', event.id);
+                    $('#calendar').fullCalendar( 'renderEvent', event, true );
+
+                    $('#add-booking-modal').modal('toggle');
+
+
+                }else{
+                    $("#add-booking-modal-body").empty().append(data_json.template);
+
+                    var add_button = $('#add-booking');
+
+                    add_button.off('click');
+                    add_button.on('click', function(event){
+                        event.preventDefault();
+                        submit_booking();
+                    });
+
+                }
+            },
+
+            error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    }
+
+
+    $( document ).ready(function() {
+
+        $('#add-booking').on('click', function(event){
+            event.preventDefault();
+            submit_booking();
+        });
+
+        $('#close-modal').on('click', function(e){
+            $('#add-booking-modal').modal('toggle');
+        });
+    });
+
+</script>

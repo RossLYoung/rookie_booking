@@ -53,12 +53,15 @@
 
 
 {% block extra_script %}
+
+    <script src="{% static "js/lib/csrf.js" %}"></script>
+
     <script type="text/javascript">
         $(document).ready(function(){
 
             function bindPopOverButtons(){
-                $('.edit-booking').on('click',      function(e){ editVisitToBedGetModal($(e.target).attr("data-edit-bed-event")); });
-                $('.remove-booking').on('click',  function(e){ removeBedEvent($(e.target).attr("data-remove-bed-event")); });
+                $('.edit-booking').on('click',    function(e){ editBookingGetModal($(e.target).attr("data-edit-booking")); });
+                $('.remove-booking').on('click',  function(e){ removeBooking($(e.target).attr("data-remove-booking")); });
             }
 
             var show_cal = function(){
@@ -84,17 +87,20 @@
                         element.attr('title', event.title);
                         element.attr('href' , event.href);
 
-                        element.popover({
-                            'title'    : "",
-                            'html'     : true,
-                            'placement': 'top',
-                            'container': 'body',
+                        if(event.user_id == {{ user.id }}){
+                            element.popover({
+                                'title'    : "",
+                                'html'     : true,
+                                'placement': 'top',
+                                'container': 'body',
 
-                            'template': '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
+                                'template': '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
 
-                            'content':  '<div><a data-edit-bed-event="' + event_id + '" class="edit-booking   btn btn-accent1 mar-bot-5 mar-left-5" href="javascript:void(0)">Edit</a>' +
-                            '<a data-remove-bed-event="'    + event_id + '" class="remove-booking btn btn-accent2 mar-bot-5 mar-left-5" href="javascript:void(0)">Delete</a></div>'
-                        });
+                                'content':  '<div><a data-edit-booking="'   + event_id + '" class="edit-booking   btn btn-accent1 mar-bot-5 mar-left-5" href="javascript:void(0)">Edit</a>' +
+                                            '     <a data-remove-booking="' + event_id + '" class="remove-booking btn btn-accent2 mar-bot-5 mar-left-5" href="javascript:void(0)">Delete</a>' +
+                                            '</div>'
+                            });
+                        }
                     },
                     eventClick:  function(event, jsEvent, view) {
                         var bed_event_id = event.id;
@@ -137,6 +143,63 @@
                         alert("Error retrieving booking modal");
                         $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
                             " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                    }
+                })
+            }
+
+            function editBookingGetModal(booking_id){
+
+                $.ajax({
+                    type: "GET",
+                    url: "/edit-booking/" + booking_id +  "/",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: true,
+                    async: true,
+                    success: (function(data) {
+
+                        $("#add-booking-modal-body").empty().append(data);
+                        $('#add-booking-modal').modal({
+                            show: true,
+                            keyboard: true,
+                            backdrop: false
+                        });
+                        $("#add-booking-modal").appendTo("body");
+                        $('.popover').popover('hide');
+
+                    }),
+                    error: function (xhr, errmsg, err) {
+                        alert("Error retrieving booking popup");
+                        $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+                                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                    }
+                })
+            }
+
+            function removeBooking(booking_id){
+                $.ajax({
+                    type: "POST",
+                    url: "/removebooking/" + booking_id +  "/",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: true,
+                    async: true,
+                    success : function(data) {
+
+                        data_json = JSON.parse(data);
+
+                        if (data_json.result) {
+                            booking_id = data_json.booking_id;
+                            $('#calendar').fullCalendar('removeEvents', booking_id);
+                            $('.popover').popover('hide');
+                        } else {
+                            $('.popover').popover('hide');
+                        }
+                    },
+                    error: function (xhr, errmsg, err) {
+                        alert("Error removing booking");
+                        $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+                                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
                         console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
                     }
                 })

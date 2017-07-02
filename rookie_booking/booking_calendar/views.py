@@ -7,7 +7,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 from braces.views import LoginRequiredMixin
 from django.utils import timezone
 
@@ -57,6 +57,7 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             self.object = form.save()
             event_json = {
                 "id"   : self.object.id,
+                "user_id": self.object.user.id,
                 "title": "{0} - {1}".format(self.object.user.username.encode('utf-8'), self.object.description) ,
                 "start": self.object.start_date_time.isoformat(),
                 "end"  : self.object.end_date_time.isoformat(),
@@ -67,6 +68,69 @@ class AddBooking(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             return JsonResponse(json.dumps(to_json), safe=False)
         return super(AddBooking, self).form_valid(form)
 
+
+class EditBooking(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model           = Booking
+    form_class      = AddBookingForm
+    template_name   = "booking_calendar/_edit_booking_modal.html"
+    success_message = "Updated!"
+    pk_url_kwarg    = 'booking_id'
+
+    def get_context_data(self, **kwargs):
+        context                       = super(EditBooking, self).get_context_data(**kwargs)
+        context['submit_button_text'] = "Update"
+        return context
+
+    def form_invalid(self, form):
+        if self.request.is_ajax():
+            message  = {"level_tag": 'error', "message": "Correct your errors!"}
+            template = render_to_string(template_name=self.template_name,
+                                        request=self.request,
+                                        context={'form': form,
+                                                 'submit_button_text': "Update",
+                                                 'user_id':  self.request.user.id
+                                                 })
+            to_json = {'template': template, 'message': message, "result": False}
+            return JsonResponse(json.dumps(to_json), safe=False)
+
+    def form_valid(self, form):
+        if self.request.is_ajax():
+            self.object = form.save()
+            event_json  = {
+                "id"     : self.object.id,
+                "user_id": self.object.user.id,
+                "title"  : "{0} - {1}".format(self.object.user.username.encode('utf-8'), self.object.description) ,
+                "start"  : self.object.start_date_time.isoformat(),
+                "end"    : self.object.end_date_time.isoformat(),
+                "color"  : self.object.location.color,
+            }
+            message = {"level_tag": 'success', "message": "Booking Updated!"}
+            to_json = {'message': message, "result": True, "event": event_json}
+            return JsonResponse(json.dumps(to_json), safe=False)
+        return super(EditBooking, self).form_valid(form)
+
+
+
+
+
+
+
+
+
+
+@login_required
+def remove_booking_event(request, booking_id):
+    if request.method == 'POST':
+        if request.is_ajax():
+            booking = Booking.objects.get(pk=booking_id)
+            if request.user == booking.user:
+                booking.delete()
+                message = {"level_tag": 'success', "message": "Booking Deleted!"}
+                to_json = {'message': message, "result": True, "booking_id": booking_id}
+            else:
+                message = {"level_tag": 'error', "message": "Not allowed!"}
+                to_json = {'message': message, "result": False, "booking_id": booking_id}
+            return JsonResponse(json.dumps(to_json), safe=False)
 
 @login_required
 def booking_events_api(request):
@@ -91,6 +155,7 @@ def booking_events_api(request):
 
         response_data.append({
             "id": booking.id,
+            "user_id": booking.user.id,
             "title": "{0} - {1}".format(booking.user.username.encode('utf-8'), booking.description),
             "start": booking.start_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
             "end":   booking.end_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
@@ -111,18 +176,18 @@ def percent(wins, total):
 
 def get_kfactor(elo_rating):
     if elo_rating <= 2100:
-        return 32
+        return 32.0
     elif elo_rating > 2100 and elo_rating <= 2400:
-        return 24
+        return 24.0
     else:
-        return 16
+        return 16.0
 
 def calculate_elo(winner_elo, loser_elo):
     # Calculate winner elo
-    winner_odds = 1.0 / (1.0 + pow(10, (loser_elo - winner_elo) / 400))
+    winner_odds = 1.0 / (1.0 + pow(10.0, (loser_elo - winner_elo) / 400.0))
     new_winner_elo = round(winner_elo + (get_kfactor(winner_elo) * (1.0 - winner_odds)))
 
-    loser_odds = 1.0 / (1.0 + pow(10, (winner_elo - loser_elo) / 400))
+    loser_odds = 1.0 / (1.0 + pow(10.0, (winner_elo - loser_elo) / 400.0))
     new_loser_elo = round(loser_elo + (get_kfactor(loser_elo) * (0.0 - loser_odds)))
 
     return (new_winner_elo, new_loser_elo)
@@ -199,16 +264,21 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         diffs = []
         idx = 0
         for result in PoolResult.objects.all().order_by('created_on'):
+
             winner_elo = stats[result.winner.username]['elo']
-            loser_elo = stats[result.loser.username]['elo']
+            loser_elo  = stats[result.loser.username]['elo']
+
             new_winner_elo, new_loser_elo = calculate_elo(winner_elo, loser_elo)
+
             stats[result.winner.username]['elo'] = new_winner_elo
-            stats[result.loser.username]['elo'] = new_loser_elo
+            stats[result.loser.username]['elo']  = new_loser_elo
+
             winner_diff = new_winner_elo - winner_elo
-            loser_diff = new_loser_elo - loser_elo
+            loser_diff  = new_loser_elo  - loser_elo
+
             diffs.append({
                 'winner': winner_diff,
-                'loser': loser_diff
+                'loser' : loser_diff
             })
             idx += 1
 
