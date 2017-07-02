@@ -71,14 +71,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         return (self.get_username(),)
 
     def get_full_name(self):
-        return self.username.encode('utf-8')
+        return self.username
 
     def get_short_name(self):
-        return self.username.encode('utf-8')
+        return self.username
 
     def get_username(self):
         'Return the identifying username for this User'
-        return self.username.encode('utf-8')
+        return self.username
 
 
     def set_password(self, raw_password):
