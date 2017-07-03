@@ -1,4 +1,8 @@
+import datetime
+from dateutil.relativedelta import relativedelta
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
+from django.utils import timezone
 
 from rookie_booking.booking_calendar.models import Booking, PoolResult
 from rookie_booking.core.widgets import CustomDateTimePicker, dateAttrs, dateTimeOptions
@@ -110,10 +114,19 @@ class PoolResultForm(ModelForm):
         fields = ['winner', 'loser', 'balls_left']
 
     def clean(self):
-        cleaned_data = super(PoolResultForm, self).clean()
-        balls_left   = cleaned_data.get("balls_left")
-        winner       = cleaned_data.get("winner")
-        loser        = cleaned_data.get("loser")
+        cleaned_data   = super(PoolResultForm, self).clean()
+        balls_left     = cleaned_data.get("balls_left")
+        winner         = cleaned_data.get("winner")
+        loser          = cleaned_data.get("loser")
+        now            = timezone.now()
+        one_minute_ago = now + relativedelta(minutes=-1)
+
+        last_result = PoolResult.objects.last()
+
+        if last_result.created_on > one_minute_ago and winner == last_result.winner and loser == last_result.loser:
+            raise ValidationError(
+                ValidationError(('This appears to be a duplicate'), code='error1'),
+            )
 
         if balls_left > 7:
             self.add_error('balls_left', "Aye?")

@@ -42,8 +42,9 @@
                     {% csrf_token %}
 
                     <div class="row">
-
-                        {{ form.non_field_errors }}
+                        <div class="col-xs-12">
+                            {{ form.non_field_errors }}
+                        </div>
 
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="form-group">
@@ -200,8 +201,8 @@
                         <li class="list-group-item">One shot on the black</li>
                         <li class="list-group-item">Shots do not carry</li>
                         <li class="list-group-item">No stupid 'doubles' rules, unless you're Michael or Chris</li>
-                        <li class="list-group-item">Play down the table after a foul</li>
                         <li class="list-group-item">Replace white in Imaginary 'D', not anywhere behind the line</li>
+                        <li class="list-group-item">Play down the table after a white foul??</li>
                         <li class="list-group-item">Pot the black off the break = Win</li>
                         <li class="list-group-item">Are we doing "a ball must touch a cushion"? I think this is daft</li>
                         <li class="list-group-item">Any changes? What else???</li>
