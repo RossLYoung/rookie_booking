@@ -8266,7 +8266,7 @@ table.dataTable tbody tr {
   background-color: #f2dede;
   border-color: #eed3d7;
   list-style: none;
-  padding-left: 5px;
+  padding: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
