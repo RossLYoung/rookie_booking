@@ -156,7 +156,7 @@ def booking_events_api(request):
         response_data.append({
             "id": booking.id,
             "user_id": booking.user.id,
-            "title": "{0} - {1}".format(booking.user.username.encode('utf-8'), booking.description),
+            "title": "{0} - {1}".format(booking.user.username.encode('utf-8'), booking.description.encode('utf-8')),
             "start": booking.start_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
             "end":   booking.end_date_time.astimezone(pytz.timezone('Europe/London')).isoformat(),
             "color": booking.location.color,
