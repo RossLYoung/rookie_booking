@@ -214,7 +214,7 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PoolResults, self).get_context_data(**kwargs)
-        results = PoolResult.objects.order_by('-created_on')
+        results = PoolResult.objects.order_by('-created_on').select_related('winner', 'loser')
 
         now            = timezone.datetime.now()
         start_of_week  = now.replace(hour=0, minute=0, second=0) + relativedelta(weekday=MO(-1))
@@ -243,19 +243,19 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 'elo'          : 1200,
             }
 
-        for result in PoolResult.objects.filter(created_on__gte=start_of_week):
+        for result in PoolResult.objects.filter(created_on__gte=start_of_week).select_related('winner', 'loser'):
             stats[result.winner.username]['total_week'] += 1
             stats[result.winner.username]['wins_week']  += 1
             stats[result.loser.username]['total_week']  += 1
             stats[result.loser.username]['losses_week'] += 1
 
-        for result in PoolResult.objects.filter(created_on__gte=start_of_month):
+        for result in PoolResult.objects.filter(created_on__gte=start_of_month).select_related('winner', 'loser'):
             stats[result.winner.username]['total_month'] += 1
             stats[result.winner.username]['wins_month']  += 1
             stats[result.loser.username]['total_month']  += 1
             stats[result.loser.username]['losses_month'] += 1
 
-        for result in PoolResult.objects.filter(created_on__gte=start_of_year):
+        for result in PoolResult.objects.filter(created_on__gte=start_of_year).select_related('winner', 'loser'):
             stats[result.winner.username]['total_year'] += 1
             stats[result.winner.username]['wins_year']  += 1
             stats[result.loser.username]['total_year']  += 1
@@ -263,7 +263,7 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         diffs = []
         idx = 0
-        for result in PoolResult.objects.all().order_by('created_on'):
+        for result in PoolResult.objects.all().order_by('created_on').select_related('winner', 'loser'):
 
             winner_elo = stats[result.winner.username]['elo']
             loser_elo  = stats[result.loser.username]['elo']
