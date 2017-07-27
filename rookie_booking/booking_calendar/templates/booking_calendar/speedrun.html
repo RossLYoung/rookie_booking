@@ -92,7 +92,7 @@
                     {% for result in speedruns %}
                         <tr>
                             <td style="width: 25%">{{ result.person.username }}</td>
-                            <td style="width: 25%">{{ result.time|time:'g:i' }}</td>
+                            <td style="width: 25%">{{ result.time|time:'G:i' }}</td>
                             <td style="width: 40%" ><span style="display: none">{{ result.created_on|date:'ymdHi' }}</span>{{ result.created_on|date:'D, j M y, g:i a' }}</td>
                         </tr>
                     {% endfor %}
