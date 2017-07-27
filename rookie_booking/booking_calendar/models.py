@@ -33,7 +33,7 @@ class PoolResult(models.Model):
 
 
 class SpeedRun(models.Model):
-    person      = models.ForeignKey(to=User, related_name='speed_runs', blank=False)
+    person      = models.ForeignKey(verbose_name="Contender", to=User, related_name='speed_runs', blank=False)
     verified_by = models.ForeignKey(to=User, related_name='speed_run_verifications', blank=False)
     time        = models.TimeField("Time",     blank=False, default=1)
     created_by  = models.ForeignKey(to=User)
