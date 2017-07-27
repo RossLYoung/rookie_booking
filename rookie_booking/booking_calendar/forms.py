@@ -143,4 +143,4 @@ class PoolSpeedRunForm(ModelForm):
 
     class Meta:
         model = SpeedRun
-        fields = ['person', 'time']
+        fields = ['person','verified_by', 'time']

@@ -310,7 +310,7 @@ class PoolSpeedRun(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PoolSpeedRun, self).get_context_data(**kwargs)
-        results = SpeedRun.objects.order_by('-time').select_related('person')
+        results = SpeedRun.objects.order_by('-time').select_related('person', 'verified_by')
         context['speedruns'] = results
         return context
 
