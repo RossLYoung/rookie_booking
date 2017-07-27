@@ -13,8 +13,8 @@ from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta, MO
 
-from rookie_booking.booking_calendar.forms import AddBookingForm, PoolResultForm, EditBookingForm
-from rookie_booking.booking_calendar.models import Booking, Location, PoolResult
+from rookie_booking.booking_calendar.forms import AddBookingForm, PoolResultForm, EditBookingForm, PoolSpeedRunForm
+from rookie_booking.booking_calendar.models import Booking, Location, PoolResult, SpeedRun
 from rookie_booking.userprofile.models import User
 
 
@@ -299,3 +299,23 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.created_by = self.request.user
         self.object = form.save()
         return super(PoolResults, self).form_valid(form)
+
+
+class PoolSpeedRun(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model           = SpeedRun
+    form_class      = PoolSpeedRunForm
+    template_name   = "booking_calendar/speedrun.html"
+    success_message = "Sorted!"
+    success_url     = reverse_lazy('booking:pool-timed')
+
+    def get_context_data(self, **kwargs):
+        context = super(PoolSpeedRun, self).get_context_data(**kwargs)
+        results = SpeedRun.objects.order_by('-time').select_related('person')
+        context['speedruns'] = results
+        return context
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        self.object = form.save()
+        return super(PoolSpeedRun, self).form_valid(form)
+

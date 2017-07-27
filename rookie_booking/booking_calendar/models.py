@@ -27,3 +27,13 @@ class PoolResult(models.Model):
     balls_left = models.PositiveSmallIntegerField("Loser Balls Left",     blank=False, default=1)
     created_by = models.ForeignKey(to=User)
     created_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return "{0} v {1} - {2}".format(self.winner, self.loser, self.created_on)
+
+
+class SpeedRun(models.Model):
+    person     = models.ForeignKey(to=User, related_name='speed_runs', blank=False)
+    time       = models.TimeField("Time",     blank=False, default=1)
+    created_by = models.ForeignKey(to=User)
+    created_on = models.DateTimeField(default=timezone.now)

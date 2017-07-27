@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils import timezone
 
-from rookie_booking.booking_calendar.models import Booking, PoolResult
+from rookie_booking.booking_calendar.models import Booking, PoolResult, SpeedRun
 from rookie_booking.core.widgets import CustomDateTimePicker, dateAttrs, dateTimeOptions
 
 
@@ -134,3 +134,13 @@ class PoolResultForm(ModelForm):
         if winner == loser:
             self.add_error('winner', "Don't be a fud.")
             self.add_error('loser',  "Don't be a fud.")
+
+
+class PoolSpeedRunForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PoolSpeedRunForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = SpeedRun
+        fields = ['person', 'time']
