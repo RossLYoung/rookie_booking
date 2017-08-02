@@ -77,31 +77,32 @@
                     header: {
                         left:   'prev',
                         center: 'title',
+{#                        right:  'month, agendaWeek, toggleWeekends, agendaDay,  next'#}
                         right:  'month, agendaWeek, toggleWeekends, agendaDay,  next'
                     },
-                    customButtons: {
-                        toggleWeekends: {
-                            text: 'w/e',
-
-
-
-                            click: function() {
-                                console.log($('#calendar').fullCalendar('option', 'weekends'))
-
-                                if($('#calendar').fullCalendar('option', 'weekends')){
-                                    $('#calendar').fullCalendar('option', 'weekends', 'false')
-                                }else{
-                                    $('#calendar').fullCalendar('option', 'weekends', 'true')
-                                }
-
-                                $('#calendar').fullCalendar( 'render' )
-                                console.log($('#calendar').fullCalendar('option', 'weekends'))
-                            }
-
-
-
-                        }
-                    },
+{#                    customButtons: {#}
+{#                        toggleWeekends: {#}
+{#                            text: 'w/e',#}
+{##}
+{##}
+{##}
+{#                            click: function() {#}
+{#                                console.log($('#calendar').fullCalendar('option', 'weekends'))#}
+{##}
+{#                                if($('#calendar').fullCalendar('option', 'weekends')){#}
+{#                                    $('#calendar').fullCalendar('option', 'weekends', 'false')#}
+{#                                }else{#}
+{#                                    $('#calendar').fullCalendar('option', 'weekends', 'true')#}
+{#                                }#}
+{##}
+{#                                $('#calendar').fullCalendar( 'render' )#}
+{#                                console.log($('#calendar').fullCalendar('option', 'weekends'))#}
+{#                            }#}
+{##}
+{##}
+{##}
+{#                        }#}
+{#                    },#}
 
                     events: '/api/bookings/',
 
