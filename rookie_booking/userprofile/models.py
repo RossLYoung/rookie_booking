@@ -44,12 +44,13 @@ class UserManager(BaseUserManager):
 @python_2_unicode_compatible
 class User(AbstractBaseUser, PermissionsMixin):
 
-    email       = models.EmailField(unique=True)
-    first_name  = models.CharField(_('first name'), max_length=40, blank=True, null=True,  unique=False)
-    last_name   = models.CharField(_('last name'),  max_length=40, blank=True, null=True,  unique=False)
-    username    = models.CharField(_('user name'),  max_length=40, blank=False, null=False, unique=True, default="")
-    is_staff    = models.BooleanField(pgettext_lazy('User field', 'staff status'), default=False)
-    is_active   = models.BooleanField(pgettext_lazy('User field', 'active'), default=False)
+    email            = models.EmailField(unique=True)
+    first_name       = models.CharField(_('first name'), max_length=40, blank=True, null=True,  unique=False)
+    last_name        = models.CharField(_('last name'),  max_length=40, blank=True, null=True,  unique=False)
+    username         = models.CharField(_('user name'),  max_length=40, blank=False, null=False, unique=True, default="")
+    is_staff         = models.BooleanField(pgettext_lazy('User field', 'staff status'), default=False)
+    is_active        = models.BooleanField(pgettext_lazy('User field', 'active'), default=False)
+    hide_from_stats  = models.BooleanField(pgettext_lazy('User field', 'hide from stats'), default=False)
     date_joined = models.DateTimeField(pgettext_lazy('User field', 'date joined'), default=timezone.now, editable=False)
     avatar_url = models.CharField(max_length=256, blank=True, null=True, default='/static/img/userprofile/default-avatar.svg')
 

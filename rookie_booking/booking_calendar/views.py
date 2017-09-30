@@ -228,19 +228,20 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         for user in User.objects.all():
             stats[user.username] = {
-                'total_week'   : 0,
-                'total_month'  : 0,
-                'total_year'   : 0,
-                'wins_week'    : 0,
-                'wins_month'   : 0,
-                'wins_year'    : 0,
-                'losses_week'  : 0,
-                'losses_month' : 0,
-                'losses_year'  : 0,
-                'ratio_week'   : 0,
-                'ratio_month'  : 0,
-                'ratio_year'   : 0,
-                'elo'          : 1200,
+                'hide_from_stats': user.hide_from_stats,
+                'total_week'     : 0,
+                'total_month'    : 0,
+                'total_year'     : 0,
+                'wins_week'      : 0,
+                'wins_month'     : 0,
+                'wins_year'      : 0,
+                'losses_week'    : 0,
+                'losses_month'   : 0,
+                'losses_year'    : 0,
+                'ratio_week'     : 0,
+                'ratio_month'    : 0,
+                'ratio_year'     : 0,
+                'elo'            : 1200,
             }
 
         for result in PoolResult.objects.filter(created_on__gte=start_of_week).select_related('winner', 'loser'):

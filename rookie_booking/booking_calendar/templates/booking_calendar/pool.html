@@ -168,20 +168,22 @@
                     </thead>
                     <tbody>
                     {% for user, value in stats.items %}
-                        {% if value.wins_year or value.losses_year != 0 %} <!-- don't show the punters who've never played a game -->
-                            <tr>
-                                <td>{{ user }}</td>
-                                <td class="text-center">           {{ value.elo|floatformat:0 }}                                                        </td>
-                                <td class="text-center">           {% if value.wins_week    > 0 %} {{ value.wins_week }}                  </td>{% endif %}
-                                <td class="text-center">           {% if value.ratio_week   > 0 %} {{ value.ratio_week|floatformat:1 }}%  </td>{% endif %}
-                                <td class="text-center">           {% if value.losses_week  > 0 %} {{ value.losses_week }}                </td>{% endif %}
-                                <td class="text-center hidden-xs" >{% if value.wins_month   > 0 %} {{ value.wins_month }}                 </td>{% endif %}
-                                <td class="text-center hidden-xs" >{% if value.ratio_month  > 0 %} {{ value.ratio_month|floatformat:1 }}% </td>{% endif %}
-                                <td class="text-center hidden-xs" >{% if value.losses_month > 0 %} {{ value.losses_month }}               </td>{% endif %}
-                                <td class="text-center hidden-xs" >{% if value.wins_year    > 0 %} {{ value.wins_year }}                  </td>{% endif %}
-                                <td class="text-center hidden-xs" >{% if value.ratio_year   > 0 %} {{ value.ratio_year|floatformat:1 }}%  </td>{% endif %}
-                                <td class="text-center hidden-xs" >{% if value.losses_year  > 0 %} {{ value.losses_year }}                </td>{% endif %}
-                            </tr>
+                        {% if value.hide_from_stats is not True %} <!-- hide visitors -->
+                            {% if value.wins_year or value.losses_year != 0 %} <!-- don't show the punters who've never played a game -->
+                                <tr>
+                                    <td>{{ user }}</td>
+                                    <td class="text-center">           {{ value.elo|floatformat:0 }}                                                        </td>
+                                    <td class="text-center">           {% if value.wins_week    > 0 %} {{ value.wins_week }}                  </td>{% endif %}
+                                    <td class="text-center">           {% if value.ratio_week   > 0 %} {{ value.ratio_week|floatformat:1 }}%  </td>{% endif %}
+                                    <td class="text-center">           {% if value.losses_week  > 0 %} {{ value.losses_week }}                </td>{% endif %}
+                                    <td class="text-center hidden-xs" >{% if value.wins_month   > 0 %} {{ value.wins_month }}                 </td>{% endif %}
+                                    <td class="text-center hidden-xs" >{% if value.ratio_month  > 0 %} {{ value.ratio_month|floatformat:1 }}% </td>{% endif %}
+                                    <td class="text-center hidden-xs" >{% if value.losses_month > 0 %} {{ value.losses_month }}               </td>{% endif %}
+                                    <td class="text-center hidden-xs" >{% if value.wins_year    > 0 %} {{ value.wins_year }}                  </td>{% endif %}
+                                    <td class="text-center hidden-xs" >{% if value.ratio_year   > 0 %} {{ value.ratio_year|floatformat:1 }}%  </td>{% endif %}
+                                    <td class="text-center hidden-xs" >{% if value.losses_year  > 0 %} {{ value.losses_year }}                </td>{% endif %}
+                                </tr>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                     </tbody>
@@ -231,12 +233,12 @@
                     {#                searchPlaceholder: "Filter Students...",#}
                     "lengthMenu": "_MENU_"
                 },
-{#                "columnDefs": [#}
-{#                    { "orderable": true,  "targets": 0 },#}
-{#                    { "orderable": true,  "targets": 1 },#}
-{#                    { "orderable": true,  "targets": 2 },#}
-{#                    { "orderable": true, "targets": 3 }#}
-{#                ]#}
+                {#                "columnDefs": [#}
+                {#                    { "orderable": true,  "targets": 0 },#}
+                {#                    { "orderable": true,  "targets": 1 },#}
+                {#                    { "orderable": true,  "targets": 2 },#}
+                {#                    { "orderable": true, "targets": 3 }#}
+                {#                ]#}
             } );
 
             $('#data-table-second').dataTable( {
