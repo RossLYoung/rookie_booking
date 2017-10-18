@@ -157,7 +157,7 @@ class Common(Configuration):
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, "rookie_booking", "static"),
         os.path.join(BASE_DIR, "rookie_booking", "commentry", "static"),
-        os.path.join(BASE_DIR, "rookie_booking", "react-redux", "dist"),
+        # os.path.join(BASE_DIR, "rookie_booking", "react-redux", "dist"),
     )
 
     STATIC_ROOT = join(BASE_DIR,'static_site_wide')
