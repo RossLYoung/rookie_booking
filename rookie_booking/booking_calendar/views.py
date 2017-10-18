@@ -204,6 +204,87 @@ granny_descriptions = [
     "\"should have gone to specsavers\", says"
 ]
 
+def get_user_stats():
+    # make a dict of dicts with the following shape for each user
+    # total not implemented - will need to add an all-time count for when we enter a new year
+    stats = {}
+    for user in User.objects.all():
+        stats[user.username] = {
+            'hide_from_stats': user.hide_from_stats,
+
+            'total_week': 0,
+            'total_month': 0,
+            'total_year': 0,
+
+            'wins_week': 0,
+            'wins_month': 0,
+            'wins_year': 0,
+            'losses_week': 0,
+            'losses_month': 0,
+            'losses_year': 0,
+
+            'ratio_week': 0,
+            'ratio_month': 0,
+            'ratio_year': 0,
+
+            'elo': 1200,
+        }
+
+    now = timezone.datetime.now()
+    start_of_week = now.replace(hour=0, minute=0, second=0) + relativedelta(weekday=MO(-1))
+    start_of_month = now.replace(day=1, hour=0, minute=0, second=0)
+    start_of_year = now.replace(month=1, day=1, hour=0, minute=0, second=0)
+
+    # for the last week, month, and year, sum the wins and losses for each user
+    for result in PoolResult.objects.filter(created_on__gte=start_of_week).select_related('winner', 'loser'):
+        stats[result.winner.username]['total_week'] += 1
+        stats[result.winner.username]['wins_week'] += 1
+        stats[result.loser.username]['total_week'] += 1
+        stats[result.loser.username]['losses_week'] += 1
+
+    for result in PoolResult.objects.filter(created_on__gte=start_of_month).select_related('winner', 'loser'):
+        stats[result.winner.username]['total_month'] += 1
+        stats[result.winner.username]['wins_month'] += 1
+        stats[result.loser.username]['total_month'] += 1
+        stats[result.loser.username]['losses_month'] += 1
+
+    for result in PoolResult.objects.filter(created_on__gte=start_of_year).select_related('winner', 'loser'):
+        stats[result.winner.username]['total_year'] += 1
+        stats[result.winner.username]['wins_year'] += 1
+        stats[result.loser.username]['total_year'] += 1
+        stats[result.loser.username]['losses_year'] += 1
+
+    # then get the weekly, monthly, and yearly win percentage
+    for user in stats:
+        stats[user]['ratio_week'] = percent(float(stats[user]['wins_week']), float(stats[user]['total_week']))
+        stats[user]['ratio_month'] = percent(float(stats[user]['wins_month']), float(stats[user]['total_month']))
+        stats[user]['ratio_year'] = percent(float(stats[user]['wins_year']), float(stats[user]['total_year']))
+
+    return stats
+
+def get_elo_diffs(stats):
+    diffs = []
+    for result in PoolResult.objects.all().order_by('created_on').select_related('winner', 'loser'):
+        winner_elo = stats[result.winner.username]['elo']
+        loser_elo = stats[result.loser.username]['elo']
+
+        new_winner_elo, new_loser_elo = calculate_elo(winner_elo, loser_elo)
+
+        stats[result.winner.username]['elo'] = new_winner_elo
+        stats[result.loser.username]['elo']  = new_loser_elo
+
+        winner_diff = new_winner_elo - winner_elo
+        loser_diff  = new_loser_elo  - loser_elo
+
+        diffs.append({
+            'winner_elo'      : winner_diff,
+            'loser_elo'       : loser_diff,
+            'winner_elo_total': new_winner_elo,
+            'loser_elo_total' : new_loser_elo
+        })
+
+    return reversed(diffs)
+
 
 class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model           = PoolResult
@@ -214,83 +295,16 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(PoolResults, self).get_context_data(**kwargs)
-        results = PoolResult.objects.order_by('-created_on').select_related('winner', 'loser')
 
-        now            = timezone.datetime.now()
-        start_of_week  = now.replace(hour=0, minute=0, second=0) + relativedelta(weekday=MO(-1))
-        start_of_month = now.replace(day=1, hour=0, minute=0, second=0)
-        start_of_year  = now.replace(month=1, day=1, hour=0, minute=0, second=0)
-
+        # anyone been pumped today?
         context['todays_grannies']     = PoolResult.objects.filter(created_on__date=datetime.date.today(), balls_left=7)
         context['granny_descriptions'] = granny_descriptions
 
-        stats = {}
+        stats = get_user_stats()
 
-        for user in User.objects.all():
-            stats[user.username] = {
-                'hide_from_stats': user.hide_from_stats,
-                'total_week'     : 0,
-                'total_month'    : 0,
-                'total_year'     : 0,
-                'wins_week'      : 0,
-                'wins_month'     : 0,
-                'wins_year'      : 0,
-                'losses_week'    : 0,
-                'losses_month'   : 0,
-                'losses_year'    : 0,
-                'ratio_week'     : 0,
-                'ratio_month'    : 0,
-                'ratio_year'     : 0,
-                'elo'            : 1200,
-            }
+        diffs = get_elo_diffs(stats)
 
-        for result in PoolResult.objects.filter(created_on__gte=start_of_week).select_related('winner', 'loser'):
-            stats[result.winner.username]['total_week'] += 1
-            stats[result.winner.username]['wins_week']  += 1
-            stats[result.loser.username]['total_week']  += 1
-            stats[result.loser.username]['losses_week'] += 1
-
-        for result in PoolResult.objects.filter(created_on__gte=start_of_month).select_related('winner', 'loser'):
-            stats[result.winner.username]['total_month'] += 1
-            stats[result.winner.username]['wins_month']  += 1
-            stats[result.loser.username]['total_month']  += 1
-            stats[result.loser.username]['losses_month'] += 1
-
-        for result in PoolResult.objects.filter(created_on__gte=start_of_year).select_related('winner', 'loser'):
-            stats[result.winner.username]['total_year'] += 1
-            stats[result.winner.username]['wins_year']  += 1
-            stats[result.loser.username]['total_year']  += 1
-            stats[result.loser.username]['losses_year'] += 1
-
-        diffs = []
-        idx = 0
-        for result in PoolResult.objects.all().order_by('created_on').select_related('winner', 'loser'):
-
-            winner_elo = stats[result.winner.username]['elo']
-            loser_elo  = stats[result.loser.username]['elo']
-
-            new_winner_elo, new_loser_elo = calculate_elo(winner_elo, loser_elo)
-
-            stats[result.winner.username]['elo'] = new_winner_elo
-            stats[result.loser.username]['elo']  = new_loser_elo
-
-            winner_diff = new_winner_elo - winner_elo
-            loser_diff  = new_loser_elo  - loser_elo
-
-            diffs.append({
-                'winner': winner_diff,
-                'loser' : loser_diff
-            })
-            idx += 1
-
-        diffs = reversed(diffs)
-
-        for user in stats:
-            stats[user]['ratio_week']  = percent(float(stats[user]['wins_week'])  , float(stats[user]['total_week']))
-            stats[user]['ratio_month'] = percent(float(stats[user]['wins_month']) , float(stats[user]['total_month']))
-            stats[user]['ratio_year']  = percent(float(stats[user]['wins_year'])  , float(stats[user]['total_year']))
-
-
+        results = PoolResult.objects.order_by('-created_on').select_related('winner', 'loser')
         context['zippedResults'] = zip(results, diffs)
         context['stats'] = stats
 
@@ -301,6 +315,46 @@ class PoolResults(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         self.object = form.save()
         return super(PoolResults, self).form_valid(form)
 
+
+# from django.core.cache import cache
+
+@login_required
+def pool_result_json(request):
+    stats         = get_user_stats()
+    diffs         = get_elo_diffs(stats)
+    results       = PoolResult.objects.order_by('-created_on').select_related('winner', 'loser')
+    zippedResults = zip(results, diffs)
+
+    response_data ={
+        "currentUser": request.user.username,
+        "data": {}
+    }
+
+    for result, elo_stuff in zippedResults:
+        response_data["data"][result.id] = {
+            "id"              : result.id,
+            "date"            : result.created_on.isoformat(),
+            "day"             : result.created_on.weekday(),
+            "winner"          : result.winner.username,
+            "loser"           : result.loser.username,
+            "elo"             : elo_stuff["winner_elo"],  # can be winner or loser as they're the same
+            "winner_elo_total": elo_stuff["winner_elo_total"],
+            "loser_elo_total" : elo_stuff["loser_elo_total"],
+            "balls_left"      : result.balls_left
+        }
+
+    # results_json = json.dumps({"results": response_data})
+
+    # cache.set("acall-" + query_string, results_json, 60)
+    return JsonResponse(response_data, safe=False)
+    # return JsonResponse(cached_result, safe=False)
+
+class PoolStats(LoginRequiredMixin, TemplateView):
+    template_name = 'booking_calendar/stats.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(PoolStats, self).get_context_data(**kwargs)
+    #     return context
 
 class PoolSpeedRun(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model           = SpeedRun

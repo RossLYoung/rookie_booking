@@ -13,3 +13,5 @@ static_site_wide
 /rookie_booking/config/ssl/
 /static_site_wide/
 /notes
+/rookie_booking/react-redux/node_modules/
+/node_modules/

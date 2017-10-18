@@ -73,6 +73,7 @@
 }
 
 .userprofile-avatar-form{
+  min-width: 380px; //seems to be versatile imagefields min
   margin-top: 20px;
   padding: 10px;
   border: 1px lightgrey solid;

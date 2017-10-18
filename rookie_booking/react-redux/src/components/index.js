@@ -1,0 +1,2 @@
+export  IndividualSummary  from './IndividualSummary';
+

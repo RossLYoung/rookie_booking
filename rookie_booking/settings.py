@@ -89,9 +89,9 @@ class Common(Configuration):
         'mptt',
         'django_mptt_admin',
         'crispy_forms',
-
         'versatileimagefield',
         'materializecssform',
+        'webpack_loader',
 
         'allauth',
         'allauth.account',
@@ -157,6 +157,7 @@ class Common(Configuration):
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, "rookie_booking", "static"),
         os.path.join(BASE_DIR, "rookie_booking", "commentry", "static"),
+        os.path.join(BASE_DIR, "rookie_booking", "react-redux", "dist"),
     )
 
     STATIC_ROOT = join(BASE_DIR,'static_site_wide')
@@ -220,6 +221,21 @@ class Common(Configuration):
 
     AUTOSLUG_SLUGIFY_FUNCTION = "slugify.slugify"
 
+    WEBPACK_LOADER = {
+        'DEFAULT': {
+            'CACHE': not DEBUG,
+            'BUNDLE_DIR_NAME': 'js/react/',  # must end with slash
+            'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+            'POLL_INTERVAL': 0.1,
+            'TIMEOUT': None,
+            'IGNORE': ['.+\.hot-update.js', '.+\.map']
+        }
+    }
+    if not DEBUG:
+        WEBPACK_LOADER.update({
+            'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
+        })
+
 
 class Development(Common):
     # DEBUG = values.BooleanValue(False)
@@ -236,20 +252,20 @@ class Development(Common):
     ########## DJANGO DEBUG TOOLBAR CONFIGURATION ########################
     ######################################################################
 
-    # MIDDLEWARE = Common.MIDDLEWARE + [
-    #                                   'debug_toolbar.middleware.DebugToolbarMiddleware',
+    MIDDLEWARE = Common.MIDDLEWARE + [
+                                      'debug_toolbar.middleware.DebugToolbarMiddleware',
     #                                   'django.contrib.admindocs.middleware.XViewMiddleware',
     #                                   'debugtools.middleware.XViewMiddleware',
-    # ]
+    ]
 
     INSTALLED_APPS += [
-                        # 'debug_toolbar',
+                        'debug_toolbar',
                        # 'template_timings_panel',
                        # 'template_profiler_panel',
                        # 'debugtools',
     ]
 
-    INTERNAL_IPS = ['127.0.0.1', 'localhost','app1', '192.168.11.1', '192.168.1.101']
+    INTERNAL_IPS = ['127.0.0.1', 'localhost','app1', '192.168.1.19', '192.168.1.101']
 
 
     DEBUG_TOOLBAR_CONFIG = {

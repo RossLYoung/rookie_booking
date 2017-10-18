@@ -1,0 +1,40 @@
+{
+  "extends": "airbnb",
+  "rules": {
+
+    "no-undef": "off",
+    "no-unused-expressions": "off",
+    "no-unused-labels": "off",
+    "no-labels": "off",
+
+
+    "max-len": ["error", 120],
+    "func-names": ["error", "never"],
+    "indent": ["error", 4],
+    "comma-dangle": ["error", {
+      "arrays":    "never",
+      "objects":   "never",
+      "imports":   "never",
+      "exports":   "never",
+      "functions": "ignore"
+    }],
+    "key-spacing": ["error", {
+      "align": "colon",
+      "beforeColon": false,
+      "afterColon":  true
+      }
+    ],
+    "no-unused-vars": "warn",
+    "no-multi-spaces": ["error", { "exceptions": { "ImportDeclaration": true, "Property": false } }],
+//    "no-multi-spaces": ["error", {
+//      "ignoreEOLComments": true,
+//      "exceptions": { "Property": true }
+//    }]
+    "react/jsx-indent": ["warn", 4 ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-curly-spacing": ["warn" ],
+    "react/jsx-indent-props": ["warn", 4 ]
+
+
+  }
+}
