@@ -231,10 +231,6 @@ class Common(Configuration):
             'IGNORE': ['.+\.hot-update.js', '.+\.map']
         }
     }
-    if not DEBUG:
-        WEBPACK_LOADER.update({
-            'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
-        })
 
 
 class Development(Common):
@@ -312,6 +308,17 @@ class Production(Common):
     MEDIA_ROOT  = MEDIA_DIR
 
     ALLOWED_HOSTS = ["rookie-booking.rosslyoung.com"]
+
+    WEBPACK_LOADER = {
+        'DEFAULT': {
+            'CACHE': not DEBUG,
+            'BUNDLE_DIR_NAME': 'js/react/',  # must end with slash
+            'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json'),
+            'POLL_INTERVAL': 0.1,
+            'TIMEOUT': None,
+            'IGNORE': ['.+\.hot-update.js', '.+\.map']
+        }
+    }
 
     ######################################################################
     ########## STORAGE CONFIGURATION #####################################
