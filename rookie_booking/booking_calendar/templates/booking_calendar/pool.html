@@ -231,15 +231,16 @@
                 var table = $('#data-table').DataTable( {
                     destroy : true,
                     dataType: "json",
-                    order   : [[ 4, "asc" ]],
+                    order   : [[ 4, "desc" ]],
                     data    : results_data_json[0],
                     columns: [
-                        //{ title:"id",              data: "id" },
-                        { title:"Winner",          data: "winner" },
-                        { title:"Loser",           data: "loser" },
-                        { title:"Elo +|-",             data: "elo" },
-                        { title:"Balls#",      data: "balls_left" },
-                        { title:"Date",            data: "date" },
+                        //{ title:"id",      data: "id" },
+                        { title:"Winner",  data: "winner" },
+                        { title:"Loser",   data: "loser" },
+                        { title:"Elo +|-", data: "elo" },
+                        { title:"Ball#",   data: "balls_left" },
+                        { title:"Date",    data: "date",
+                            render: function(data){ return '<div><span style="display: none">' + data.split("###")[0]+ '</span>' + data.split("###")[1] +'</div>' }}
                     ]
                 } );
 

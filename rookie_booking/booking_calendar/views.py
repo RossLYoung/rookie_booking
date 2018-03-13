@@ -333,7 +333,7 @@ def pool_result_json(request):
     for result, elo_stuff in zippedResults:
         response_data["data"].append({
             "id"              : result.id,
-            "date"            : result.created_on.strftime('%a, %d %b, %H:%M'),
+            "date"            : result.created_on.strftime('%s') + "###" + result.created_on.strftime('%a, %d %b, %H:%M'),
             "day"             : result.created_on.weekday(),
             "winner"          : result.winner.username,
             "loser"           : result.loser.username,
