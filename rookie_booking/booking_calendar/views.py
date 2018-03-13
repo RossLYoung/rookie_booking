@@ -327,13 +327,13 @@ def pool_result_json(request):
 
     response_data ={
         "currentUser": request.user.username,
-        "data": {}
+        "data": []
     }
 
     for result, elo_stuff in zippedResults:
-        response_data["data"][result.id] = {
+        response_data["data"].append({
             "id"              : result.id,
-            "date"            : result.created_on.isoformat(),
+            "date"            : result.created_on.strftime('%a, %d %b, %H:%M'),
             "day"             : result.created_on.weekday(),
             "winner"          : result.winner.username,
             "loser"           : result.loser.username,
@@ -341,7 +341,7 @@ def pool_result_json(request):
             "winner_elo_total": elo_stuff["winner_elo_total"],
             "loser_elo_total" : elo_stuff["loser_elo_total"],
             "balls_left"      : result.balls_left
-        }
+        })
 
     # results_json = json.dumps({"results": response_data})
 

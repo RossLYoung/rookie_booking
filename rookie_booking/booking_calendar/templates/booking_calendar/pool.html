@@ -107,36 +107,38 @@
 
                 <h3 class="header-title">Results</h3>
 
+                {#                <table id="data-table" class="table table-hover">#}
+                {#                    <thead>#}
+                {#                    <tr>#}
+                {#                        <th style="width: 25%">Winner</th>#}
+                {#                        <th style="width: 25%">Loser</th>#}
+                {#                        <th style="width: 10%" class="text-center">Elo +|-</th>#}
+                {#                        <th style="width: 10%" class="text-center">Ball#</th>#}
+                {#                        <th style="width: 40%">Date</th>#}
+                {#                    </tr>#}
+                {#                    </thead>#}
+                {#                    <tbody>#}
+                {#                    {% for result, diff in zippedResults %}#}
+                {#                        <tr>#}
+                {#                            <td style="width: 25%">{{ result.winner.username }}</td>#}
+                {#                            <td style="width: 25%">{{ result.loser.username }}</td>#}
+                {#                            <td style="width: 10%" class="text-center">{{ diff.winner_elo|floatformat:1 }}</td>#}
+                {#                            <td style="width: 10%" class="text-center">#}
+                {#                                {% if result.balls_left == 7 %}#}
+                {#                                    <a class="btn-accent2 btn-sm mar pulsate">#}
+                {#                                        {{ result.balls_left }}#}
+                {#                                    </a>#}
+                {#                                {% else %}#}
+                {#                                    {{ result.balls_left }}#}
+                {#                                {% endif %}#}
+                {#                            </td>#}
+                {##}
+                {#                            <td style="width: 40%" ><span style="display: none">{{ result.created_on|date:'ymdHi' }}</span>{{ result.created_on|date:'D, j M, G:i' }}</td>#}
+                {#                        </tr>#}
+                {#                    {% endfor %}#}
+                {#                    </tbody>#}
+                {#                </table>#}
                 <table id="data-table" class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th style="width: 25%">Winner</th>
-                        <th style="width: 25%">Loser</th>
-                        <th style="width: 10%" class="text-center">Elo +|-</th>
-                        <th style="width: 10%" class="text-center">Ball#</th>
-                        <th style="width: 40%">Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for result, diff in zippedResults %}
-                        <tr>
-                            <td style="width: 25%">{{ result.winner.username }}</td>
-                            <td style="width: 25%">{{ result.loser.username }}</td>
-                            <td style="width: 10%" class="text-center">{{ diff.winner_elo|floatformat:1 }}</td>
-                            <td style="width: 10%" class="text-center">
-                                {% if result.balls_left == 7 %}
-                                    <a class="btn-accent2 btn-sm mar pulsate">
-                                        {{ result.balls_left }}
-                                    </a>
-                                {% else %}
-                                    {{ result.balls_left }}
-                                {% endif %}
-                            </td>
-
-                            <td style="width: 40%" ><span style="display: none">{{ result.created_on|date:'ymdHi' }}</span>{{ result.created_on|date:'D, j M, G:i' }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
                 </table>
 
             </div>
@@ -225,21 +227,43 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-            $('#data-table').dataTable( {
-                "dom": '<"top"fl>t<"bottom"rp><"clear">',
-                "order": [[ 4, "desc" ]],
-                language: {
-                    search: "_INPUT_",
-                    {#                searchPlaceholder: "Filter Students...",#}
-                    "lengthMenu": "_MENU_"
-                },
-                {#                "columnDefs": [#}
-                {#                    { "orderable": true,  "targets": 0 },#}
-                {#                    { "orderable": true,  "targets": 1 },#}
-                {#                    { "orderable": true,  "targets": 2 },#}
-                {#                    { "orderable": true, "targets": 3 }#}
-                {#                ]#}
-            } );
+            function show_data_in_table(results_data_json){
+                var table = $('#data-table').DataTable( {
+                    destroy : true,
+                    dataType: "json",
+                    order   : [[ 4, "asc" ]],
+                    data    : results_data_json[0],
+                    columns: [
+                        //{ title:"id",              data: "id" },
+                        { title:"winner",          data: "winner" },
+                        { title:"loser",           data: "loser" },
+                        { title:"elo",             data: "elo" },
+                        { title:"balls_left",      data: "balls_left" },
+                        { title:"date",            data: "date" },
+                    ]
+                } );
+
+                table.order()
+            }
+
+            $.ajax({
+                type: "GET",
+                url:  '/api/pool-results/',
+                dataType : "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: true,
+                async: true,
+                success: (function(data) {
+                    show_data_in_table([data['data']])
+                }),
+                error: function (xhr, errmsg, err) {
+                    alert("Results Error - Sorry!");
+                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+            });
+
 
             $('#data-table-second').dataTable( {
                 "dom": '<"top">t<"bottom"rp><"clear">',
