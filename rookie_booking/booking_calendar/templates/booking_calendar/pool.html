@@ -233,12 +233,24 @@
                     dataType: "json",
                     order   : [[ 4, "desc" ]],
                     data    : results_data_json[0],
+                    columnDefs: [
+                     {
+                         "targets": [2,3],
+                         "className": "text-center"
+                    },
+                    {
+
+
+                    }],
                     columns: [
                         //{ title:"id",      data: "id" },
                         { title:"Winner",  data: "winner" },
                         { title:"Loser",   data: "loser" },
                         { title:"Elo +|-", data: "elo" },
-                        { title:"Ball#",   data: "balls_left" },
+                        { title:"Ball#",   data: "balls_left",
+                            render: function(data){
+                                return data == 7 ? '<a class="btn-accent2 btn-sm mar pulsate">'+data+'</a>' : '<div>'+data+'</div>'
+                            }},
                         { title:"Date",    data: "date",
                             render: function(data){ return '<div><span style="display: none">' + data.split("###")[0]+ '</span>' + data.split("###")[1] +'</div>' }}
                     ]
