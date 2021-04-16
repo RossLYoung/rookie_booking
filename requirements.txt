@@ -15,7 +15,7 @@ django-bootstrap3==8.2.3
 django-braces==1.11.0
 django-configurations==2.0
 django-crispy-forms==1.6.1
-django-debug-toolbar==1.8
+django-debug-toolbar==1.11.1
 django-extra-views==0.9.0
 -e git+https://github.com/RossLYoung/django-materializecss-form.git@9705de6c2b6694713c234794d45f5c9651d6c302#egg=django_materializecss_form
 django-mptt==0.8.7
