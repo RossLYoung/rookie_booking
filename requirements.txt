@@ -54,5 +54,5 @@ sendgrid==3.6.5
 sendgrid-django==4.0.4
 six==1.10.0
 sqlparse==0.2.3
-urllib3==1.23
+urllib3==1.26.5
 wcwidth==0.1.7
